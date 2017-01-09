@@ -1,0 +1,100 @@
+\section{trab2\+\_\+2014780291.\+c}
+\label{trab2__2014780291_8c_source}\index{grafalg16.\+2/trabs/autor\+\_\+2014780291/trab2\+\_\+2014780291.\+c@{grafalg16.\+2/trabs/autor\+\_\+2014780291/trab2\+\_\+2014780291.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <graph.h>}
+00002 \textcolor{preprocessor}{#include <heap.h>}
+00003 
+00004 
+00005 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident2() \{
+00006     \textcolor{keywordflow}{return} 2014780291;
+00007 \}
+00008 
+00009 
+00010 \textcolor{keywordtype}{int} hash (\textcolor{keyword}{const} \textcolor{keywordtype}{void} * elemento)\{
+00011     \textcolor{keywordflow}{return} (*(\textcolor{keyword}{const} \textcolor{keywordtype}{int}*) elemento);
+00012 \}
+00013 
+00014  \textcolor{comment}{// int comparar(const void *a, const void *b) \{}
+00015  \textcolor{comment}{//        return arestas[*((const int *) a)]-arestas[*((const int *) b)];}
+00016  \textcolor{comment}{//    \}}
+00017 
+00018 
+00019 \textcolor{keywordtype}{int} eh_aciclico(Graph *\textcolor{keyword}{const} g) \{
+00020     \textcolor{keywordtype}{int} n = getN(g), i = 0, arestas[n], vertices[n], posicoes[n], w, j;
+00021     BitMap * aux = newBitMap(getN(g)); 
+00022     Node no;
+00023 
+00024     \textcolor{keywordtype}{int} comparar(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *a, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *b) \{
+00025         \textcolor{keywordflow}{return} arestas[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) a)]-arestas[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) b)];
+00026     \}
+00027 
+00028 
+00029     \textcolor{keywordflow}{for}(i=0;i<n;i++)\{
+00030         arestas[i] = cardOf(neig(g, i));
+00031         vertices[i] = i;
+00032         posicoes[i] = i;
+00033         setElement(&no, i);
+00034         addElement(aux, &no);
+00035     \}    
+00036 
+00037  
+00038 
+00039     heapify_a(vertices, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), comparar, posicoes, hash);
+00040 
+00041     \textcolor{keywordflow}{while}((n > 0) && (arestas[vertices[0]] <= 1))\{        
+00042         \textcolor{keywordtype}{int} vertRemovido = vertices[0];
+00043         \textcolor{keywordtype}{int} arestaRemovida = arestas[vertices[0]];
+00044         heappoll_a(vertices, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), comparar, posicoes, hash);
+00045 
+00046         n--;
+00047         \textcolor{keywordflow}{if}(arestaRemovida == 1)\{
+00048             BitMap * a = cloneBitMap(aux);
+00049             intersectOf(a, a, neig(g, vertRemovido));
+00050             begin(a, &no);
+00051             arestas[getElement(&no)] = arestas[getElement(&no)] - 1;
+00052             \textcolor{keywordflow}{for} (j = 0; j < getN(g); j++)
+00053             \{
+00054                 \textcolor{keywordflow}{if}(vertices[j] == getElement(&no))\{
+00055                     w = i;
+00056                 \}
+00057             \}
+00058             heapup_a(vertices, w, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), comparar, posicoes, hash);
+00059         \}
+00060     \}
+00061     \textcolor{keywordflow}{if}(n == 0)
+00062         \textcolor{keywordflow}{return} 1;
+00063     \textcolor{keywordflow}{return} 0;
+00064 \}
+00065 
+00066 \textcolor{keywordtype}{int} eh_subaciclico(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00067     Graph *grafo1 = newGraph(getN(g));
+00068     Graph *grafo2 = newGraph(cardOf(s));
+00069     
+00070     \textcolor{keywordtype}{int} elementosConjunto[cardOf(s)];
+00071     Node no, no2;
+00072     \textcolor{keywordtype}{int} indice = 0, verticeMapeado1, verticeMapeado2;
+00073 
+00074     \textcolor{keywordflow}{for} (begin(s, &no); !end(&no); next(&no)) \{
+00075         elementosConjunto[indice] = getElement(&no);
+00076         indice++;
+00077     \}
+00078 
+00079     \textcolor{keywordflow}{for} (begin(s, &no); !end(&no); next(&no)) \{
+00080         \textcolor{keywordflow}{for} (begin(neig(g, getElement(&no)), &no2); !end(&no2); next(&no2)) \{
+00081             \textcolor{keywordflow}{if} (hasEdge(grafo1, getElement(&no), getElement(&no2)) == 0 && 
+      hasElement(s, getElement(&no2))) \{
+00082                 addEdge(grafo1, getElement(&no), getElement(&no2));
+00083                 \textcolor{keywordflow}{for}(indice = 0; indice < cardOf(s); indice++)\{
+00084                     \textcolor{keywordflow}{if}(elementosConjunto[indice] == getElement(&no))
+00085                         verticeMapeado1 = indice;
+00086                     \textcolor{keywordflow}{if}(elementosConjunto[indice] == getElement(&no2))
+00087                         verticeMapeado2 = indice;
+00088                 \}
+00089                 addEdge(grafo2, verticeMapeado1, verticeMapeado2);
+00090             \}
+00091         \}
+00092     \}
+00093     \textcolor{keywordflow}{return} eh_aciclico(grafo2);
+00094 \} 
+\end{DoxyCode}

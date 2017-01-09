@@ -1,0 +1,59 @@
+\section{heap.\+h}
+\label{heap_8h_source}\index{datast/heap.\+h@{datast/heap.\+h}}
+
+\begin{DoxyCode}
+00001 
+00065 \textcolor{preprocessor}{#include <stddef.h>}
+00066 
+00067 \textcolor{preprocessor}{#ifndef HEAP\_H\_}
+00068 \textcolor{preprocessor}{#define HEAP\_H\_}
+00069 
+00084 \textcolor{keywordtype}{void} heapify(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00085                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00086 
+00106 \textcolor{keywordtype}{void} heapify_a(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00107                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00108                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00109 \textcolor{comment}{// The same as above with an additional argument passed to each call to the compar function}
+00110 \textcolor{keywordtype}{void} heapify\_r(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00111                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg);
+00112 
+00122 \textcolor{keywordtype}{int} heapup(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} size,      \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00123 
+00139 \textcolor{keywordtype}{int} heapup_a(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} size, \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00140                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00141 
+00142 \textcolor{keywordtype}{int} heapup\_r(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} size,
+00143                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg);
+00144 
+00145 \textcolor{keywordtype}{int} heapdown(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00146                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00147 \textcolor{keywordtype}{int} heapdown\_a(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00148                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00149                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00150 \textcolor{keywordtype}{int} heapdown\_r(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00151                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg);
+00152 
+00153 \textcolor{comment}{// Add a new element <tt>x</tt> to a specified array, which is assumed to be partially sorted in a heap
+       manner.}
+00154 \textcolor{comment}{// It is also assumed that the specified array has enough place for the new element.}
+00155 \textcolor{comment}{// The remaining arguments are similar to the ones of <tt>heapify</tt>.}
+00156 \textcolor{keywordtype}{void} heapoffer(\textcolor{keywordtype}{void} *x, \textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00157                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00158 \textcolor{keywordtype}{void} heapoffer\_a(\textcolor{keywordtype}{void} *x, \textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00159                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00160                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00161 \textcolor{keywordtype}{void} heapoffer\_r(\textcolor{keywordtype}{void} *x, \textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00162                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg);
+00163 
+00173 \textcolor{keywordtype}{void} heappoll(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00174                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00175 
+00190 \textcolor{keywordtype}{void} heappoll_a(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00191                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00192                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *));
+00193 \textcolor{keywordtype}{void} heappoll\_r(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00194                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg);
+00195 
+00196 \textcolor{preprocessor}{#endif }\textcolor{comment}{/*HEAP\_H\_*/}\textcolor{preprocessor}{}
+\end{DoxyCode}

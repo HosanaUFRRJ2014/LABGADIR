@@ -1,0 +1,229 @@
+.TH "/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/datast/heap.h" 3 "Segunda, 31 de Outubro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/datast/heap.h \- Heap manipulation functions\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stddef\&.h>\fP
+.br
+
+.SS "Funções"
+
+.in +1c
+.ti -1c
+.RI "void \fBheapify\fP (void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *))"
+.br
+.RI "\fIRearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function\&. \fP"
+.ti -1c
+.RI "void \fBheapify_a\fP (void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *), int *pos, int(*hash)(const void *))"
+.br
+.RI "\fIRearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function, keeping a specified array of positions updated\&. \fP"
+.ti -1c
+.RI "int \fBheapup\fP (void *base, int i, size_t size, int(*compar)(const void *, const void *))"
+.br
+.RI "\fIMove a specified element upward in the head\&. \fP"
+.ti -1c
+.RI "int \fBheapup_a\fP (void *base, int i, size_t size, int(*compar)(const void *, const void *), int *pos, int(*hash)(const void *))"
+.br
+.RI "\fIMove a specified element upward in the head, keeping a specified array of positions updated\&. \fP"
+.ti -1c
+.RI "void \fBheappoll\fP (void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *))"
+.br
+.RI "\fIRemove the first element of the heap\&. \fP"
+.ti -1c
+.RI "void \fBheappoll_a\fP (void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *), int *pos, int(*hash)(const void *))"
+.br
+.RI "\fIRemove the first element of the head, keeping a specified array of positions updated\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Heap manipulation functions\&. 
+
+
+.PP
+\fBData:\fP
+.RS 4
+Sep 1, 2016 
+.RE
+.PP
+\fBAutor:\fP
+.RS 4
+Ricardo C\&. Corrêa (correa@ufrrj.br)
+.RE
+.PP
+A heap is a way to organize the elements of an array that allows for fast retrieval of the element with the smallest value at any moment, even repeatedly, while allowing for fast insertion of new elements\&.
+.PP
+The element with the smallest value is always the first element in the array\&. The order of the other elements depends on the particular implementation, but it is consistent throughout all heap-related functions of this header\&.
+.PP
+The type of the elements in the heap is arbitrary\&. Distinct elements are allowed to be of different types, but they must be all of same size (in bytes)\&. The elements are compared using a comparison function provided in every function call\&. The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second\&. If two members compare as equal, their order in the sorted array is undefined\&.
+.PP
+In the following example, some of the heap functions are used to sort an array \fCa\fP in a nondecreasing order of \fCb\fP\&. Each element in \fCa\fP is an index of an element in \fCb\fP\&.
+.PP
+.PP
+.nf
+void heapsort(int a[], int n, int b[]) {
+
+  int compard(const void *i, const void *j) {
+    return b[*((const int *) j)] - b[*((const int *) i)];
+  }
+
+  heapify(a, n, sizeof(int), compard);
+
+  while (n > 0) {
+    int e = a[0];
+    heappoll(a, n, sizeof(int), compard);
+    a[--n] = e;
+  }
+}
+.fi
+.PP
+.PP
+The following is a version of the previous function with an additional parameter: an array \fCpos\fP that indicates the position of each element in \fCa\fP\&. More precisely, array \fCpos\fP is such that \fCpos\fP[a[i]]=i\&. This property is remains valid after the execution of the function below\&.
+.PP
+.PP
+.nf
+void heapsort_a(int a[], int n, int b[], int pos[]) {
+
+  int compard(const void *i, const void *j) {
+    return b[*((const int *) j)] - b[*((const int *) i)];
+  }
+
+  int hash(const void *i) {
+        return *((const int *) i);
+  }
+
+  heapify_a(a, n, sizeof(int), compard, pos, hash);
+
+  while (n > 0) {
+    int e = a[0];
+    heappoll_a(a, n, sizeof(int), compard, pos, hash);
+    a[--n] = e;
+  }
+}
+.fi
+.PP
+ 
+.SH "Funções"
+.PP 
+.SS "void heapify (void * base, size_t nmemb, size_t size, int(*)(const void *, const void *) compar)"
+
+.PP
+Rearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function\&. The contents of the specified array are partially sorted in ascending order according to a comparison function, which is called with two arguments that point to the objects being compared\&. The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second\&. If two members compare as equal, their order in the sorted array is undefined\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIbase\fP Points to the start of the array to be heapified 
+.br
+\fInmemb\fP Number of members in the specified array 
+.br
+\fIsize\fP In bytes of each member in the specified array 
+.br
+\fIcompar\fP Points to a comparison function 
+.RE
+.PP
+
+.SS "void heapify_a (void * base, size_t nmemb, size_t size, int(*)(const void *, const void *) compar, int * pos, int(*)(const void *) hash)"
+
+.PP
+Rearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function, keeping a specified array of positions updated\&. The contents of the specified array are partially sorted in ascending order according to a comparison function, which is called with two arguments that point to the objects being compared\&. The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second\&. If two members compare as equal, their order in the sorted array is undefined\&.
+.PP
+An array of positions is an array \fCpos\fP such that \fCpos\fP[hash[e]] is the index of element \fCe\fP in the heap\&. This function keeps this property valid including for the elements that are moved within the array\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIbase\fP Points to the start of the array to be heapified 
+.br
+\fInmemb\fP Number of members in the specified array 
+.br
+\fIsize\fP In bytes of each member in the specified array 
+.br
+\fIcompar\fP Points to a comparison function 
+.br
+\fIpos\fP Array that indicates the position of each element in the heap 
+.br
+\fIhash\fP Hash function that gives the index of each element in \fCpos\fP 
+.RE
+.PP
+
+.SS "void heappoll (void * base, size_t nmemb, size_t size, int(*)(const void *, const void *) compar)"
+
+.PP
+Remove the first element of the heap\&. 
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIbase\fP Points to the start of the array to be heapified 
+.br
+\fInmemb\fP Number of members in the specified array 
+.br
+\fIsize\fP In bytes of each member in the specified array 
+.br
+\fIcompar\fP Points to a comparison function 
+.RE
+.PP
+
+.SS "void heappoll_a (void * base, size_t nmemb, size_t size, int(*)(const void *, const void *) compar, int * pos, int(*)(const void *) hash)"
+
+.PP
+Remove the first element of the head, keeping a specified array of positions updated\&. An array of positions is an array \fCpos\fP such that \fCpos\fP[hash[e]] is the index of element \fCe\fP in the heap\&. This function keeps this property valid including for the elements that are moved within the array\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIbase\fP Points to the start of the array to be heapified 
+.br
+\fInmemb\fP Number of members in the specified array 
+.br
+\fIsize\fP In bytes of each member in the specified array 
+.br
+\fIcompar\fP Points to a comparison function 
+.br
+\fIpos\fP Array that indicates the position of each element in the heap 
+.br
+\fIhash\fP Hash function that gives the index of each element in \fCpos\fP 
+.RE
+.PP
+
+.SS "int heapup (void * base, int i, size_t size, int(*)(const void *, const void *) compar)"
+
+.PP
+Move a specified element upward in the head\&. 
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIbase\fP Points to the start of the array to be heapified 
+.br
+\fIi\fP Element to move upward 
+.br
+\fIsize\fP In bytes of each member in the specified array 
+.br
+\fIcompar\fP Points to a comparison function 
+.RE
+.PP
+
+.SS "int heapup_a (void * base, int i, size_t size, int(*)(const void *, const void *) compar, int * pos, int(*)(const void *) hash)"
+
+.PP
+Move a specified element upward in the head, keeping a specified array of positions updated\&. An array of positions is an array \fCpos\fP such that \fCpos\fP[hash[e]] is the index of element \fCe\fP in the heap\&. This function keeps this property valid including for the elements that are moved within the array\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIbase\fP Points to the start of the array to be heapified 
+.br
+\fIi\fP Element to move upward 
+.br
+\fIsize\fP In bytes of each member in the specified array 
+.br
+\fIcompar\fP Points to a comparison function 
+.br
+\fIpos\fP Array that indicates the position of each element in the heap 
+.br
+\fIhash\fP Hash function that gives the index of each element in \fCpos\fP 
+.RE
+.PP
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

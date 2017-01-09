@@ -1,0 +1,49 @@
+\section{trab2\+\_\+2015780491.\+c}
+\label{trab2__2015780491_8c_source}\index{grafalg16.\+2/trabs/autor\+\_\+2015780491/trab2\+\_\+2015780491.\+c@{grafalg16.\+2/trabs/autor\+\_\+2015780491/trab2\+\_\+2015780491.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <graph.h>}
+00002 \textcolor{preprocessor}{#include <heap.h>}
+00003 
+00004 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident2() \{
+00005         \textcolor{keywordflow}{return} 2015780491;
+00006 \}
+00007 
+00008 \textcolor{keywordtype}{int} eh_subaciclico(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00009         
+00010         BitMap *inter = newBitMap (cardOf(s));
+00011         BitMap *copy = cloneBitMap(s);
+00012         Node cursor;
+00013         \textcolor{keywordtype}{int} removed;
+00014         
+00015         removed = 1;
+00016         \textcolor{keywordflow}{while} (cardOf(copy) > 0 && removed == 1) \{
+00017                 removed = 0;
+00018                 \textcolor{keywordflow}{for} (begin(copy, &cursor); !end(&cursor); next(&cursor)) \{
+00019                         intersectOf(inter, copy, neig(g, getElement(&cursor)));
+00020                         \textcolor{keywordflow}{if} ( cardOf(inter) < 2 ) \{
+00021                                 delElement(copy, &cursor);
+00022                                 \textcolor{keywordflow}{if} (removed == 0) \{
+00023                                         removed = 1;
+00024                                 \}
+00025                         \}
+00026                 \}
+00027         \}
+00028 
+00029         freeBitMap(inter);
+00030         freeBitMap(copy);
+00031         \textcolor{keywordflow}{return} removed;
+00032         
+00033 \}
+00034 
+00035 \textcolor{keywordtype}{int} eh_aciclico(Graph * \textcolor{keyword}{const} g) \{
+00036         BitMap *s = newBitMap(getN(g));
+00037         \textcolor{keywordtype}{int} retorno;
+00038 
+00039         addAllElements(s);
+00040         retorno = eh_subaciclico(g, s);
+00041 
+00042         freeBitMap(s);
+00043         \textcolor{keywordflow}{return} retorno;
+00044 \}
+\end{DoxyCode}

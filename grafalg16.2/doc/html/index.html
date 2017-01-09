@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>AB781 Laboratório de Grafos e Algoritmos: Orientações sobre os Trabalhos de Programação</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://www.mathjax.org/mathjax/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratório de Grafos e Algoritmos
+   &#160;<span id="projectnumber">2016.2</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li class="current"><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div><!-- top -->
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Orientações sobre os Trabalhos de Programação </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p>Orientações e gerenciamento dos trabalhos de programação. </p><dl class="section date"><dt>Data</dt><dd>Aug 1, 2016 </dd></dl>
+<dl class="section author"><dt>Autor</dt><dd>Ricardo C. Corrêa (<a href="#" onclick="location.href='mai'+'lto:'+'cor'+'re'+'a@u'+'fr'+'rj.'+'br'; return false;">corre<span style="display: none;">.nosp@m.</span>a@uf<span style="display: none;">.nosp@m.</span>rrj.b<span style="display: none;">.nosp@m.</span>r</a>)</dd></dl>
+<p>Estas são instruções gerais para trabalhos práticos de programação. Notação:</p>
+<ol type="1">
+<li><code></code>[Y]: número do trabalho. Deve ser substituído por 1 para o trabalho 1, 2 para o trabalho 2, e assim por diante.</li>
+<li><code></code>[LABGADIR]: diretório para abrigar os arquivos dos trabalhos. Deve ser substituído pelo nome de escolha pessoal para abrigar os arquivos relativos aos trabalhos de Laboratório de Grafos e Algoritmos.</li>
+<li><code></code>[ARCH]: arquitetura da máquina utilizada. Deve ser substituído por 32 ou 64, dependendo da arquitetura utilizada.</li>
+</ol>
+<h1><a class="anchor" id="arquivos"></a>
+Arquivos Fornecidos</h1>
+<p>Além da descrição disponível na aba <a href="files.html">Arquivos</a>, os seguintes arquivos são fornecidos em <code>trab</code>[Y].tar.gz:</p>
+<ol type="1">
+<li><code>grinput.o:</code> código-objeto contendo funções para leitura de arquivos de entrada.</li>
+<li><code>trab_main.o:</code> código-objeto contendo a entrada de dados e a correção do trabalho.</li>
+<li><code>trab</code>[Y].o: código-objeto de gerenciamento do trabalho <code></code>[Y].</li>
+<li><code>trab</code>[Y]_000000001.c: arquivo a ser preenchido com as implementações das funções especificadas em <code>trab</code>[Y].h (conforme instruções abaixo).</li>
+<li><code>grafalg16.2/trabs/Makefile</code>: script para compilação.</li>
+<li><code>instancias/*</code>.clq: vários grafos usados como instâncias.</li>
+</ol>
+<p>O arquivo <code>trab</code>[Y].tar.gz é construído com o comando: </p><pre class="fragment">    tar cvzf trab[Y].tar.gz grafalg16.2/bin/ grafalg16.2/lib/ grafalg16.2/trabs/Makefile grafalg16.2/trabs/autor_0000000001/trab[Y]\_0000000001.c doc instancias/ lib/ datast/heap.h graph/direct/ graph/graph.h
+</pre><p>A organização desses arquivos nos diretórios é a seguinte: </p><pre class="fragment">    datast
+    -- heap.h
+
+    graph
+    -- graph.h
+    +- direct
+       -- bitmap.h
+
+    grafalg16.2
+    +- trabs
+    |  -- Makefile
+    |  +- autor_0000000001
+    |     -- trab[Y]_0000000001.c
+    +- lib
+    |  +- autor_0000000001
+    +- bin
+
+    lib
+    -- grinput_32.o
+    -- trab_main_32.o
+    -- grinput_64.o
+    -- trab_main_64.o
+    +- trab[Y]
+       -- trab[Y]_32.o
+       -- trab[Y]_64.o
+
+    doc
+
+    instancias
+</pre><p>Os diretórios <code>grafalg16.2/lib</code> e <code>grafalg16.2/bin</code> destinam-se a abrigar códigos gerados como produtos da compilação de <code>trab</code>[Y]_0000000001.c. O diretório <code>doc</code> contém esta documentação. Os arquivos gerados na compilação são o código-objeto <code>grafalg16.2/lib/trab</code>[Y]_0000000001_[ARCH].o e o executável <code>grafalg16.2/bin/autor_</code>[XXXXXXXXXX]_[ARCH].</p>
+<h1><a class="anchor" id="preparacao"></a>
+Preparação</h1>
+<p>Os passos para a preparação de um trabalho são os seguintes:</p>
+<ol type="1">
+<li>Recuperar o arquivo compactado do trabalho, denominado <code>trab</code>[Y].tgz.</li>
+<li>Crie um diretório para abrigar os arquivos. Nesta documentação, refere-se a esse diretório pelo símbolo [LABGADIR].</li>
+<li>Descompactar o arquivo <code>trab</code>[Y]-tar.gz em <code></code>[LABGADIR], o que criará uma estrutura de diretórios como a indicada acima.</li>
+<li>Renomear o arquivo <code>trab</code>[Y]_0000000001.c, substituindo o <code>0000000001</code> pelo seu número de matrícula <code></code>[XXXXXXXXXX] (somente os números, omitindo o "-").</li>
+<li>Renomear os diretórios <code>grafalg16.2/trabs/autor_0000000001</code> e <code>grafalg16.2/lib/autor_0000000001</code>, substituindo o <code>0000000001</code> pelo seu número de matrícula (somente os números, omitindo o "-").</li>
+<li>Copiar os seus arquivos <code>trab1_</code>[XXXXXXXXXX].c, ..., <code>trab</code>[Y-1]_[XXXXXXXXXX].c para o diretório <code>grafalg16.2/trabs/autor_</code>[XXXXXXXXXX].</li>
+<li>Editar o arquivo <code>trab</code>[Y]_0000000001.c usando um editor de textos a fim de:<ol type="a">
+<li>Na função <code>ident</code>[Y](), substituir <code>0000000001</code> pelo seu número de matrícula (somente os números, omitindo o "-").</li>
+<li>Implementar o código de cada uma das demais funções.</li>
+</ol>
+</li>
+<li>Compilar.</li>
+<li>Executar.</li>
+</ol>
+<h2><a class="anchor" id="Programação"></a>
+Programação</h2>
+<p>As funções a serem implementadas estão listadas no arquivo <code>trab</code>[Y]_0000000001.c. Os detalhes das suas especificações estão disponíveis no link <code>trab</code>[Y].h na aba <a href="files.html">Arquivos</a>.</p>
+<p>Algumas das funções em <code>trab</code>[Y]_0000000001.c podem já estar implementadas. Esses casos devem ser tomados como exemplos de utilização de funções de <code>graph.h</code> e <code><a class="el" href="bitmap_8h.html" title="Macros and inline functions for bitwise operations on bitmaps using bit-parallelism. ">direct/bitmap.h</a></code>.</p>
+<h2><a class="anchor" id="Compilação"></a>
+Compilação</h2>
+<ol type="1">
+<li>Editar o arquivo <code>grafalg16.2/trabs/Makefile</code>, alterando as definições das seguintes variáveis: <pre class="fragment"> WKSPCDIR:=$(HOME) --&gt;  WKSPCDIR:=$(HOME)/[Caminho até o diretório [LABGADIR]]
+ SRCDIR:=$(WKSPCDIR) --&gt; SRCDIR:=$(WKSPCDIR)/[LABGADIR]
+</pre></li>
+<li>Executar o comando <code>make</code> <code>alltrabs</code> no diretório <code></code>[LABGADIR]/grafalg16.2/trabs.</li>
+</ol>
+<p>Caso seja necessário, o comando <code>make</code> <code>clearall</code> quando executado no diretório <code></code>[LABGADIR]/grafalg16.2/trabs remove todos os arquivos gerados em uma compilação.</p>
+<h2><a class="anchor" id="execucao"></a>
+Execução e Testes</h2>
+<p>No diretório <code></code>[LABGADIR]/grafalg16.2/bin, executar o comando <code></code>./autor_[XXXXXXXXXX]_[ARCH]. A primeira ação a ser realizada é a definição do grafo a ser usado, o que é feito na opção <code>g-</code> <code>grafo</code>. A opção <code>e-</code> <code>executar</code> deve ser usada para selecionar o problema e executá-lo.</p>
+<p>Realizar testes com os diferentes grafos disponíveis.</p>
+<h1><a class="anchor" id="enviar"></a>
+Arquivo a Enviar</h1>
+<p>O arquivo a ser enviado é <code>trab</code>[Y]_[XXXXXXXXXX].c. </p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Segunda, 31 de Outubro de 2016 12:56:03 para AB781 Laboratório de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

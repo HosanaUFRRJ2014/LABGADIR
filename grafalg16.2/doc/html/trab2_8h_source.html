@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>AB781 Laboratýrio de Grafos e Algoritmos: Código-Fonte de grafalg16.2/trabs/trab2/trab2.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://www.mathjax.org/mathjax/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratýrio de Grafos e Algoritmos
+   &#160;<span id="projectnumber">2016.2</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_98015047146478a335e6ac73db1f8de9.html">grafalg16.2</a></li><li class="navelem"><a class="el" href="dir_c7858c8456a9c2cba270f3e9cf8f0720.html">trabs</a></li><li class="navelem"><a class="el" href="dir_46615559ea697cb0494aae89d0e46841.html">trab2</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">trab2.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="trab2_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef TRAB2_H_</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#define TRAB2_H_</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="graph_8h.html">graph.h</a>&gt;</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ident2();</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab2_8h.html#a881e32958fdcc54488f37bbe8811739f">eh_subaciclico</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="structBitMap.html">BitMap</a> * <span class="keyword">const</span> s);</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab2_8h.html#abf81032820d5ed410c54d055853efc76">eh_aciclico</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g);</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* TRAB2_H_ */</span><span class="preprocessor"></span></div><div class="ttc" id="trab2_8h_html_abf81032820d5ed410c54d055853efc76"><div class="ttname"><a href="trab2_8h.html#abf81032820d5ed410c54d055853efc76">eh_aciclico</a></div><div class="ttdeci">int eh_aciclico(Graph *const g)</div><div class="ttdoc">Determina se um grafo especificado é acíclico. </div><div class="ttdef"><b>Definition:</b> <a href="trab2__0000000001_8c_source.html#l00012">trab2_0000000001.c:12</a></div></div>
+<div class="ttc" id="structGraph_html"><div class="ttname"><a href="structGraph.html">Graph</a></div><div class="ttdoc">Bitmap implementation of a graph adjacency matrix. </div><div class="ttdef"><b>Definition:</b> <a href="graph_8h_source.html#l00025">graph.h:25</a></div></div>
+<div class="ttc" id="graph_8h_html"><div class="ttname"><a href="graph_8h.html">graph.h</a></div><div class="ttdoc">Macros and inline functions of a bitmap implementation of a graph adjacency matrix. </div></div>
+<div class="ttc" id="structBitMap_html"><div class="ttname"><a href="structBitMap.html">BitMap</a></div><div class="ttdoc">Bitmap implementation of sets of integers of the type , for a specified integer . ...</div><div class="ttdef"><b>Definition:</b> <a href="direct_2bitmap_8h_source.html#l00745">bitmap.h:745</a></div></div>
+<div class="ttc" id="trab2_8h_html_a881e32958fdcc54488f37bbe8811739f"><div class="ttname"><a href="trab2_8h.html#a881e32958fdcc54488f37bbe8811739f">eh_subaciclico</a></div><div class="ttdeci">int eh_subaciclico(Graph *const g, BitMap *const s)</div><div class="ttdoc">Determina se um subgrafo especificado é acíclico. </div><div class="ttdef"><b>Definition:</b> <a href="trab2__0000000001_8c_source.html#l00008">trab2_0000000001.c:8</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Domingo, 18 de Setembro de 2016 08:21:53 para AB781 Laboratýrio de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

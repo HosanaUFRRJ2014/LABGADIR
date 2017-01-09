@@ -1,0 +1,107 @@
+\section{trab2\+\_\+2014780348.\+c}
+\label{trab2__2014780348_8c_source}\index{grafalg16.\+2/trabs/autor\+\_\+2014780348/trab2\+\_\+2014780348.\+c@{grafalg16.\+2/trabs/autor\+\_\+2014780348/trab2\+\_\+2014780348.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <graph.h>}
+00002 \textcolor{preprocessor}{#include <heap.h>}
+00003 
+00004 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident2() \{
+00005         \textcolor{comment}{/*------Nome: Lívia de Azevedo da Silva-----*/}
+00006         \textcolor{keywordflow}{return} 2014780348;
+00007 \}
+00008 
+00009 \textcolor{keywordtype}{int} eh_subaciclico(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00010         Graph *grafo\_S = newGraph(cardOf(s));
+00011         Node nodeS,node,node\_viz;
+00012     \textcolor{keywordtype}{int} mapeamentoParaS[cardOf(s)], i = 0,j = 0, vMap1, vMap2;
+00013 
+00014     \textcolor{comment}{//-------------Realizar o mapeamento dos vérticos do novo grafo-------------}
+00015 
+00016     \textcolor{keywordflow}{for}(begin(s,&nodeS); !end(&nodeS); next(&nodeS))
+00017     \{
+00018         \textcolor{comment}{/*O índice 0 corresponde ao 1ºElemento de S(índice do vértice em G), e assim por diante.}
+00019 \textcolor{comment}{        Exemplo: S = \{23,2,33,10,5\}}
+00020 \textcolor{comment}{        mapeamentoParaS = [23,2,33,10,5] -----> mapeamentoParaS[0] = 23; mapeamentoParaS[1] = 2; (...)*/}
+00021         mapeamentoParaS[i] = getElement(&nodeS);
+00022         i++;
+00023     \}
+00024 
+00025     \textcolor{comment}{//--------------------------------------------------------------------------}
+00026 
+00027     \textcolor{comment}{//Construir a estrutura grafo para o subconjunto s de parâmetro.}
+00028         \textcolor{keywordflow}{for}(begin(s,&nodeS), j = 0; !end(&nodeS); next(&nodeS),j++)
+00029         \{
+00030                 \textcolor{keywordflow}{for}(begin(neig(g,getElement(&nodeS)),&node\_viz); !end(&node\_viz); 
+      next(&node\_viz))
+00031                 \{
+00032             vMap1 = j;
+00033 
+00034                         \textcolor{keywordflow}{if}(hasElement(s, getElement(&node\_viz)))
+00035                         \{
+00036                 \textcolor{keywordflow}{for}(i = 0;i < cardOf(s);i++)
+00037                 \{
+00038                     \textcolor{keywordflow}{if}(mapeamentoParaS[i] == getElement(&node\_viz))
+00039                     \{
+00040                         vMap2 = i;
+00041                         \textcolor{keywordflow}{break};
+00042                     \}
+00043                 \}
+00044 
+00045                                 addEdge(grafo\_S, vMap1, vMap2);
+00046                         \}
+00047                 \}
+00048         \}
+00049 
+00050         \textcolor{keywordflow}{return} eh_aciclico(grafo\_S);
+00051 \}
+00052 
+00053 \textcolor{keywordtype}{int} eh_aciclico(Graph * \textcolor{keyword}{const} g) \{
+00054         \textcolor{keywordtype}{int} n = getN(g), i = 0, w, v; \textcolor{comment}{//"d" é a quantidade de vizinhos de cada vértice.}
+00055         BitMap *candidatos = newBitMap(getN(g));
+00056         BitMap *a;
+00057         Node node;
+00058     \textcolor{keywordtype}{int} d[n], vertices[n];
+00059 
+00060     \textcolor{comment}{/*--------------Função de parâmetro para a heap.-------------*/}
+00061     \textcolor{keywordtype}{int} comparar(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *a, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *b) 
+00062     \{
+00063         \textcolor{keywordflow}{return} d[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) a)] - d[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) b)];
+00064     \}
+00065     \textcolor{comment}{/*-------------------------------------------------------------*/}
+00066 
+00067         \textcolor{keywordflow}{for}(i = 0;i < n;i++)
+00068         \{
+00069                 d[i] = cardOf(neig(g, i));
+00070         vertices[i] = i;
+00071 
+00072                 \textcolor{comment}{//Construindo o BitMap com os vértices do grafo.}
+00073         \textcolor{comment}{//Adiciona todos os elementos do segundo bitmap no primeiro(lembrando que bitmap não permite
+       elementos repetidos)}
+00074                 addAll(candidatos,neig(g,i));
+00075         \}
+00076 
+00077     heapify((\textcolor{keywordtype}{void}*)vertices, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), comparar);
+00078 
+00079         \textcolor{keywordflow}{while}(n > 0 && d[vertices[0]] <= 1)
+00080         \{
+00081                 v = vertices[0];
+00082         heappoll((\textcolor{keywordtype}{void}*)vertices, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), comparar);
+00083                 n -= 1;
+00084 
+00085                 \textcolor{keywordflow}{if}(d[v] == 1)
+00086                 \{
+00087                         a = cloneBitMap(candidatos);
+00088                         intersectOf(a,a, neig(g,v));
+00089                         begin(a, &node);
+00090                         w = getElement(&node);
+00091                         d[w] -= 1;
+00092             heapup((\textcolor{keywordtype}{void}*)vertices, w, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), comparar);
+00093                 \}
+00094         \}
+00095 
+00096         \textcolor{keywordflow}{if}(n == 0)
+00097                 \textcolor{keywordflow}{return} 1;
+00098 
+00099         \textcolor{keywordflow}{return} 0;
+00100 \}
+\end{DoxyCode}

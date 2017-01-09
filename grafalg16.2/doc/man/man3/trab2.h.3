@@ -1,0 +1,84 @@
+.TH "/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/framework/trabs/trab2.h" 3 "Segunda, 31 de Outubro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/framework/trabs/trab2.h \- Especificações das funções a serem implementadas no trabalho 2\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <graph\&.h>\fP
+.br
+
+.SS "Funções"
+
+.in +1c
+.ti -1c
+.RI "int \fBeh_subaciclico\fP (Graph *const g, \fBBitMap\fP *const s)"
+.br
+.RI "\fIDetermina se um subgrafo especificado é acíclico\&. \fP"
+.ti -1c
+.RI "int \fBeh_aciclico\fP (Graph *const g)"
+.br
+.RI "\fIDetermina se um grafo especificado é acíclico\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Especificações das funções a serem implementadas no trabalho 2\&. 
+
+
+.PP
+\fBData:\fP
+.RS 4
+Sep 5, 2016 
+.RE
+.PP
+\fBAutor:\fP
+.RS 4
+Ricardo C\&. Corrêa (correa@ufrrj.br)
+.RE
+.PP
+Este trabalho é constituído de 1 função\&. Nessa função, algumas manipulações dos tipos \fBBitMap\fP e Graph são necessárias\&. As funções em \fBheap\&.h\fP para manipulação de heaps também podem ser úteis\&. As especificações detalhas das funções de \fBBitMap\fP, Graph e \fBheap\&.h\fP podem ser obtidas em suas respectivas páginas\&. 
+.SH "Funções"
+.PP 
+.SS "int eh_aciclico (Graph *const g)"
+
+.PP
+Determina se um grafo especificado é acíclico\&. Um \fIciclo\fP em um grafo é uma sequência \[ v_1 e_1 v_2 e_2 \ldots v_\ell e_\ell v_1 \] de vértices distintos $v_1, \ldots, v_\ell $ e arestas $e_1, \ldots, e_\ell $ tal que $e_i = v_iv_{i+1}$, para todo $i \in \{ 1, \ldots, \ell \}$\&. O \fItamanho\fP de um ciclo é a sua quantidade de arestas (na notação usada acima, o valor $\ell$)\&. Um grafo é \fIacíclico\fP se nenhum de seus vértices pertence a um ciclo de tamanho maior que 0\&.
+.PP
+Esta função verifica se existe, no grafo especificado, um ciclo de tamanho maior que 0\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+0 se o grafo especificado não é acíclico, e um valor diferente de 0 em caso contrário 
+.RE
+.PP
+
+.SS "int eh_subaciclico (Graph *const g, \fBBitMap\fP *const s)"
+
+.PP
+Determina se um subgrafo especificado é acíclico\&. Um \fIciclo\fP em um grafo é uma sequência \[ v_1 e_1 v_2 e_2 \ldots v_\ell e_\ell v_1 \] de vértices distintos $v_1, \ldots, v_\ell $ e arestas $e_1, \ldots, e_\ell $ tal que $e_i = v_iv_{i+1}$, para todo $i \in \{ 1, \ldots, \ell \}$\&. O \fItamanho\fP de um ciclo é a sua quantidade de arestas (na notação usada acima, o valor $\ell$)\&. Um grafo é \fIacíclico\fP se nenhum de seus vértices pertence a um ciclo de tamanho maior que 0\&.
+.PP
+Esta função verifica se existe, no grafo especificado, um ciclo de tamanho maior que 0 contendo apenas vértices de um conjunto especificado\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIs\fP Subconjunto de vértices definindo subgrafo
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+0 se o subgrafo especificado não é acíclico, e um valor diferente de 0 em caso contrário 
+.RE
+.PP
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

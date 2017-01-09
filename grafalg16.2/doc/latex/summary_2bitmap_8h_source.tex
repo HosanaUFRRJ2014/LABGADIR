@@ -1,0 +1,1600 @@
+\section{bitmap.\+h}
+\label{summary_2bitmap_8h_source}\index{graph/summary/bitmap.\+h@{graph/summary/bitmap.\+h}}
+
+\begin{DoxyCode}
+00001 
+00018 \textcolor{preprocessor}{#ifndef BITMAP\_H\_}
+00019 \textcolor{preprocessor}{#define BITMAP\_H\_}
+00020 
+00021 \textcolor{preprocessor}{#include <stdlib.h>}
+00022 \textcolor{preprocessor}{#include <stddef.h>}
+00023 \textcolor{preprocessor}{#include <stdio.h>}
+00024 \textcolor{preprocessor}{#include <string.h>}
+00025 \textcolor{preprocessor}{#include <stdint.h>}
+00026 
+00028 \textcolor{preprocessor}{#ifdef \_ARCH256\_}
+00029 \textcolor{preprocessor}{#include <immintrin.h>}\textcolor{comment}{//AVX}
+00030 
+00031 \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{
+00032     \_\_m256d md;
+00033     \_\_m256i mi;
+00034     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} ui64[4];
+00035 \} NODETYPE; 
+00036 
+00037 \textcolor{keyword}{static} \textcolor{keyword}{const} NODETYPE \_\_zero = \{ .ui64 = \{ 0, 0, 0, 0 \} \};
+00038 
+00039 \textcolor{preprocessor}{#define BSIZE 256}
+00040 \textcolor{preprocessor}{#define WSIZE 32}
+00041 \textcolor{preprocessor}{#define LOGB 8LL}
+00042 \textcolor{preprocessor}{#define LOGW 5}
+00043 \textcolor{preprocessor}{#define LOGBW 13}
+00044 
+00045 \textcolor{preprocessor}{#define ONE 1LL}
+00046 \textcolor{preprocessor}{#define NODEMAX 0xFFFFFFFFFFFFFFFF}
+00047 \textcolor{preprocessor}{#define MASKB 0xFFLL}
+00048 \textcolor{comment}{//#define MASKB 0xFFFFFFFFFFFFFFC0}
+00049 
+00050 \textcolor{preprocessor}{#define MASKSZ (BSIZE+1)}
+00051 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \_\_mask[MASKSZ] = \{
+00052         0xFFFFFFFFFFFFFFFF,
+00053         0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFF0,
+00054         0xFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFF00,
+00055         0xFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFF000,
+00056         0xFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFC000, 0xFFFFFFFFFFFF8000, 0xFFFFFFFFFFFF0000,
+00057         0xFFFFFFFFFFFE0000, 0xFFFFFFFFFFFC0000, 0xFFFFFFFFFFF80000, 0xFFFFFFFFFFF00000,
+00058         0xFFFFFFFFFFE00000, 0xFFFFFFFFFFC00000, 0xFFFFFFFFFF800000, 0xFFFFFFFFFF000000,
+00059         0xFFFFFFFFFE000000, 0xFFFFFFFFFC000000, 0xFFFFFFFFF8000000, 0xFFFFFFFFF0000000,
+00060         0xFFFFFFFFE0000000, 0xFFFFFFFFC0000000, 0xFFFFFFFF80000000, 0xFFFFFFFF00000000,
+00061         0xFFFFFFFE00000000, 0xFFFFFFFC00000000, 0xFFFFFFF800000000, 0xFFFFFFF000000000,
+00062         0xFFFFFFE000000000, 0xFFFFFFC000000000, 0xFFFFFF8000000000, 0xFFFFFF0000000000,
+00063         0xFFFFFE0000000000, 0xFFFFFC0000000000, 0xFFFFF80000000000, 0xFFFFF00000000000,
+00064         0xFFFFE00000000000, 0xFFFFC00000000000, 0xFFFF800000000000, 0xFFFF000000000000,
+00065         0xFFFE000000000000, 0xFFFC000000000000, 0xFFF8000000000000, 0xFFF0000000000000,
+00066         0xFFE0000000000000, 0xFFC0000000000000, 0xFF80000000000000, 0xFF00000000000000,
+00067         0xFE00000000000000, 0xFC00000000000000, 0xF800000000000000, 0xF000000000000000,
+00068         0xE000000000000000, 0xC000000000000000, 0x8000000000000000, 0xFFFFFFFFFFFFFFFF,
+00069         0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFF0,
+00070         0xFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFF00,
+00071         0xFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFF000,
+00072         0xFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFC000, 0xFFFFFFFFFFFF8000, 0xFFFFFFFFFFFF0000,
+00073         0xFFFFFFFFFFFE0000, 0xFFFFFFFFFFFC0000, 0xFFFFFFFFFFF80000, 0xFFFFFFFFFFF00000,
+00074         0xFFFFFFFFFFE00000, 0xFFFFFFFFFFC00000, 0xFFFFFFFFFF800000, 0xFFFFFFFFFF000000,
+00075         0xFFFFFFFFFE000000, 0xFFFFFFFFFC000000, 0xFFFFFFFFF8000000, 0xFFFFFFFFF0000000,
+00076         0xFFFFFFFFE0000000, 0xFFFFFFFFC0000000, 0xFFFFFFFF80000000, 0xFFFFFFFF00000000,
+00077         0xFFFFFFFE00000000, 0xFFFFFFFC00000000, 0xFFFFFFF800000000, 0xFFFFFFF000000000,
+00078         0xFFFFFFE000000000, 0xFFFFFFC000000000, 0xFFFFFF8000000000, 0xFFFFFF0000000000,
+00079         0xFFFFFE0000000000, 0xFFFFFC0000000000, 0xFFFFF80000000000, 0xFFFFF00000000000,
+00080         0xFFFFE00000000000, 0xFFFFC00000000000, 0xFFFF800000000000, 0xFFFF000000000000,
+00081         0xFFFE000000000000, 0xFFFC000000000000, 0xFFF8000000000000, 0xFFF0000000000000,
+00082         0xFFE0000000000000, 0xFFC0000000000000, 0xFF80000000000000, 0xFF00000000000000,
+00083         0xFE00000000000000, 0xFC00000000000000, 0xF800000000000000, 0xF000000000000000,
+00084         0xE000000000000000, 0xC000000000000000, 0x8000000000000000, 0xFFFFFFFFFFFFFFFF,
+00085         0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFF0,
+00086         0xFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFF00,
+00087         0xFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFF000,
+00088         0xFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFC000, 0xFFFFFFFFFFFF8000, 0xFFFFFFFFFFFF0000,
+00089         0xFFFFFFFFFFFE0000, 0xFFFFFFFFFFFC0000, 0xFFFFFFFFFFF80000, 0xFFFFFFFFFFF00000,
+00090         0xFFFFFFFFFFE00000, 0xFFFFFFFFFFC00000, 0xFFFFFFFFFF800000, 0xFFFFFFFFFF000000,
+00091         0xFFFFFFFFFE000000, 0xFFFFFFFFFC000000, 0xFFFFFFFFF8000000, 0xFFFFFFFFF0000000,
+00092         0xFFFFFFFFE0000000, 0xFFFFFFFFC0000000, 0xFFFFFFFF80000000, 0xFFFFFFFF00000000,
+00093         0xFFFFFFFE00000000, 0xFFFFFFFC00000000, 0xFFFFFFF800000000, 0xFFFFFFF000000000,
+00094         0xFFFFFFE000000000, 0xFFFFFFC000000000, 0xFFFFFF8000000000, 0xFFFFFF0000000000,
+00095         0xFFFFFE0000000000, 0xFFFFFC0000000000, 0xFFFFF80000000000, 0xFFFFF00000000000,
+00096         0xFFFFE00000000000, 0xFFFFC00000000000, 0xFFFF800000000000, 0xFFFF000000000000,
+00097         0xFFFE000000000000, 0xFFFC000000000000, 0xFFF8000000000000, 0xFFF0000000000000,
+00098         0xFFE0000000000000, 0xFFC0000000000000, 0xFF80000000000000, 0xFF00000000000000,
+00099         0xFE00000000000000, 0xFC00000000000000, 0xF800000000000000, 0xF000000000000000,
+00100         0xE000000000000000, 0xC000000000000000, 0x8000000000000000, 0xFFFFFFFFFFFFFFFF,
+00101         0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFF0,
+00102         0xFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFF00,
+00103         0xFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFF000,
+00104         0xFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFC000, 0xFFFFFFFFFFFF8000, 0xFFFFFFFFFFFF0000,
+00105         0xFFFFFFFFFFFE0000, 0xFFFFFFFFFFFC0000, 0xFFFFFFFFFFF80000, 0xFFFFFFFFFFF00000,
+00106         0xFFFFFFFFFFE00000, 0xFFFFFFFFFFC00000, 0xFFFFFFFFFF800000, 0xFFFFFFFFFF000000,
+00107         0xFFFFFFFFFE000000, 0xFFFFFFFFFC000000, 0xFFFFFFFFF8000000, 0xFFFFFFFFF0000000,
+00108         0xFFFFFFFFE0000000, 0xFFFFFFFFC0000000, 0xFFFFFFFF80000000, 0xFFFFFFFF00000000,
+00109         0xFFFFFFFE00000000, 0xFFFFFFFC00000000, 0xFFFFFFF800000000, 0xFFFFFFF000000000,
+00110         0xFFFFFFE000000000, 0xFFFFFFC000000000, 0xFFFFFF8000000000, 0xFFFFFF0000000000,
+00111         0xFFFFFE0000000000, 0xFFFFFC0000000000, 0xFFFFF80000000000, 0xFFFFF00000000000,
+00112         0xFFFFE00000000000, 0xFFFFC00000000000, 0xFFFF800000000000, 0xFFFF000000000000,
+00113         0xFFFE000000000000, 0xFFFC000000000000, 0xFFF8000000000000, 0xFFF0000000000000,
+00114         0xFFE0000000000000, 0xFFC0000000000000, 0xFF80000000000000, 0xFF00000000000000,
+00115         0xFE00000000000000, 0xFC00000000000000, 0xF800000000000000, 0xF000000000000000,
+00116         0xE000000000000000, 0xC000000000000000, 0x8000000000000000, 0x0000000000000000
+00117 \};
+00118 
+00119 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \_\_oneshifted[MASKSZ] = \{
+00120         0x0000000000000001,
+00121         0x0000000000000002, 0x0000000000000004, 0x0000000000000008, 0x0000000000000010,
+00122         0x0000000000000020, 0x0000000000000040, 0x0000000000000080, 0x0000000000000100,
+00123         0x0000000000000200, 0x0000000000000400, 0x0000000000000800, 0x0000000000001000,
+00124         0x0000000000002000, 0x0000000000004000, 0x0000000000008000, 0x0000000000010000,
+00125         0x0000000000020000, 0x0000000000040000, 0x0000000000080000, 0x0000000000100000,
+00126         0x0000000000200000, 0x0000000000400000, 0x0000000000800000, 0x0000000001000000,
+00127         0x0000000002000000, 0x0000000004000000, 0x0000000008000000, 0x0000000010000000,
+00128         0x0000000020000000, 0x0000000040000000, 0x0000000080000000, 0x0000000100000000,
+00129         0x0000000200000000, 0x0000000400000000, 0x0000000800000000, 0x0000001000000000,
+00130         0x0000002000000000, 0x0000004000000000, 0x0000008000000000, 0x0000010000000000,
+00131         0x0000020000000000, 0x0000040000000000, 0x0000080000000000, 0x0000100000000000,
+00132         0x0000200000000000, 0x0000400000000000, 0x0000800000000000, 0x0001000000000000,
+00133         0x0002000000000000, 0x0004000000000000, 0x0008000000000000, 0x0010000000000000,
+00134         0x0020000000000000, 0x0040000000000000, 0x0080000000000000, 0x0100000000000000,
+00135         0x0200000000000000, 0x0400000000000000, 0x0800000000000000, 0x1000000000000000,
+00136         0x2000000000000000, 0x4000000000000000, 0x8000000000000000, 0x0000000000000001,
+00137         0x0000000000000002, 0x0000000000000004, 0x0000000000000008, 0x0000000000000010,
+00138         0x0000000000000020, 0x0000000000000040, 0x0000000000000080, 0x0000000000000100,
+00139         0x0000000000000200, 0x0000000000000400, 0x0000000000000800, 0x0000000000001000,
+00140         0x0000000000002000, 0x0000000000004000, 0x0000000000008000, 0x0000000000010000,
+00141         0x0000000000020000, 0x0000000000040000, 0x0000000000080000, 0x0000000000100000,
+00142         0x0000000000200000, 0x0000000000400000, 0x0000000000800000, 0x0000000001000000,
+00143         0x0000000002000000, 0x0000000004000000, 0x0000000008000000, 0x0000000010000000,
+00144         0x0000000020000000, 0x0000000040000000, 0x0000000080000000, 0x0000000100000000,
+00145         0x0000000200000000, 0x0000000400000000, 0x0000000800000000, 0x0000001000000000,
+00146         0x0000002000000000, 0x0000004000000000, 0x0000008000000000, 0x0000010000000000,
+00147         0x0000020000000000, 0x0000040000000000, 0x0000080000000000, 0x0000100000000000,
+00148         0x0000200000000000, 0x0000400000000000, 0x0000800000000000, 0x0001000000000000,
+00149         0x0002000000000000, 0x0004000000000000, 0x0008000000000000, 0x0010000000000000,
+00150         0x0020000000000000, 0x0040000000000000, 0x0080000000000000, 0x0100000000000000,
+00151         0x0200000000000000, 0x0400000000000000, 0x0800000000000000, 0x1000000000000000,
+00152         0x2000000000000000, 0x4000000000000000, 0x8000000000000000, 0x0000000000000001,
+00153         0x0000000000000002, 0x0000000000000004, 0x0000000000000008, 0x0000000000000010,
+00154         0x0000000000000020, 0x0000000000000040, 0x0000000000000080, 0x0000000000000100,
+00155         0x0000000000000200, 0x0000000000000400, 0x0000000000000800, 0x0000000000001000,
+00156         0x0000000000002000, 0x0000000000004000, 0x0000000000008000, 0x0000000000010000,
+00157         0x0000000000020000, 0x0000000000040000, 0x0000000000080000, 0x0000000000100000,
+00158         0x0000000000200000, 0x0000000000400000, 0x0000000000800000, 0x0000000001000000,
+00159         0x0000000002000000, 0x0000000004000000, 0x0000000008000000, 0x0000000010000000,
+00160         0x0000000020000000, 0x0000000040000000, 0x0000000080000000, 0x0000000100000000,
+00161         0x0000000200000000, 0x0000000400000000, 0x0000000800000000, 0x0000001000000000,
+00162         0x0000002000000000, 0x0000004000000000, 0x0000008000000000, 0x0000010000000000,
+00163         0x0000020000000000, 0x0000040000000000, 0x0000080000000000, 0x0000100000000000,
+00164         0x0000200000000000, 0x0000400000000000, 0x0000800000000000, 0x0001000000000000,
+00165         0x0002000000000000, 0x0004000000000000, 0x0008000000000000, 0x0010000000000000,
+00166         0x0020000000000000, 0x0040000000000000, 0x0080000000000000, 0x0100000000000000,
+00167         0x0200000000000000, 0x0400000000000000, 0x0800000000000000, 0x1000000000000000,
+00168         0x2000000000000000, 0x4000000000000000, 0x8000000000000000, 0x0000000000000001,
+00169         0x0000000000000002, 0x0000000000000004, 0x0000000000000008, 0x0000000000000010,
+00170         0x0000000000000020, 0x0000000000000040, 0x0000000000000080, 0x0000000000000100,
+00171         0x0000000000000200, 0x0000000000000400, 0x0000000000000800, 0x0000000000001000,
+00172         0x0000000000002000, 0x0000000000004000, 0x0000000000008000, 0x0000000000010000,
+00173         0x0000000000020000, 0x0000000000040000, 0x0000000000080000, 0x0000000000100000,
+00174         0x0000000000200000, 0x0000000000400000, 0x0000000000800000, 0x0000000001000000,
+00175         0x0000000002000000, 0x0000000004000000, 0x0000000008000000, 0x0000000010000000,
+00176         0x0000000020000000, 0x0000000040000000, 0x0000000080000000, 0x0000000100000000,
+00177         0x0000000200000000, 0x0000000400000000, 0x0000000800000000, 0x0000001000000000,
+00178         0x0000002000000000, 0x0000004000000000, 0x0000008000000000, 0x0000010000000000,
+00179         0x0000020000000000, 0x0000040000000000, 0x0000080000000000, 0x0000100000000000,
+00180         0x0000200000000000, 0x0000400000000000, 0x0000800000000000, 0x0001000000000000,
+00181         0x0002000000000000, 0x0004000000000000, 0x0008000000000000, 0x0010000000000000,
+00182         0x0020000000000000, 0x0040000000000000, 0x0080000000000000, 0x0100000000000000,
+00183         0x0200000000000000, 0x0400000000000000, 0x0800000000000000, 0x1000000000000000,
+00184         0x2000000000000000, 0x4000000000000000, 0x8000000000000000, 0x0000000000000000
+00185 \};
+00186 
+00187 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} \_\_index[MASKSZ] = \{
+00188         0,
+00189         0, 0, 0, 0,
+00190         0, 0, 0, 0,
+00191         0, 0, 0, 0,
+00192         0, 0, 0, 0,
+00193         0, 0, 0, 0,
+00194         0, 0, 0, 0,
+00195         0, 0, 0, 0,
+00196         0, 0, 0, 0,
+00197         0, 0, 0, 0,
+00198         0, 0, 0, 0,
+00199         0, 0, 0, 0,
+00200         0, 0, 0, 0,
+00201         0, 0, 0, 0,
+00202         0, 0, 0, 0,
+00203         0, 0, 0, 0,
+00204         0, 0, 0, 1,
+00205         1, 1, 1, 1,
+00206         1, 1, 1, 1,
+00207         1, 1, 1, 1,
+00208         1, 1, 1, 1,
+00209         1, 1, 1, 1,
+00210         1, 1, 1, 1,
+00211         1, 1, 1, 1,
+00212         1, 1, 1, 1,
+00213         1, 1, 1, 1,
+00214         1, 1, 1, 1,
+00215         1, 1, 1, 1,
+00216         1, 1, 1, 1,
+00217         1, 1, 1, 1,
+00218         1, 1, 1, 1,
+00219         1, 1, 1, 1,
+00220         1, 1, 1, 2,
+00221         2, 2, 2, 2,
+00222         2, 2, 2, 2,
+00223         2, 2, 2, 2,
+00224         2, 2, 2, 2,
+00225         2, 2, 2, 2,
+00226         2, 2, 2, 2,
+00227         2, 2, 2, 2,
+00228         2, 2, 2, 2,
+00229         2, 2, 2, 2,
+00230         2, 2, 2, 2,
+00231         2, 2, 2, 2,
+00232         2, 2, 2, 2,
+00233         2, 2, 2, 2,
+00234         2, 2, 2, 2,
+00235         2, 2, 2, 2,
+00236         2, 2, 2, 3,
+00237         3, 3, 3, 3,
+00238         3, 3, 3, 3,
+00239         3, 3, 3, 3,
+00240         3, 3, 3, 3,
+00241         3, 3, 3, 3,
+00242         3, 3, 3, 3,
+00243         3, 3, 3, 3,
+00244         3, 3, 3, 3,
+00245         3, 3, 3, 3,
+00246         3, 3, 3, 3,
+00247         3, 3, 3, 3,
+00248         3, 3, 3, 3,
+00249         3, 3, 3, 3,
+00250         3, 3, 3, 3,
+00251         3, 3, 3, 3,
+00252         3, 3, 3, 4
+00253 \};
+00254 
+00255 \textcolor{comment}{/*}
+00256 \textcolor{comment}{ * Returns the number of 1-bits in x.}
+00257 \textcolor{comment}{ */}
+00258 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_popcountAVX(NODETYPE x) \{
+00259         \textcolor{keywordflow}{return} \_\_builtin\_popcountll(x.ui64[0]) + \_\_builtin\_popcountll(x.ui64[1]) + \_\_builtin\_popcountll(x.
+      ui64[2]) + \_\_builtin\_popcountll(x.ui64[3]);
+00260 \}
+00261 
+00262 \textcolor{comment}{/*}
+00263 \textcolor{comment}{ * Returns one plus the index of the least significant 1-bit of x, or if x is zero, returns zero.}
+00264 \textcolor{comment}{ */}
+00265 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_ffsAVX(NODETYPE x)\{
+00266         \textcolor{keywordflow}{if} (x.ui64[0] != 0)
+00267                 \textcolor{keywordflow}{return} \_\_builtin\_ffsll(x.ui64[0]);
+00268         \textcolor{keywordflow}{if} (x.ui64[1] != 0)
+00269                 \textcolor{keywordflow}{return} \_\_builtin\_ffsll(x.ui64[1]) + 64;
+00270         \textcolor{keywordflow}{if} (x.ui64[2] != 0)
+00271                 \textcolor{keywordflow}{return} \_\_builtin\_ffsll(x.ui64[2]) + 128;
+00272         \textcolor{keywordflow}{if} (x.ui64[3] != 0)
+00273                 \textcolor{keywordflow}{return} \_\_builtin\_ffsll(x.ui64[3]) + 192;
+00274         \textcolor{keywordflow}{return} 0;
+00275 \}
+00276 
+00277 
+00278 \textcolor{comment}{/*}
+00279 \textcolor{comment}{ * Returns one plus the index of the significant 1-bit of x next to i, or if x is zero, returns zero.}
+00280 \textcolor{comment}{ */}
+00281 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_nextffsAVX(NODETYPE x, \textcolor{keywordtype}{int} i) \{
+00282         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} masked;
+00283 
+00284         i++;
+00285         \textcolor{keywordflow}{if} (i < 64)
+00286         \{
+00287                 masked = x.ui64[0] & \_\_mask[i];
+00288                 \textcolor{keywordflow}{if} (masked != 0)
+00289                         \textcolor{keywordflow}{return} \_\_builtin\_ffsll(masked);
+00290                 i = 64;
+00291         \}
+00292         \textcolor{keywordflow}{if} (i < 128)
+00293         \{
+00294                 masked = x.ui64[1] & \_\_mask[i];
+00295                 \textcolor{keywordflow}{if} (masked != 0)
+00296                         \textcolor{keywordflow}{return} \_\_builtin\_ffsll(masked) + 64;
+00297                 i = 128;
+00298         \}
+00299         \textcolor{keywordflow}{if} (i < 198)
+00300         \{
+00301                 masked = x.ui64[2] & \_\_mask[i];
+00302                 \textcolor{keywordflow}{if}(masked !=0)
+00303                         \textcolor{keywordflow}{return} \_\_builtin\_ffsll(masked) + 128;
+00304                 i = 192;
+00305         \}
+00306         masked = x.ui64[3] & \_\_mask[i];
+00307         \textcolor{keywordflow}{if} (masked == 0)
+00308                 \textcolor{keywordflow}{return} 0;
+00309         \textcolor{keywordflow}{return} \_\_builtin\_ffsll(masked) + 192;
+00310 \}
+00311 
+00312 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_prevclzAVX(NODETYPE x, \textcolor{keywordtype}{int} i) \{
+00313         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} masked;
+00314 
+00315         \textcolor{keywordflow}{if} (i > 192)
+00316         \{
+00317                 masked = x.ui64[3] & ~\_\_mask[i];
+00318                 \textcolor{keywordflow}{if} (masked != 0)
+00319                         \textcolor{keywordflow}{return} \_\_builtin\_clzll(masked);
+00320                 i = 128;
+00321         \}
+00322         \textcolor{keywordflow}{if} (i > 128)
+00323         \{
+00324                 masked = x.ui64[2] & ~\_\_mask[i];
+00325                 \textcolor{keywordflow}{if} (masked != 0)
+00326                         \textcolor{keywordflow}{return} \_\_builtin\_clzll(masked) + 64;
+00327                 i = 128;
+00328         \}
+00329         \textcolor{keywordflow}{if} (i > 64)
+00330         \{
+00331                 masked = x.ui64[1] & ~\_\_mask[i];
+00332                 \textcolor{keywordflow}{if} (masked != 0)
+00333                         \textcolor{keywordflow}{return} \_\_builtin\_clzll(masked) + 128;
+00334                 i = 64;
+00335         \}
+00336         masked = x.ui64[0] & ~\_\_mask[i];
+00337         \textcolor{keywordflow}{if} (masked == 0)
+00338                 \textcolor{keywordflow}{return} BSIZE;
+00339         \textcolor{keywordflow}{return} \_\_builtin\_clzll(masked) + 192;
+00340 \}
+00341 
+00342 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_clzAVX(NODETYPE x) \{
+00343         \textcolor{keywordflow}{if} (x.ui64[3] != 0)
+00344                 \textcolor{keywordflow}{return} \_\_builtin\_clzll(x.ui64[3]);
+00345         \textcolor{keywordflow}{if} (x.ui64[2] != 0)
+00346                 \textcolor{keywordflow}{return} \_\_builtin\_clzll(x.ui64[2]) + 64;
+00347         \textcolor{keywordflow}{if} (x.ui64[1] != 0)
+00348                 \textcolor{keywordflow}{return} \_\_builtin\_clzll(x.ui64[1]) + 128;
+00349         \textcolor{keywordflow}{return} \_\_builtin\_clzll(x.ui64[0]) + 192;
+00350 \}
+00351 
+00352 
+00353 \textcolor{preprocessor}{#define NODECOUNTER(i) \_\_builtin\_popcountAVX(i)}
+00354 \textcolor{preprocessor}{#define NODELEAST(w) (\_\_builtin\_ffsAVX(w)-1)}
+00355 \textcolor{preprocessor}{#define NODENEXTLEAST(w, i) (\_\_builtin\_nextffsAVX((w), (i))-1)}
+00356 \textcolor{preprocessor}{#define NODEMOST(i) (BSIZE-\_\_builtin\_clzAVX(i)-1)}
+00357 \textcolor{preprocessor}{#define NODEPREVMOST(w, i) (BSIZE-\_\_builtin\_prevclzAVX((w), (i))-1)}
+00358 \textcolor{preprocessor}{#define NODEISEMPTY(w) ((w).ui64[0] == 0 && (w).ui64[1] == 0 && (w).ui64[2] == 0  && (w).ui64[3] == 0 )}
+00359 \textcolor{preprocessor}{#define NODEISNOTEMPTY(w) ((w).ui64[0] != 0 || (w).ui64[1] != 0 || (w).ui64[2] != 0 || (w).ui64[3] != 0)}
+00360 \textcolor{preprocessor}{#define ISINNODE(w, i) ((w) & \_\_oneshifted[i])                                                  }
+00361 \textcolor{preprocessor}{}
+00362 \textcolor{preprocessor}{#elif \_ARCH128\_}
+00363 \textcolor{preprocessor}{#include <smmintrin.h>} \textcolor{comment}{// SSE4}
+00364 
+00365 \textcolor{keyword}{typedef} \textcolor{keyword}{union }\{
+00366     \_\_m128i mi;
+00367     \_\_m128 m;
+00368     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} ui64[2];
+00369 \} NODETYPE; 
+00370 
+00371 \textcolor{keyword}{static} \textcolor{keyword}{const} NODETYPE \_\_zero = \{ .ui64 = \{ 0, 0 \} \};
+00372 
+00373 \textcolor{preprocessor}{#define BSIZE 128}
+00374 \textcolor{preprocessor}{#define WSIZE 16}
+00375 \textcolor{preprocessor}{#define LOGB 7LL}
+00376 \textcolor{preprocessor}{#define LOGW 4}
+00377 \textcolor{preprocessor}{#define LOGBW 11}
+00378 
+00379 \textcolor{preprocessor}{#define ONE 1LL}
+00380 \textcolor{preprocessor}{#define NODEMAX 0xFFFFFFFFFFFFFFFF}
+00381 \textcolor{preprocessor}{#define MASKB 0x7FLL}
+00382 \textcolor{comment}{//#define MASKB 0xFFFFFFFFFFFFFFC0}
+00383 
+00384 \textcolor{preprocessor}{#define MASKSZ (BSIZE+1)}
+00385 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \_\_mask[MASKSZ] = \{
+00386         0xFFFFFFFFFFFFFFFF,
+00387         0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFF0,
+00388         0xFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFF00,
+00389         0xFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFF000,
+00390         0xFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFC000, 0xFFFFFFFFFFFF8000, 0xFFFFFFFFFFFF0000,
+00391         0xFFFFFFFFFFFE0000, 0xFFFFFFFFFFFC0000, 0xFFFFFFFFFFF80000, 0xFFFFFFFFFFF00000,
+00392         0xFFFFFFFFFFE00000, 0xFFFFFFFFFFC00000, 0xFFFFFFFFFF800000, 0xFFFFFFFFFF000000,
+00393         0xFFFFFFFFFE000000, 0xFFFFFFFFFC000000, 0xFFFFFFFFF8000000, 0xFFFFFFFFF0000000,
+00394         0xFFFFFFFFE0000000, 0xFFFFFFFFC0000000, 0xFFFFFFFF80000000, 0xFFFFFFFF00000000,
+00395         0xFFFFFFFE00000000, 0xFFFFFFFC00000000, 0xFFFFFFF800000000, 0xFFFFFFF000000000,
+00396         0xFFFFFFE000000000, 0xFFFFFFC000000000, 0xFFFFFF8000000000, 0xFFFFFF0000000000,
+00397         0xFFFFFE0000000000, 0xFFFFFC0000000000, 0xFFFFF80000000000, 0xFFFFF00000000000,
+00398         0xFFFFE00000000000, 0xFFFFC00000000000, 0xFFFF800000000000, 0xFFFF000000000000,
+00399         0xFFFE000000000000, 0xFFFC000000000000, 0xFFF8000000000000, 0xFFF0000000000000,
+00400         0xFFE0000000000000, 0xFFC0000000000000, 0xFF80000000000000, 0xFF00000000000000,
+00401         0xFE00000000000000, 0xFC00000000000000, 0xF800000000000000, 0xF000000000000000,
+00402         0xE000000000000000, 0xC000000000000000, 0x8000000000000000, 0xFFFFFFFFFFFFFFFF,
+00403         0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFF0,
+00404         0xFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFF00,
+00405         0xFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFF000,
+00406         0xFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFC000, 0xFFFFFFFFFFFF8000, 0xFFFFFFFFFFFF0000,
+00407         0xFFFFFFFFFFFE0000, 0xFFFFFFFFFFFC0000, 0xFFFFFFFFFFF80000, 0xFFFFFFFFFFF00000,
+00408         0xFFFFFFFFFFE00000, 0xFFFFFFFFFFC00000, 0xFFFFFFFFFF800000, 0xFFFFFFFFFF000000,
+00409         0xFFFFFFFFFE000000, 0xFFFFFFFFFC000000, 0xFFFFFFFFF8000000, 0xFFFFFFFFF0000000,
+00410         0xFFFFFFFFE0000000, 0xFFFFFFFFC0000000, 0xFFFFFFFF80000000, 0xFFFFFFFF00000000,
+00411         0xFFFFFFFE00000000, 0xFFFFFFFC00000000, 0xFFFFFFF800000000, 0xFFFFFFF000000000,
+00412         0xFFFFFFE000000000, 0xFFFFFFC000000000, 0xFFFFFF8000000000, 0xFFFFFF0000000000,
+00413         0xFFFFFE0000000000, 0xFFFFFC0000000000, 0xFFFFF80000000000, 0xFFFFF00000000000,
+00414         0xFFFFE00000000000, 0xFFFFC00000000000, 0xFFFF800000000000, 0xFFFF000000000000,
+00415         0xFFFE000000000000, 0xFFFC000000000000, 0xFFF8000000000000, 0xFFF0000000000000,
+00416         0xFFE0000000000000, 0xFFC0000000000000, 0xFF80000000000000, 0xFF00000000000000,
+00417         0xFE00000000000000, 0xFC00000000000000, 0xF800000000000000, 0xF000000000000000,
+00418         0xE000000000000000, 0xC000000000000000, 0x8000000000000000, 0x0000000000000000
+00419 \};
+00420 
+00421 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \_\_oneshifted[MASKSZ] = \{
+00422         0x0000000000000001,
+00423         0x0000000000000002, 0x0000000000000004, 0x0000000000000008, 0x0000000000000010,
+00424         0x0000000000000020, 0x0000000000000040, 0x0000000000000080, 0x0000000000000100,
+00425         0x0000000000000200, 0x0000000000000400, 0x0000000000000800, 0x0000000000001000,
+00426         0x0000000000002000, 0x0000000000004000, 0x0000000000008000, 0x0000000000010000,
+00427         0x0000000000020000, 0x0000000000040000, 0x0000000000080000, 0x0000000000100000,
+00428         0x0000000000200000, 0x0000000000400000, 0x0000000000800000, 0x0000000001000000,
+00429         0x0000000002000000, 0x0000000004000000, 0x0000000008000000, 0x0000000010000000,
+00430         0x0000000020000000, 0x0000000040000000, 0x0000000080000000, 0x0000000100000000,
+00431         0x0000000200000000, 0x0000000400000000, 0x0000000800000000, 0x0000001000000000,
+00432         0x0000002000000000, 0x0000004000000000, 0x0000008000000000, 0x0000010000000000,
+00433         0x0000020000000000, 0x0000040000000000, 0x0000080000000000, 0x0000100000000000,
+00434         0x0000200000000000, 0x0000400000000000, 0x0000800000000000, 0x0001000000000000,
+00435         0x0002000000000000, 0x0004000000000000, 0x0008000000000000, 0x0010000000000000,
+00436         0x0020000000000000, 0x0040000000000000, 0x0080000000000000, 0x0100000000000000,
+00437         0x0200000000000000, 0x0400000000000000, 0x0800000000000000, 0x1000000000000000,
+00438         0x2000000000000000, 0x4000000000000000, 0x8000000000000000, 0x0000000000000001,
+00439         0x0000000000000002, 0x0000000000000004, 0x0000000000000008, 0x0000000000000010,
+00440         0x0000000000000020, 0x0000000000000040, 0x0000000000000080, 0x0000000000000100,
+00441         0x0000000000000200, 0x0000000000000400, 0x0000000000000800, 0x0000000000001000,
+00442         0x0000000000002000, 0x0000000000004000, 0x0000000000008000, 0x0000000000010000,
+00443         0x0000000000020000, 0x0000000000040000, 0x0000000000080000, 0x0000000000100000,
+00444         0x0000000000200000, 0x0000000000400000, 0x0000000000800000, 0x0000000001000000,
+00445         0x0000000002000000, 0x0000000004000000, 0x0000000008000000, 0x0000000010000000,
+00446         0x0000000020000000, 0x0000000040000000, 0x0000000080000000, 0x0000000100000000,
+00447         0x0000000200000000, 0x0000000400000000, 0x0000000800000000, 0x0000001000000000,
+00448         0x0000002000000000, 0x0000004000000000, 0x0000008000000000, 0x0000010000000000,
+00449         0x0000020000000000, 0x0000040000000000, 0x0000080000000000, 0x0000100000000000,
+00450         0x0000200000000000, 0x0000400000000000, 0x0000800000000000, 0x0001000000000000,
+00451         0x0002000000000000, 0x0004000000000000, 0x0008000000000000, 0x0010000000000000,
+00452         0x0020000000000000, 0x0040000000000000, 0x0080000000000000, 0x0100000000000000,
+00453         0x0200000000000000, 0x0400000000000000, 0x0800000000000000, 0x1000000000000000,
+00454         0x2000000000000000, 0x4000000000000000, 0x8000000000000000, 0x0000000000000000
+00455 \};
+00456 
+00457 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{char} \_\_index[MASKSZ] = \{
+00458         0,
+00459         0, 0, 0, 0,
+00460         0, 0, 0, 0,
+00461         0, 0, 0, 0,
+00462         0, 0, 0, 0,
+00463         0, 0, 0, 0,
+00464         0, 0, 0, 0,
+00465         0, 0, 0, 0,
+00466         0, 0, 0, 0,
+00467         0, 0, 0, 0,
+00468         0, 0, 0, 0,
+00469         0, 0, 0, 0,
+00470         0, 0, 0, 0,
+00471         0, 0, 0, 0,
+00472         0, 0, 0, 0,
+00473         0, 0, 0, 0,
+00474         0, 0, 0, 1,
+00475         1, 1, 1, 1,
+00476         1, 1, 1, 1,
+00477         1, 1, 1, 1,
+00478         1, 1, 1, 1,
+00479         1, 1, 1, 1,
+00480         1, 1, 1, 1,
+00481         1, 1, 1, 1,
+00482         1, 1, 1, 1,
+00483         1, 1, 1, 1,
+00484         1, 1, 1, 1,
+00485         1, 1, 1, 1,
+00486         1, 1, 1, 1,
+00487         1, 1, 1, 1,
+00488         1, 1, 1, 1,
+00489         1, 1, 1, 1,
+00490         1, 1, 1, 2
+00491 \};
+00492 
+00493 \textcolor{comment}{/*}
+00494 \textcolor{comment}{ * Returns the number of 1-bits in x.}
+00495 \textcolor{comment}{ */}
+00496 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_popcountsse(NODETYPE x) \{
+00497         \textcolor{keywordflow}{return} \_\_builtin\_popcountll(x.ui64[0]) + \_\_builtin\_popcountll(x.ui64[1]);
+00498 \}
+00499 
+00500 \textcolor{comment}{/*}
+00501 \textcolor{comment}{ * Returns one plus the index of the least significant 1-bit of x, or if x is zero, returns zero.}
+00502 \textcolor{comment}{ */}
+00503 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_ffssse(NODETYPE x) \{
+00504         \textcolor{keywordflow}{if} (x.ui64[0] != 0)
+00505                 \textcolor{keywordflow}{return} \_\_builtin\_ffsll(x.ui64[0]);
+00506         \textcolor{keywordflow}{if} (x.ui64[1] != 0)
+00507                 \textcolor{keywordflow}{return} \_\_builtin\_ffsll(x.ui64[1]) + 64;
+00508         \textcolor{keywordflow}{return} 0;
+00509 \}
+00510 
+00511 \textcolor{comment}{/*}
+00512 \textcolor{comment}{ * Returns one plus the index of the significant 1-bit of x next to i, or if x is zero, returns zero.}
+00513 \textcolor{comment}{ */}
+00514 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_nextffssse(NODETYPE x, \textcolor{keywordtype}{int} i) \{
+00515         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} masked;
+00516         i++;
+00517         \textcolor{keywordflow}{if} (i < 64)
+00518         \{
+00519                 masked = x.ui64[0] & \_\_mask[i];
+00520                 \textcolor{keywordflow}{if} (masked != 0)
+00521                         \textcolor{keywordflow}{return} \_\_builtin\_ffsll(masked);
+00522                 i = 64;
+00523         \}
+00524         masked = x.ui64[1] & \_\_mask[i];
+00525         \textcolor{keywordflow}{if} (masked == 0)
+00526                 \textcolor{keywordflow}{return} 0;
+00527         \textcolor{keywordflow}{return} \_\_builtin\_ffsll(masked) + 64;
+00528 \}
+00529 
+00530 \textcolor{comment}{/*}
+00531 \textcolor{comment}{ * Returns the number of leading 0-bits in x, starting at the most significant bit position. If x is 0, the
+       result is undefined.}
+00532 \textcolor{comment}{ */}
+00533 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_clzsse(NODETYPE x) \{
+00534         \textcolor{keywordflow}{if} (x.ui64[1] != 0)
+00535                 \textcolor{keywordflow}{return} \_\_builtin\_clzll(x.ui64[1]);
+00536         \textcolor{keywordflow}{return} \_\_builtin\_clzll(x.ui64[0]) + 64;
+00537 \}
+00538 
+00539 \textcolor{comment}{/*}
+00540 \textcolor{comment}{ * Returns the number of leading 0-bits in x, starting at ith-bit position. If x is 0, the result is BSIZE.}
+00541 \textcolor{comment}{ */}
+00542 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} \_\_builtin\_prevclzsse(NODETYPE x, \textcolor{keywordtype}{int} i) \{
+00543         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} masked;
+00544         \textcolor{keywordflow}{if} (i > 64)
+00545         \{
+00546                 masked = x.ui64[1] & ~\_\_mask[i];
+00547                 \textcolor{keywordflow}{if} (masked != 0)
+00548                         \textcolor{keywordflow}{return} \_\_builtin\_clzll(masked);
+00549                 i = 64;
+00550         \}
+00551         masked = x.ui64[0] & ~\_\_mask[i];
+00552         \textcolor{keywordflow}{if} (masked == 0)
+00553                 \textcolor{keywordflow}{return} BSIZE;
+00554         \textcolor{keywordflow}{return} \_\_builtin\_clzll(masked) + 64;
+00555 \}
+00556 
+00557 \textcolor{preprocessor}{#define NODECOUNTER(i) \_\_builtin\_popcountsse(i)}
+00558 \textcolor{preprocessor}{#define NODELEAST(w) (\_\_builtin\_ffssse(w)-1)}
+00559 \textcolor{preprocessor}{#define NODENEXTLEAST(w, i) (\_\_builtin\_nextffssse((w), (i))-1)}
+00560 \textcolor{preprocessor}{#define NODEMOST(i) (BSIZE-\_\_builtin\_clzsse(i)-1)}
+00561 \textcolor{preprocessor}{#define NODEPREVMOST(w, i) (BSIZE-\_\_builtin\_prevclzsse((w), (i))-1)}
+00562 \textcolor{preprocessor}{#define NODEISEMPTY(w) ((w).ui64[0] == 0 && (w).ui64[1] == 0)}
+00563 \textcolor{preprocessor}{#define NODEISNOTEMPTY(w) ((w).ui64[0] != 0 || (w).ui64[1] != 0)}
+00564 \textcolor{preprocessor}{#define ISINNODE(w, i) ((w) & \_\_oneshifted[i])                                                  }
+00565 \textcolor{preprocessor}{}
+00566 \textcolor{preprocessor}{#elif \_ARCH32\_  // see comments at #ifdef \_ARCH8\_}
+00567 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} NODETYPE; 
+00568 \textcolor{preprocessor}{#define BSIZE 32                                        }
+00569 \textcolor{preprocessor}{#define WSIZE 4                                         }
+00570 \textcolor{preprocessor}{#define LOGB 5L                                         }
+00571 \textcolor{preprocessor}{#define LOGW 2L                                         }
+00572 \textcolor{preprocessor}{#define LOGBW 7L                                        }
+00573 \textcolor{preprocessor}{#define ONE 1L                                          }
+00574 \textcolor{preprocessor}{#define NODEMAX 0xFFFFFFFF                      }
+00575 \textcolor{preprocessor}{#define MASKB 0x1FL                                     }
+00576 \textcolor{preprocessor}{//#define MASKB 0xFFFFFFE0}
+00577 
+00578 \textcolor{preprocessor}{#define MASKSZ (BSIZE+1)                        }
+00579 \textcolor{preprocessor}{static const NODETYPE \_\_mask[MASKSZ] = \{}
+00580         0xFFFFFFFF,
+00581         0xFFFFFFFE, 0xFFFFFFFC, 0xFFFFFFF8, 0xFFFFFFF0,
+00582         0xFFFFFFE0, 0xFFFFFFC0, 0xFFFFFF80, 0xFFFFFF00,
+00583         0xFFFFFE00, 0xFFFFFC00, 0xFFFFF800, 0xFFFFF000,
+00584         0xFFFFE000, 0xFFFFC000, 0xFFFF8000, 0xFFFF0000,
+00585         0xFFFE0000, 0xFFFC0000, 0xFFF80000, 0xFFF00000,
+00586         0xFFE00000, 0xFFC00000, 0xFF800000, 0xFF000000,
+00587         0xFE000000, 0xFC000000, 0xF8000000, 0xF0000000,
+00588         0xE0000000, 0xC0000000, 0x80000000, 0x00000000
+00589 \};
+00590 
+00591 \textcolor{keyword}{static} \textcolor{keyword}{const} NODETYPE \_\_oneshifted[MASKSZ] = \{
+00592         0x00000001,
+00593         0x00000002, 0x00000004, 0x00000008, 0x00000010,
+00594         0x00000020, 0x00000040, 0x00000080, 0x00000100,
+00595         0x00000200, 0x00000400, 0x00000800, 0x00001000,
+00596         0x00002000, 0x00004000, 0x00008000, 0x00010000,
+00597         0x00020000, 0x00040000, 0x00080000, 0x00100000,
+00598         0x00200000, 0x00400000, 0x00800000, 0x01000000,
+00599         0x02000000, 0x04000000, 0x08000000, 0x10000000,
+00600         0x20000000, 0x40000000, 0x80000000, 0x00000000
+00601 \};
+00602 
+00603 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} nodeMost(NODETYPE i) \{
+00604         \textcolor{keywordflow}{return} (i) == 0 ? -1 : BSIZE-\_\_builtin\_clzl(i)-1;
+00605 \}
+00606 
+00607 \textcolor{preprocessor}{#define NODECOUNTER(i) \_\_builtin\_popcountl(i)}
+00608 \textcolor{preprocessor}{#define NODELEAST(w) (\_\_builtin\_ffsl(w)-1)}
+00609 \textcolor{preprocessor}{#define NODENEXTLEAST(w, i) (NODELEAST((w) & \_\_mask[i + 1]))}
+00610 \textcolor{preprocessor}{#define NODEMOST(i) (nodeMost(i))}
+00611 \textcolor{preprocessor}{#define NODEPREVMOST(w, i) (NODEMOST((w) & ~\_\_mask[i]))}
+00612 \textcolor{preprocessor}{#define NODEISEMPTY(w) (w == 0)}
+00613 \textcolor{preprocessor}{#define NODEISNOTEMPTY(w) (w != 0)}
+00614 \textcolor{preprocessor}{#define ISINNODE(w, i) ((w) & (ONE << (i)))                                                     }
+00615 \textcolor{preprocessor}{}
+00616 \textcolor{preprocessor}{#elif \_ARCH64\_}
+00617 
+00618 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} NODETYPE; 
+00619 \textcolor{preprocessor}{#define BSIZE 64}
+00620 \textcolor{preprocessor}{#define WSIZE 8}
+00621 \textcolor{preprocessor}{#define LOGB 6LL}
+00622 \textcolor{preprocessor}{#define LOGW 3}
+00623 \textcolor{preprocessor}{#define LOGBW 9}
+00624 
+00625 \textcolor{preprocessor}{#define ONE 1LL}
+00626 \textcolor{preprocessor}{#define NODEMAX 0xFFFFFFFFFFFFFFFF}
+00627 \textcolor{preprocessor}{#define MASKB 0x3FLL}
+00628 \textcolor{comment}{//#define MASKB 0xFFFFFFFFFFFFFFC0}
+00629 
+00630 \textcolor{preprocessor}{#define MASKSZ (BSIZE+1)}
+00631 \textcolor{keyword}{static} \textcolor{keyword}{const} NODETYPE \_\_mask[MASKSZ] = \{
+00632         0xFFFFFFFFFFFFFFFF,
+00633         0xFFFFFFFFFFFFFFFE, 0xFFFFFFFFFFFFFFFC, 0xFFFFFFFFFFFFFFF8, 0xFFFFFFFFFFFFFFF0,
+00634         0xFFFFFFFFFFFFFFE0, 0xFFFFFFFFFFFFFFC0, 0xFFFFFFFFFFFFFF80, 0xFFFFFFFFFFFFFF00,
+00635         0xFFFFFFFFFFFFFE00, 0xFFFFFFFFFFFFFC00, 0xFFFFFFFFFFFFF800, 0xFFFFFFFFFFFFF000,
+00636         0xFFFFFFFFFFFFE000, 0xFFFFFFFFFFFFC000, 0xFFFFFFFFFFFF8000, 0xFFFFFFFFFFFF0000,
+00637         0xFFFFFFFFFFFE0000, 0xFFFFFFFFFFFC0000, 0xFFFFFFFFFFF80000, 0xFFFFFFFFFFF00000,
+00638         0xFFFFFFFFFFE00000, 0xFFFFFFFFFFC00000, 0xFFFFFFFFFF800000, 0xFFFFFFFFFF000000,
+00639         0xFFFFFFFFFE000000, 0xFFFFFFFFFC000000, 0xFFFFFFFFF8000000, 0xFFFFFFFFF0000000,
+00640         0xFFFFFFFFE0000000, 0xFFFFFFFFC0000000, 0xFFFFFFFF80000000, 0xFFFFFFFF00000000,
+00641         0xFFFFFFFE00000000, 0xFFFFFFFC00000000, 0xFFFFFFF800000000, 0xFFFFFFF000000000,
+00642         0xFFFFFFE000000000, 0xFFFFFFC000000000, 0xFFFFFF8000000000, 0xFFFFFF0000000000,
+00643         0xFFFFFE0000000000, 0xFFFFFC0000000000, 0xFFFFF80000000000, 0xFFFFF00000000000,
+00644         0xFFFFE00000000000, 0xFFFFC00000000000, 0xFFFF800000000000, 0xFFFF000000000000,
+00645         0xFFFE000000000000, 0xFFFC000000000000, 0xFFF8000000000000, 0xFFF0000000000000,
+00646         0xFFE0000000000000, 0xFFC0000000000000, 0xFF80000000000000, 0xFF00000000000000,
+00647         0xFE00000000000000, 0xFC00000000000000, 0xF800000000000000, 0xF000000000000000,
+00648         0xE000000000000000, 0xC000000000000000, 0x8000000000000000, 0x0000000000000000
+00649 \};
+00650 
+00651 \textcolor{keyword}{static} \textcolor{keyword}{const} NODETYPE \_\_oneshifted[MASKSZ] = \{
+00652         0x0000000000000001,
+00653         0x0000000000000002, 0x0000000000000004, 0x0000000000000008, 0x0000000000000010,
+00654         0x0000000000000020, 0x0000000000000040, 0x0000000000000080, 0x0000000000000100,
+00655         0x0000000000000200, 0x0000000000000400, 0x0000000000000800, 0x0000000000001000,
+00656         0x0000000000002000, 0x0000000000004000, 0x0000000000008000, 0x0000000000010000,
+00657         0x0000000000020000, 0x0000000000040000, 0x0000000000080000, 0x0000000000100000,
+00658         0x0000000000200000, 0x0000000000400000, 0x0000000000800000, 0x0000000001000000,
+00659         0x0000000002000000, 0x0000000004000000, 0x0000000008000000, 0x0000000010000000,
+00660         0x0000000020000000, 0x0000000040000000, 0x0000000080000000, 0x0000000100000000,
+00661         0x0000000200000000, 0x0000000400000000, 0x0000000800000000, 0x0000001000000000,
+00662         0x0000002000000000, 0x0000004000000000, 0x0000008000000000, 0x0000010000000000,
+00663         0x0000020000000000, 0x0000040000000000, 0x0000080000000000, 0x0000100000000000,
+00664         0x0000200000000000, 0x0000400000000000, 0x0000800000000000, 0x0001000000000000,
+00665         0x0002000000000000, 0x0004000000000000, 0x0008000000000000, 0x0010000000000000,
+00666         0x0020000000000000, 0x0040000000000000, 0x0080000000000000, 0x0100000000000000,
+00667         0x0200000000000000, 0x0400000000000000, 0x0800000000000000, 0x1000000000000000,
+00668         0x2000000000000000, 0x4000000000000000, 0x8000000000000000, 0x0000000000000000
+00669 \};
+00670 
+00671 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} nodeMost(NODETYPE i) \{
+00672         \textcolor{keywordflow}{return} (i) == 0 ? -1 : BSIZE-\_\_builtin\_clzll(i)-1;
+00673 \}
+00674 
+00675 \textcolor{preprocessor}{#define NODECOUNTER(i) \_\_builtin\_popcountll(i)}
+00676 \textcolor{preprocessor}{#define NODELEAST(w) (\_\_builtin\_ffsll(w)-1)}
+00677 \textcolor{preprocessor}{#define NODENEXTLEAST(w, i) (NODELEAST((w) & \_\_mask[i + 1]))}
+00678 \textcolor{preprocessor}{#define NODEMOST(i) (nodeMost(i))}
+00679 \textcolor{preprocessor}{#define NODEPREVMOST(w, i) (NODEMOST((w) & ~\_\_mask[i]))}
+00680 \textcolor{preprocessor}{#define NODEISEMPTY(w) (w == 0)}
+00681 \textcolor{preprocessor}{#define NODEISNOTEMPTY(w) (w != 0)}
+00682 \textcolor{preprocessor}{#define ISINNODE(w, i) ((w) & (ONE << (i)))                                                     }
+00683 \textcolor{preprocessor}{}
+00684 \textcolor{preprocessor}{#else}
+00685 
+00689 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} NODETYPE;                         
+00690 \textcolor{preprocessor}{#define BSIZE 8                                                         }
+00691 \textcolor{preprocessor}{#define WSIZE 1                                                         }
+00692 \textcolor{preprocessor}{#define LOGB 3                                                          }
+00693 \textcolor{preprocessor}{#define LOGW 0                                                          }
+00694 \textcolor{preprocessor}{#define LOGBW 3                                                         }
+00695 \textcolor{preprocessor}{#define ONE 1                                                           }
+00696 \textcolor{preprocessor}{#define NODEMAX 0xFF                                            }
+00697 \textcolor{preprocessor}{#define MASKB 0x07                                                      }
+00698 \textcolor{preprocessor}{//#define MASKB 0xFFFFFFE0}
+00699 
+00700 \textcolor{preprocessor}{#define MASKSZ (BSIZE+1)                                        }
+00701 \textcolor{preprocessor}{static const NODETYPE \_\_mask[MASKSZ] = \{ }
+00702 \textcolor{preprocessor}{                0xFF, 0xFE, 0xFC, 0xF8, 0xF0, 0xE0, 0xC0, 0x80, 0x00 \};}
+00703 
+00704 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} nodeMost(NODETYPE i) \{
+00705         \textcolor{keywordflow}{return} (i) == 0 ? -1 : BSIZE-\_\_builtin\_clz(i)-1;
+00706 \}
+00707 
+00708 \textcolor{preprocessor}{#define NODECOUNTER(w) \_\_builtin\_popcount(w)                                            }
+00709 \textcolor{preprocessor}{#define NODELEAST(w) (\_\_builtin\_ffs(w)-1)                                                       }
+00710 \textcolor{preprocessor}{#define NODENEXTLEAST(w, i) (NODELEAST((w) & \_\_mask[i + 1]))            }
+00711 \textcolor{preprocessor}{#define NODEMOST(i) (nodeMost(i))                                                                       }
+00712 \textcolor{preprocessor}{#define NODEPREVMOST(w, i) (NODEMOST((w) & ~\_\_mask[i]))                         }
+00713 \textcolor{preprocessor}{#define NODEISEMPTY(w) (w == 0)}
+00714 \textcolor{preprocessor}{#define NODEISNOTEMPTY(w) (w != 0)}
+00715 \textcolor{preprocessor}{#define ISINNODE(w, i) ((w) & (ONE << (i)))                                                     }
+00716 \textcolor{preprocessor}{#endif}
+00717 
+00718 \textcolor{preprocessor}{#define NELEM(i) ((i) << LOGB)                                                                          }
+00719 \textcolor{preprocessor}{#define NODEIDX(i) ((i) >> LOGB)                                                                        }
+00720 \textcolor{preprocessor}{#define IDXINNODE(i) ((i) & MASKB)                                                                      }
+00721 \textcolor{preprocessor}{#define RETAINLEAST(w, i) ((w) & (NODEMAX >> (BSIZE-(i))))                      }
+00722 \textcolor{preprocessor}{}
+00723 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00724         \textcolor{keyword}{const} \textcolor{keywordtype}{int} n;
+00725         \textcolor{keyword}{const} \textcolor{keywordtype}{int} size;
+00726         \textcolor{keyword}{const} \textcolor{keywordtype}{int} step;  \textcolor{comment}{// in words}
+00727         \textcolor{keyword}{const} \textcolor{keywordtype}{int} nRnodes;
+00728         \textcolor{keyword}{const} \textcolor{keywordtype}{char} * ptr;               
+00729         NODETYPE * S;   
+00730         NODETYPE * R;   
+00731 \} BitMap;
+00732 
+00733 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00734 \textcolor{comment}{//      int indS;                       //!< Node index in a summary.}
+00735         \textcolor{keywordtype}{int} ind;                        
+00736         \textcolor{keywordtype}{int} nelem;                      
+00737         \textcolor{keywordtype}{int} cur;                        
+00738         NODETYPE * begS;        
+00739         NODETYPE * endS;        
+00740         NODETYPE * bufR;        
+00741         NODETYPE * bufS;        
+00742 \} Node;
+00743 
+00744 \textcolor{keyword}{static} \textcolor{keywordtype}{void} printNode(Node * node);
+00745 \textcolor{keyword}{static} \textcolor{keywordtype}{void} printSetNodes(BitMap \textcolor{keyword}{const} * s);
+00746 
+00747 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} inline\_ceillog2(\textcolor{keywordtype}{int} n) \{
+00748         \textcolor{keywordtype}{int} c = 0;
+00749         \textcolor{keywordtype}{int} l = 0;
+00750         \textcolor{keywordflow}{while} (n > 1) \{
+00751                 c |= (n & 1);
+00752                 n >>= 1;
+00753                 l++;
+00754         \}
+00755         l += c;
+00756         \textcolor{keywordflow}{return} l;
+00757 \}
+00758 
+00759 \textcolor{keyword}{static} \textcolor{keyword}{inline} BitMap * \textcolor{keyword}{const} newBitMapVector(\textcolor{keywordtype}{size\_t} size, \textcolor{keywordtype}{size\_t} n) \{
+00760         \textcolor{keywordtype}{int} tamR = NODEIDX(n-1) + 1;
+00761         \textcolor{keywordtype}{int} tamS = NODEIDX(tamR-1) + 1;
+00762         \textcolor{keywordtype}{int} step = inline\_ceillog2(tamR+tamS);
+00763         \textcolor{keywordtype}{int} tamRS = 1 << step;
+00764         \textcolor{keywordtype}{int} tam = (tamRS<<LOGW);
+00765 
+00766         BitMap * ret = (BitMap *) malloc(WSIZE+WSIZE+\textcolor{keyword}{sizeof}(BitMap)+tam*size);
+00767         \textcolor{keywordflow}{if} (ret==NULL)
+00768                 \textcolor{keywordflow}{return}(NULL);
+00769 
+00770         BitMap aux = \{ n, size, step, tamR, (\textcolor{keywordtype}{char} *) ret, NULL, NULL \};
+00771         ret =  (BitMap *) (((\textcolor{keywordtype}{char} *) ret) + (WSIZE - (((intptr\_t) ret) & (WSIZE-1))));
+00772         memcpy(ret, &aux, \textcolor{keyword}{sizeof}(BitMap));
+00773 
+00774         \textcolor{keywordtype}{char} * maps\_ptr = ((\textcolor{keywordtype}{char} *) ret) + \textcolor{keyword}{sizeof}(BitMap);
+00775         ret->S = (NODETYPE *) (maps\_ptr + (WSIZE - (((intptr\_t) maps\_ptr) & (
+      WSIZE-1))));
+00776         ret->R = ret->S + tamS;
+00777 
+00778         \textcolor{keywordtype}{int} i, s;
+00779         \textcolor{keywordflow}{for} (i = 0, s = 0; i < size; i++, s += tamRS)
+00780                 memset(ret->S + s, 0, tamS<<LOGW);
+00781 
+00782         \textcolor{keywordflow}{return} ret;
+00783 \}
+00784 
+00785 \textcolor{keyword}{static} \textcolor{keyword}{inline} BitMap * \textcolor{keyword}{const} newBitMap(\textcolor{keywordtype}{size\_t} n) \{
+00786         \textcolor{keywordflow}{return} newBitMapVector(1, n);
+00787 \}
+00788 
+00789 \textcolor{keyword}{static} \textcolor{keyword}{inline} BitMap *newViewOf(BitMap * \textcolor{keyword}{const} bm) \{
+00790         BitMap * ret = (BitMap *) malloc(WSIZE+\textcolor{keyword}{sizeof}(BitMap));
+00791         \textcolor{keywordflow}{if} (ret==NULL)
+00792                 \textcolor{keywordflow}{return}(NULL);
+00793 
+00794         ret =  (BitMap *) (((\textcolor{keywordtype}{char} *) ret) + (WSIZE - (((intptr\_t) ret) & (WSIZE-1))));
+00795         memcpy(ret, bm, \textcolor{keyword}{sizeof}(BitMap));
+00796         ret->ptr = (\textcolor{keywordtype}{char} *) ret;
+00797         memset((\textcolor{keywordtype}{int} *) &ret->size, 1, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+00798 
+00799         \textcolor{keywordflow}{return} ret;
+00800 \}
+00801 
+00802 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setAsViewOf(BitMap * \textcolor{keyword}{const} bm, BitMap * v) \{
+00803         \textcolor{keyword}{const} \textcolor{keywordtype}{char} * aux = v->ptr;
+00804         memcpy(v, bm, \textcolor{keyword}{sizeof}(BitMap));
+00805         v->ptr = aux;
+00806         memset((\textcolor{keywordtype}{int} *) &v->size, 1, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+00807 \}
+00808 
+00809 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} freeBitMap(BitMap * \textcolor{keyword}{const} ptr) \{
+00810         free((\textcolor{keywordtype}{char} *) ptr->ptr);
+00811 \}
+00812 
+00813 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} subMap(BitMap * \textcolor{keyword}{const} bm, BitMap * r, \textcolor{keywordtype}{int} i) \{
+00814         \textcolor{keywordtype}{int} is = (i<<bm->step);
+00815         r->S = bm->S + is;
+00816         r->R = bm->R + is;
+00817 \}
+00818 
+00819 \textcolor{comment}{// Deletes bit \(\backslash\)c i from node \(\backslash\)c w.}
+00820 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} delElement(BitMap * bm, Node \textcolor{keyword}{const} * i) \{
+00821 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+00822         *(bm->R+i->ind) &= ~(ONE << (i->cur));
+00823         \textcolor{keywordflow}{if} (*(bm->R+i->ind) == 0)
+00824                 *(bm->S+NODEIDX(i->ind)) &= ~(ONE << (IDXINNODE(i->ind)));
+00825 \textcolor{preprocessor}{#elif defined(\_ARCH128\_) || defined(\_ARCH256\_)}
+00826         (bm->R+i->ind)->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[i->cur]] &= ~\_\_oneshifted[i->
+      cur];
+00827         \textcolor{keywordflow}{if} ((bm->R+i->ind)->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i->cur]] == 0)
+00828                 (bm->S+NODEIDX(i->ind))->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[IDXINNODE(i->
+      ind)]] &= ~\_\_oneshifted[IDXINNODE(i->ind)];
+00829 \textcolor{preprocessor}{#endif}
+00830 \}
+00831 
+00832 \textcolor{comment}{// Adds bit \(\backslash\)c i to node \(\backslash\)c w.}
+00833 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} addElement(BitMap * bm, Node \textcolor{keyword}{const} * i) \{
+00834 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+00835         \textcolor{keywordflow}{if} ((*(bm->S+NODEIDX(i->ind)) & (ONE << (IDXINNODE(i->ind)))) == 0) \{
+00836                 *(bm->S+NODEIDX(i->ind)) |= (ONE << (IDXINNODE(i->ind)));
+00837                 *(bm->R+i->ind) = (ONE << (i->cur));
+00838         \}
+00839         \textcolor{keywordflow}{else}
+00840                 *(bm->R+i->ind) |= (ONE << (i->cur));
+00841 \textcolor{preprocessor}{#elif defined(\_ARCH128\_) || defined(\_ARCH256\_)}
+00842         \textcolor{keywordflow}{if} (((bm->S+NODEIDX(i->ind))->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[IDXINNODE(i->
+      ind)]] & \_\_oneshifted[IDXINNODE(i->ind)]) == 0) \{
+00843                 (bm->S+NODEIDX(i->ind))->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[IDXINNODE(i->
+      ind)]] |= \_\_oneshifted[IDXINNODE(i->ind)];
+00844                 (bm->R+i->ind)->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[i->cur]] = \_\_oneshifted[i->
+      cur];
+00845         \}
+00846         \textcolor{keywordflow}{else}
+00847                 (bm->R+i->ind)->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i->cur]] |= \_\_oneshifted[i->
+      cur];
+00848 #endif
+00849 \}
+00850 
+00851 \textcolor{comment}{// Inverts bit \(\backslash\)c i to node \(\backslash\)c w.}
+00852 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} invElement(BitMap * bm, Node \textcolor{keyword}{const} * i) \{
+00853 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+00854         \textcolor{keywordflow}{if} ((*(bm->S+NODEIDX(i->ind)) & (ONE << (IDXINNODE(i->ind)))) == 0) \{
+00855                 *(bm->S+NODEIDX(i->ind)) |= (ONE << (IDXINNODE(i->ind)));
+00856                 *(bm->R+i->ind) = (ONE << (i->cur));
+00857         \}
+00858         \textcolor{keywordflow}{else} \{
+00859                 *(bm->R+i->ind) ^= (ONE << (i->cur));
+00860                 \textcolor{keywordflow}{if} (*(bm->R+i->ind) == 0)
+00861                         *(bm->S+NODEIDX(i->ind)) &= ~(ONE << (IDXINNODE(i->ind)));
+00862         \}
+00863 \textcolor{preprocessor}{#elif defined(\_ARCH128\_) || defined(\_ARCH256\_)}
+00864         \textcolor{keywordflow}{if} (((bm->S+NODEIDX(i->ind))->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[IDXINNODE(i->
+      ind)]] & \_\_oneshifted[IDXINNODE(i->ind)]) == 0) \{
+00865                 (bm->S+NODEIDX(i->ind))->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[IDXINNODE(i->
+      ind)]] |= \_\_oneshifted[IDXINNODE(i->ind)];
+00866                 (bm->R+i->ind)->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[i->cur]] = \_\_oneshifted[i->
+      cur];
+00867         \}
+00868         \textcolor{keywordflow}{else} \{
+00869                 (bm->R+i->ind)->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[i->cur]] ^= \_\_oneshifted[i->
+      cur];
+00870                 \textcolor{keywordflow}{if} ((bm->R+i->ind)->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i->cur]] == 0)
+00871                         (bm->S+NODEIDX(i->ind))->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[
+      IDXINNODE(i->ind)]] &= ~\_\_oneshifted[IDXINNODE(i->ind)];
+00872         \}
+00873 \textcolor{preprocessor}{#endif}
+00874 \}
+00875 
+00877 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} hasElement(BitMap \textcolor{keyword}{const} * bm, \textcolor{keywordtype}{int} i) \{
+00878         \textcolor{keywordtype}{int} nodeidx = NODEIDX(i);
+00879 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+00880         \textcolor{keywordflow}{return} ISINNODE(*(bm->R+nodeidx), IDXINNODE(i)) != 0 && ISINNODE(*(bm->S+
+      NODEIDX(nodeidx)), IDXINNODE(nodeidx)) != 0;
+00881 \textcolor{preprocessor}{#elif defined(\_ARCH128\_) || defined(\_ARCH256\_)}
+00882         \textcolor{keywordtype}{int} idx = IDXINNODE(i);
+00883         \textcolor{keywordflow}{if} (ISINNODE((bm->R+nodeidx)->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[idx]], idx) != 0)
+00884         \{
+00885                 idx = IDXINNODE(nodeidx);
+00886                 ISINNODE((bm->S+NODEIDX(nodeidx))->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[idx]], idx) != 0;
+00887         \}
+00888         \textcolor{keywordflow}{return} 0;
+00889 \textcolor{preprocessor}{#endif}
+00890 \}
+00891 
+00892 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} isEmpty(BitMap * mvec) \{
+00893         NODETYPE * node = mvec->S;
+00894         \textcolor{keywordflow}{while} (node < mvec->R)
+00895         \{
+00896                 \textcolor{keywordflow}{if} (NODEISNOTEMPTY(*node))
+00897                         \textcolor{keywordflow}{return} 0;
+00898                 node++;
+00899         \}
+00900         \textcolor{keywordflow}{return} 1;
+00901 \}
+00902 
+00903 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} isNotEmpty(BitMap * mvec) \{
+00904         NODETYPE * node = mvec->S;
+00905         \textcolor{keywordflow}{while} (node < mvec->R)
+00906         \{
+00907                 \textcolor{keywordflow}{if} (NODEISNOTEMPTY(*node))
+00908                         \textcolor{keywordflow}{return} 1;
+00909                 node++;
+00910         \}
+00911         \textcolor{keywordflow}{return} 0;
+00912 \}
+00913 
+00914 \textcolor{comment}{// forward enumeration}
+00915 
+00916 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} beginWhile(BitMap \textcolor{keyword}{const} * bm, Node * node) \{
+00917 \textcolor{comment}{//      node->indS = 0;}
+00918         node->ind = 0;
+00919         node->nelem = 0;
+00920         node->cur = -1;
+00921         node->begS = bm->S;
+00922         node->endS = bm->R;
+00923         node->bufR = bm->R;
+00924         node->bufS = bm->S;
+00925 \}
+00926 
+00927 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} nextCommon(BitMap \textcolor{keyword}{const} * bm, Node * node) \{
+00928 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+00929         \textcolor{keywordflow}{if} ((*node->bufS & (ONE << IDXINNODE(node->ind))) > 0)
+00930                 node->cur = NODENEXTLEAST(*node->bufR & *(bm->R+node->ind), node->
+      cur);
+00931         \textcolor{keywordflow}{else}
+00932                 node->cur = -1;
+00933         \textcolor{keywordflow}{if} (node->cur < 0 && node->bufS < node->endS) \{
+00934                 \textcolor{keywordtype}{int} i = IDXINNODE(node->ind);
+00935                 \textcolor{keywordtype}{int} j = NODEIDX(node->ind);
+00936                 NODETYPE * bnodeS = bm->S+j;
+00937                 NODETYPE * R = node->bufR - node->ind;
+00938                 NODETYPE bufS = *node->bufS & *bnodeS;
+00939                 \textcolor{keywordflow}{while} (node->cur < 0 && node->bufS < node->endS) \{
+00940                         i = NODENEXTLEAST(bufS, i);
+00941                         \textcolor{keywordflow}{while} (i < 0 && ++node->bufS < node->endS) \{
+00942                                 j++;
+00943                                 bufS = *node->bufS & *++bnodeS;
+00944                                 i = NODENEXTLEAST(bufS, -1);
+00945                         \}
+00946                         \textcolor{keywordflow}{if} (node->bufS < node->endS)
+00947                         \{
+00948                                 node->ind = ((j << LOGB) + i);
+00949                                 node->bufR = R + node->ind;
+00950                                 node->nelem = (node->ind << LOGB);
+00951                                 node->cur = NODENEXTLEAST(*node->bufR & *(bm->R+node->
+      ind), -1);
+00952                         \}
+00953                 \}
+00954         \}
+00955 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+00956         NODETYPE bufR;
+00957         \textcolor{keywordflow}{if} ((*node->bufS & (ONE << IDXINNODE(node->ind))) > 0) \{
+00958                 \_mm\_store\_si128 (&bufR.mi, \_mm\_and\_si128 ((bm->R+node->ind)->mi, node->
+      bufR->mi));
+00959                 node->cur = NODENEXTLEAST(bufR, node->cur);
+00960         \}
+00961         \textcolor{keywordflow}{else}
+00962                 node->cur = -1;
+00963         \textcolor{keywordflow}{if} (node->cur < 0 && node->bufS < node->endS) \{
+00964                 \textcolor{keywordtype}{int} i = IDXINNODE(node->ind);
+00965                 \textcolor{keywordtype}{int} j = NODEIDX(node->ind);
+00966                 NODETYPE * bnodeS = bm->S+j;
+00967                 NODETYPE * R = node->bufR - node->ind;
+00968                 NODETYPE bufS;
+00969             \_mm\_store\_si128 (&bufS.mi, \_mm\_and\_si128 (bnodeS->mi, node->bufS->mi));
+00970                 \textcolor{keywordflow}{while} (node->cur < 0 && node->bufS < node->endS) \{
+00971                         i = NODENEXTLEAST(bufS, i);
+00972                         \textcolor{keywordflow}{while} (i < 0 && ++node->bufS < node->endS) \{
+00973                                 j++;
+00974                             \_mm\_store\_si128 (&bufS.mi, \_mm\_and\_si128 ((++bnodeS)->mi, node->
+      bufS->mi));
+00975                                 i = NODENEXTLEAST(bufS, -1);
+00976                         \}
+00977                         \textcolor{keywordflow}{if} (node->bufS < node->endS)
+00978                         \{
+00979                                 node->ind = ((j << LOGB) + i);
+00980                                 node->bufR = R + node->ind;
+00981                                 node->nelem = (node->ind << LOGB);
+00982                             \_mm\_store\_si128 (&bufR.mi, \_mm\_and\_si128 ((bm->R+node->
+      ind)->mi, node->bufR->mi));
+00983                                 node->cur = NODENEXTLEAST(bufR, -1);
+00984                         \}
+00985                 \}
+00986         \}
+00987 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+00988         NODETYPE bufR;
+00989         \textcolor{keywordflow}{if} ((*node->bufS & (ONE << IDXINNODE(node->ind))) > 0) \{
+00990                 \_mm256\_store\_pd(&bufR.d64,\_mm256\_and\_pd((bm->R+node->ind)->md, node->
+      bufR->md));
+00991                 node->cur = NODENEXTLEAST(bufR, node->cur);
+00992         \}
+00993         \textcolor{keywordflow}{else}
+00994                 node->cur = -1;
+00995         \textcolor{keywordflow}{if} (node->cur < 0 && node->bufS < node->endS) \{
+00996                 \textcolor{keywordtype}{int} i = IDXINNODE(node->ind);
+00997                 \textcolor{keywordtype}{int} j = NODEIDX(node->ind);
+00998                 NODETYPE * bnodeS = bm->S+j;
+00999                 NODETYPE * R = node->bufR - node->ind;
+01000                 NODETYPE bufS;
+01001             \_mm256\_store\_pd(&bufS.d64,\_mm256\_and\_pd(bnodeS->md, node->bufS->md));
+01002                 \textcolor{keywordflow}{while} (node->cur < 0 && node->bufS < node->endS) \{
+01003                         i = NODENEXTLEAST(bufS, i);
+01004                         \textcolor{keywordflow}{while} (i < 0 && ++node->bufS < node->endS) \{
+01005                                 j++;
+01006                             \_mm256\_store\_pd(&bufS.d64,\_mm256\_and\_pd((++bnodeS)->md, node->
+      bufS->md));
+01007                                 i = NODENEXTLEAST(bufS, -1);
+01008                         \}
+01009                         \textcolor{keywordflow}{if} (node->bufS < node->endS)
+01010                         \{
+01011                                 node->ind = ((j << LOGB) + i);
+01012                                 node->bufR = R + node->ind;
+01013                                 node->nelem = (node->ind << LOGB);
+01014                             \_mm256\_store\_pd(&bufR.d64,\_mm256\_and\_pd((bm->R+node->
+      ind)->md, node->bufR->md));
+01015                                 node->cur = NODENEXTLEAST(bufR, -1);
+01016                         \}
+01017                 \}
+01018         \}
+01019 \textcolor{preprocessor}{#endif}
+01020 \}
+01021 
+01022 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} beginCommon(BitMap \textcolor{keyword}{const} * abm, BitMap \textcolor{keyword}{const} * bm, Node * node) \{
+01023         beginWhile(bm, node);
+01024         nextCommon(abm, node);
+01025 \}
+01026 
+01027 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} next(Node * node) \{
+01028         \textcolor{keywordflow}{if} ((*node->bufS & (ONE << IDXINNODE(node->ind))) > 0)
+01029                 node->cur = NODENEXTLEAST(*node->bufR, node->cur);
+01030         \textcolor{keywordflow}{else}
+01031                 node->cur = -1;
+01032         \textcolor{keywordflow}{if} (node->cur < 0 && node->bufS < node->endS) \{
+01033                 \textcolor{keywordtype}{int} i = IDXINNODE(node->ind);
+01034                 \textcolor{keywordtype}{int} j = NODEIDX(node->ind);
+01035                 NODETYPE * R = node->bufR - node->ind;
+01036                 \textcolor{keywordflow}{while} (node->cur < 0 && node->bufS < node->endS) \{
+01037                         i = NODENEXTLEAST(*node->bufS, i);
+01038                         \textcolor{keywordflow}{while} (i < 0 && ++node->bufS < node->endS) \{
+01039                                 j++;
+01040                                 i = NODENEXTLEAST(*node->bufS, -1);
+01041                         \}
+01042                         \textcolor{keywordflow}{if} (node->bufS < node->endS) \{
+01043                                 node->ind = ((j << LOGB) + i);
+01044                                 node->bufR = R + node->ind;
+01045                                 node->nelem = (node->ind << LOGB);
+01046                                 node->cur = NODENEXTLEAST(*node->bufR, -1);
+01047                         \}
+01048                 \}
+01049         \}
+01050 \}
+01051 
+01052 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} prev(Node * node) \{
+01053         \textcolor{keywordflow}{if} ((*node->bufS & (ONE << IDXINNODE(node->ind))) > 0)
+01054                 node->cur = NODEPREVMOST(*node->bufR, node->cur);
+01055         \textcolor{keywordflow}{else}
+01056                 node->cur = -1;
+01057         \textcolor{keywordflow}{if} (node->cur < 0 && node->bufS >= node->begS) \{
+01058                 \textcolor{keywordtype}{int} i = IDXINNODE(node->ind);
+01059                 \textcolor{keywordtype}{int} j = NODEIDX(node->ind);
+01060                 NODETYPE * R = node->bufR - node->ind;
+01061                 \textcolor{keywordflow}{while} (node->cur < 0 && node->bufS >= node->begS) \{
+01062                         i = NODEPREVMOST(*node->bufS, i);
+01063                         \textcolor{keywordflow}{while} (i < 0 && --node->bufS >= node->begS) \{
+01064                                 j--;
+01065                                 i = NODEPREVMOST(*node->bufS, BSIZE);
+01066                         \}
+01067                         \textcolor{keywordflow}{if} (node->bufS >= node->endS) \{
+01068                                 node->ind = ((j << LOGB) + i);
+01069                                 node->bufR = R + node->ind;
+01070                                 node->nelem = (node->ind << LOGB);
+01071                                 node->cur = NODEPREVMOST(*node->bufR, BSIZE);
+01072                         \}
+01073                 \}
+01074         \}
+01075 \}
+01076 
+01077 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} begin(BitMap \textcolor{keyword}{const} * bm, Node * node) \{
+01078         beginWhile(bm, node);
+01079         next(node);
+01080 \}
+01081 
+01082 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} end(Node * node) \{
+01083         \textcolor{keywordflow}{return} node->bufS >= node->endS;
+01084 \}
+01085 
+01086 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} rearWhile(BitMap \textcolor{keyword}{const} * bm, Node * node) \{
+01087         node->ind = bm->nRnodes-1;
+01088         node->nelem = NELEM(node->ind);
+01089         node->cur = BSIZE;
+01090         node->begS = bm->S;
+01091         node->endS = bm->R;
+01092         node->bufR = bm->R+node->ind;
+01093         node->bufS = bm->S+NODEIDX(node->ind);
+01094 \}
+01095 
+01096 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} rear(BitMap \textcolor{keyword}{const} * bm, Node * node) \{
+01097         rearWhile(bm, node);
+01098         prev(node);
+01099 \}
+01100 
+01101 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} head(Node * node) \{
+01102         \textcolor{keywordflow}{return} node->bufS < node->begS;
+01103 \}
+01104 
+01105 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} getNode(Node * node, \textcolor{keywordtype}{int} i) \{
+01106         node->ind = NODEIDX(i);
+01107 \textcolor{comment}{//      node->indS = NODEIDX(node->ind);}
+01108         node->nelem = NELEM(node->ind);
+01109         node->cur = IDXINNODE(i);
+01110 \}
+01111 
+01112 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} printNode(Node * node) \{
+01113         printf(\textcolor{stringliteral}{"indS=%d  ind=%d  nelem=%d  cur=%d  elem=%d\(\backslash\)n"},NODEIDX(node->ind), node->
+      ind, node->nelem, node->cur, node->nelem+ node->cur);
+01114 \}
+01115 
+01116 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} getElement(Node \textcolor{keyword}{const} * node) \{
+01117         \textcolor{keywordflow}{return} node->nelem + node->cur;
+01118 \}
+01119 
+01120 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} setElement(Node * node, \textcolor{keywordtype}{int} i) \{
+01121         node->ind = NODEIDX(i);
+01122 \textcolor{comment}{//      node->indS = NODEIDX(node->ind);}
+01123         node->nelem = NELEM(node->ind);
+01124         node->cur = IDXINNODE(i);
+01125 \}
+01126 
+01135 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} cardOf(BitMap \textcolor{keyword}{const} * bmvec) \{
+01136         \textcolor{keywordtype}{int} ret = 0, i;
+01137         NODETYPE * nodeS;
+01138         NODETYPE * nodeR;
+01139         \textcolor{keywordflow}{for} (nodeS = bmvec->S, nodeR = bmvec->R; nodeS < bmvec->R; nodeS++, nodeR+=
+      BSIZE)
+01140         \{
+01141                 i = NODENEXTLEAST(*nodeS, -1);
+01142                 \textcolor{keywordflow}{while} (i >= 0) \{
+01143                         ret += NODECOUNTER(*(nodeR+i));
+01144                         i = NODENEXTLEAST(*nodeS, i);
+01145                 \}
+01146         \}
+01147         \textcolor{keywordflow}{return} ret;
+01148 \}
+01149 
+01157 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} copyAll(BitMap * bmvec, BitMap \textcolor{keyword}{const} * abmvec) \{
+01158         memcpy(bmvec->S, abmvec->S, ((abmvec->R-abmvec->S)+abmvec->nRnodes) << 
+      LOGW);
+01159 \}
+01160 
+01161 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} copySets(Node * node, Node * anode) \{
+01162         \textcolor{keywordtype}{int} i = (anode->bufS-anode->begS);
+01163         node->bufS = node->begS+i;
+01164         node->bufR = node->bufR+(anode->ind-node->ind);
+01165         node->ind = anode->ind;
+01166         node->nelem = anode->nelem;
+01167         node->cur = anode->cur;
+01168         i = (anode->endS-anode->bufS);
+01169         \textcolor{keywordtype}{int} ii = node->endS-node->bufS;
+01170         \textcolor{keywordflow}{if} (i > ii)
+01171                 i = ii;
+01172         memcpy(node->bufS, anode->bufS, i << LOGW);
+01173 
+01174         NODETYPE * nodeS;
+01175         NODETYPE * nodeR;
+01176         NODETYPE * anodeR;
+01177         \textcolor{keywordflow}{for} (nodeS = node->bufS, nodeR = node->bufR-IDXINNODE(node->ind), anodeR = anode->
+      bufR-IDXINNODE(node->ind); nodeS < node->endS;
+01178                         nodeS++, nodeR+=BSIZE, anodeR+=BSIZE)
+01179         \{
+01180 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01181                 i = NODENEXTLEAST(*nodeS, NODEIDX(node->ind)-1);
+01182                 \textcolor{keywordflow}{while} (i >= 0) \{
+01183                         *(nodeR+i) = *(anodeR+i);
+01184                         i = NODENEXTLEAST(*nodeS, i);
+01185                 \}
+01186 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01187                 i = NODENEXTLEAST(*nodeS, NODEIDX(node->ind)-1);
+01188                 \textcolor{keywordflow}{while} (i >= 0) \{
+01189                         \_mm\_store\_si128 (&(nodeR+i)->mi, (anodeR+i)->mi);
+01190                         i = NODENEXTLEAST(*nodeS, i);
+01191                 \}
+01192 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01193                 i = NODENEXTLEAST(*nodeS, NODEIDX(node->ind-1));
+01194                 \textcolor{keywordflow}{while} (i >= 0) \{
+01195                         \_mm256\_store\_pd(&(nodeR+i)->md, (anodeR+i)->md);
+01196                         i = NODENEXTLEAST(*nodeS, i);
+01197                 \}
+01198 \textcolor{preprocessor}{#endif}
+01199         \}
+01200 \}
+01201 
+01211 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} addAll(BitMap * bmvec, BitMap \textcolor{keyword}{const} * abmvec) \{
+01212         NODETYPE * bnodeS;
+01213         NODETYPE * abnodeS;
+01214         NODETYPE * bnodeR;
+01215         NODETYPE * abnodeR;
+01216         \textcolor{keywordtype}{int} i;
+01217 
+01218         \textcolor{keywordflow}{for} (bnodeS = bmvec->S, abnodeS = abmvec->S, bnodeR = bmvec->R, abnodeR = abmvec->
+      R; abnodeS < abmvec->R;
+01219                         bnodeS++, abnodeS++, bnodeR+=BSIZE, abnodeR+=BSIZE)
+01220         \{
+01221 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01222                 *bnodeS |= *abnodeS;
+01223                 i = NODENEXTLEAST(*abnodeS, -1);
+01224                 \textcolor{keywordflow}{while} (i >= 0) \{
+01225                         *(bnodeR+i) |= *(abnodeR+i);
+01226                         i = NODENEXTLEAST(*abnodeS, i);
+01227                 \}
+01228 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01229                 \_mm\_store\_si128 (&bnodeS->mi, \_mm\_or\_si128 (bnodeS->mi, abnodeS->mi));
+01230                 i = NODENEXTLEAST(*abnodeS, -1);
+01231                 \textcolor{keywordflow}{while} (i >= 0) \{
+01232                         \_mm\_store\_si128 (&(bnodeR+i)->mi, \_mm\_or\_si128 ((bnodeR+i)->mi, (abnodeR+i)->mi));
+01233                         i = NODENEXTLEAST(*abnodeS, i);
+01234                 \}
+01235 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01236                 \_mm256\_store\_pd(&bnodeS->md, \_mm256\_or\_pd(bnodeS->md, abnodeS->md));
+01237                 i = NODENEXTLEAST(*abnodeS, -1);
+01238                 \textcolor{keywordflow}{while} (i >= 0) \{
+01239                         \_mm256\_store\_pd(&(bnodeR+i)->md, \_mm256\_or\_pd((bnodeR+i)->md, (abnodeR+i)->md));
+01240                         i = NODENEXTLEAST(*abnodeS, i);
+01241                 \}
+01242 \textcolor{preprocessor}{#endif}
+01243         \}
+01244 \}
+01245 
+01246 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} addAllElements(BitMap * bm) \{
+01247         memset(bm->S, 0xFF, ((bm->R-bm->S)+bm->nRnodes) << LOGW);
+01248 
+01249 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01250         *(bm->S+NODEIDX(bm->nRnodes-1)) = RETAINLEAST(*(bm->S+NODEIDX(bm->nRnodes-1)),
+      IDXINNODE(bm->nRnodes-1)+1);
+01251         *(bm->R+bm->nRnodes-1) = RETAINLEAST(*(bm->R+bm->nRnodes-1),IDXINNODE(bm->n-1)+1);
+01252 \textcolor{preprocessor}{#elif defined(\_ARCH128\_) || defined(\_ARCH256\_)}
+01253         \textcolor{keywordtype}{int} idx = IDXINNODE(bm->nRnodes-1);
+01254         bm->S->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[idx]] = RETAINLEAST(bm->S->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[idx]], 
+      idx-((\textcolor{keywordtype}{unsigned} int) \_\_index[idx] << LOGB)+1);
+01255         idx = IDXINNODE(bm->n-1);
+01256         bm->R->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[idx]] = RETAINLEAST(bm->R->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) \_\_index[idx]], 
+      idx-((\textcolor{keywordtype}{unsigned} int) \_\_index[idx] << LOGB)+1);
+01257 \textcolor{preprocessor}{#endif}
+01258 \}
+01259 
+01261 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} delAllElements(BitMap * bm) \{
+01262         memset(bm->S, 0, (bm->R-bm->S) << LOGW);
+01263 \}
+01264 
+01274 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} removeAll(BitMap * bmvec, BitMap \textcolor{keyword}{const} * rbmvec) \{
+01275         NODETYPE * bnodeS;
+01276         NODETYPE * rbnodeS;
+01277         NODETYPE * bnodeR;
+01278         NODETYPE * rbnodeR;
+01279         NODETYPE buf;
+01280         \textcolor{keywordtype}{int} i;
+01281 
+01282         \textcolor{keywordflow}{for} (bnodeS = bmvec->S, rbnodeS = rbmvec->S, bnodeR = bmvec->R, rbnodeR = rbmvec->
+      R; bnodeS < bmvec->R;
+01283                         bnodeS++, rbnodeS++, bnodeR+=BSIZE, rbnodeR+=BSIZE)
+01284         \{
+01285 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01286                 buf = *bnodeS & *rbnodeS;
+01287                 i = NODENEXTLEAST(buf, -1);
+01288                 \textcolor{keywordflow}{while} (i >= 0) \{
+01289                         *(bnodeR+i) &= ~*(rbnodeR+i);
+01290                         \textcolor{keywordflow}{if} (*(bnodeR+i) == 0)
+01291                                 *bnodeS &= ~(ONE << i);
+01292                         i = NODENEXTLEAST(buf, i);
+01293                 \}
+01294 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01295                 \_mm\_store\_si128 (&buf.mi, \_mm\_and\_si128 (rbnodeS->mi, bnodeS->mi));
+01296                 i = NODENEXTLEAST(buf, -1);
+01297                 \textcolor{keywordflow}{while} (i >= 0) \{
+01298                         \_mm\_store\_si128 (&(bnodeR+i)->mi, \_mm\_andnot\_si128 ((rbnodeR+i)->mi, (bnodeR+i)->mi
+      ));
+01299                         \textcolor{keywordflow}{if} (\_mm\_comieq\_ss((bnodeR+i)->mi, \_\_zero))
+01300                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01301                         i = NODENEXTLEAST(buf, i);
+01302                 \}
+01303 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01304                 \_mm256\_store\_pd(&buf.md,\_mm256\_and\_pd(rbnodeS->md, bnodeS->md));
+01305                 i = NODENEXTLEAST(buf, -1);
+01306                 \textcolor{keywordflow}{while} (i >= 0) \{
+01307                         \_mm256\_store\_pd(&(bnodeR+i)->md,\_mm256\_andnot\_pd((rbnodeR+i)->md, (bnodeR+i)->md));
+01308                         \textcolor{keywordflow}{if} (\_mm256\_testz\_si256((bnodeR+i)->md, \_\_zero))
+01309                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01310                         i = NODENEXTLEAST(buf, i);
+01311                 \}
+01312 \textcolor{preprocessor}{#endif}
+01313         \}
+01314 \}
+01315 
+01316 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} removeFrom(Node * node, BitMap \textcolor{keyword}{const} * rbmvec) \{
+01317         NODETYPE * bnodeS;
+01318         NODETYPE * rbnodeS;
+01319         NODETYPE * bnodeR;
+01320         NODETYPE * rbnodeR;
+01321         NODETYPE buf;
+01322         \textcolor{keywordtype}{int} i;
+01323 
+01324         \textcolor{keywordflow}{for} (bnodeS = node->bufS, rbnodeS = rbmvec->S+(bnodeS-node->begS), bnodeR = node->
+      bufR-IDXINNODE(node->ind), rbnodeR = rbmvec->R+NODEIDX(node->ind); bnodeS < node->endS;
+01325                         bnodeS++, rbnodeS++, bnodeR+=BSIZE, rbnodeR+=BSIZE)
+01326         \{
+01327 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01328                 buf = *bnodeS & *rbnodeS;
+01329                 i = NODENEXTLEAST(buf, NODEIDX(node->ind-1));
+01330                 \textcolor{keywordflow}{while} (i >= 0) \{
+01331                         *(bnodeR+i) &= ~*(rbnodeR+i);
+01332                         \textcolor{keywordflow}{if} (*(bnodeR+i) == 0)
+01333                                 *bnodeS &= ~(ONE << i);
+01334                         i = NODENEXTLEAST(buf, i);
+01335                 \}
+01336 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01337                 \_mm\_store\_si128 (&buf.mi, \_mm\_and\_si128 (rbnodeS->mi, bnodeS->mi));
+01338                 i = NODENEXTLEAST(buf, NODEIDX(node->ind-1));
+01339                 \textcolor{keywordflow}{while} (i >= 0) \{
+01340                         \_mm\_store\_si128 (&(bnodeR+i)->mi, \_mm\_andnot\_si128 ((rbnodeR+i)->mi, (bnodeR+i)->mi
+      ));
+01341                         \textcolor{keywordflow}{if} (\_mm\_comieq\_ss((bnodeR+i)->mi, \_\_zero))
+01342                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01343                         i = NODENEXTLEAST(buf, i);
+01344                 \}
+01345 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01346                 \_mm256\_store\_pd(&buf.md,\_mm256\_and\_pd(rbnodeS->md, bnodeS->md));
+01347                 i = NODENEXTLEAST(buf, NODEIDX(node->ind-1));
+01348                 \textcolor{keywordflow}{while} (i >= 0) \{
+01349                         \_mm256\_store\_pd(&(bnodeR+i)->md,\_mm256\_andnot\_pd((rbnodeR+i)->md, (bnodeR+i)->md));
+01350                         \textcolor{keywordflow}{if} (\_mm256\_testz\_si256((bnodeR+i)->md, \_\_zero))
+01351                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01352                         i = NODENEXTLEAST(buf, i);
+01353                 \}
+01354 \textcolor{preprocessor}{#endif}
+01355         \}
+01356 \}
+01357 
+01367 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} retainAll(BitMap * bmvec, BitMap \textcolor{keyword}{const} * rbmvec) \{
+01368         NODETYPE * bnodeS;
+01369         NODETYPE * rbnodeS;
+01370         NODETYPE * bnodeR;
+01371         NODETYPE * rbnodeR;
+01372         \textcolor{keywordtype}{int} i;
+01373 
+01374         \textcolor{keywordflow}{for} (bnodeS = bmvec->S, rbnodeS = rbmvec->S, bnodeR = bmvec->R, rbnodeR = rbmvec->
+      R; bnodeS < bmvec->R;
+01375                         bnodeS++, rbnodeS++, bnodeR+=BSIZE, rbnodeR+=BSIZE)
+01376         \{
+01377 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01378                 *bnodeS &= *rbnodeS;
+01379                 i = NODENEXTLEAST(*bnodeS, -1);
+01380                 \textcolor{keywordflow}{while} (i >= 0) \{
+01381                         *(bnodeR+i) &= *(rbnodeR+i);
+01382                         \textcolor{keywordflow}{if} (*(bnodeR+i) == 0)
+01383                                 *bnodeS &= ~(ONE << i);
+01384                         i = NODENEXTLEAST(*bnodeS, i);
+01385                 \}
+01386 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01387                 \_mm\_store\_si128 (&bnodeS->mi, \_mm\_and\_si128 (rbnodeS->mi, bnodeS->mi));
+01388                 i = NODENEXTLEAST(*bnodeS, -1);
+01389                 \textcolor{keywordflow}{while} (i >= 0) \{
+01390                         \_mm\_store\_si128 (&(bnodeR+i)->mi, \_mm\_and\_si128 ((rbnodeR+i)->mi, (bnodeR+i)->mi));
+01391                         \textcolor{keywordflow}{if} (\_mm\_comieq\_ss((bnodeR+i)->mi, \_\_zero))
+01392                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01393                         i = NODENEXTLEAST(*bnodeS, i);
+01394                 \}
+01395 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01396                 \_mm256\_store\_pd(&bnodeS->md,\_mm256\_and\_pd(rbnodeS->md, bnodeS->md));
+01397                 i = NODENEXTLEAST(*bnodeS, -1);
+01398                 \textcolor{keywordflow}{while} (i >= 0) \{
+01399                         \_mm256\_store\_pd(&(bnodeR+i)->md,\_mm256\_and\_pd((rbnodeR+i)->md, (bnodeR+i)->md));
+01400                         \textcolor{keywordflow}{if} (\_mm256\_testz\_si256((bnodeR+i)->md, \_\_zero))
+01401                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01402                         i = NODENEXTLEAST(*bnodeS, i);
+01403                 \}
+01404 \textcolor{preprocessor}{#endif}
+01405         \}
+01406 \}
+01407 
+01408 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} retainFrom(BitMap * bmvec, BitMap \textcolor{keyword}{const} * rbmvec, Node * node) \{
+01409         NODETYPE * bnodeS;
+01410         NODETYPE * rbnodeS;
+01411         NODETYPE * bnodeR;
+01412         NODETYPE * rbnodeR;
+01413         \textcolor{keywordtype}{int} i;
+01414 
+01415         \textcolor{keywordflow}{for} (bnodeS = node->bufS, rbnodeS = rbmvec->S+(bnodeS-node->begS), bnodeR = node->
+      bufR-IDXINNODE(node->ind), rbnodeR = rbmvec->R+NODEIDX(node->ind); bnodeS < node->endS;
+01416                         bnodeS++, rbnodeS++, bnodeR+=BSIZE, rbnodeR+=BSIZE)
+01417         \{
+01418 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01419                 *bnodeS &= *rbnodeS;
+01420                 i = NODENEXTLEAST(*bnodeS, NODEIDX(node->ind-1));
+01421                 \textcolor{keywordflow}{while} (i >= 0) \{
+01422                         *(bnodeR+i) &= *(rbnodeR+i);
+01423                         \textcolor{keywordflow}{if} (*(bnodeR+i) == 0)
+01424                                 *bnodeS &= ~(ONE << i);
+01425                         i = NODENEXTLEAST(*bnodeS, i);
+01426                 \}
+01427 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01428                 \_mm\_store\_si128 (&bnodeS->mi, \_mm\_and\_si128 (rbnodeS->mi, bnodeS->mi));
+01429                 i = NODENEXTLEAST(*bnodeS, NODEIDX(node->ind-1));
+01430                 \textcolor{keywordflow}{while} (i >= 0) \{
+01431                         \_mm\_store\_si128 (&(bnodeR+i)->mi, \_mm\_and\_si128 ((rbnodeR+i)->mi, (bnodeR+i)->mi));
+01432                         \textcolor{keywordflow}{if} (\_mm\_comieq\_ss((bnodeR+i)->mi, \_\_zero))
+01433                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01434                         i = NODENEXTLEAST(*bnodeS, i);
+01435                 \}
+01436 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01437                 \_mm256\_store\_pd(&bnodeS->md,\_mm256\_and\_pd(rbnodeS->md, bnodeS->md));
+01438                 i = NODENEXTLEAST(*bnodeS, NODEIDX(node->ind-1));
+01439                 \textcolor{keywordflow}{while} (i >= 0) \{
+01440                         \_mm256\_store\_pd(&(bnodeR+i)->md,\_mm256\_and\_pd((rbnodeR+i)->md, (bnodeR+i)->md));
+01441                         \textcolor{keywordflow}{if} (\_mm256\_testz\_si256((bnodeR+i)->md, \_\_zero))
+01442                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01443                         i = NODENEXTLEAST(*bnodeS, i);
+01444                 \}
+01445 \textcolor{preprocessor}{#endif}
+01446         \}
+01447 
+01448 \}
+01449 
+01450 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} symDiff(BitMap * bmvec, BitMap \textcolor{keyword}{const} * rbmvec) \{
+01451         NODETYPE * bnodeS;
+01452         NODETYPE * rbnodeS;
+01453         NODETYPE * bnodeR;
+01454         NODETYPE * rbnodeR;
+01455         NODETYPE buf;
+01456         \textcolor{keywordtype}{int} i;
+01457 
+01458         \textcolor{keywordflow}{for} (bnodeS = bmvec->S, rbnodeS = rbmvec->S, bnodeR = bmvec->R, rbnodeR = rbmvec->
+      R; bnodeS < bmvec->R;
+01459                         bnodeS++, rbnodeS++, bnodeR+=BSIZE, rbnodeR+=BSIZE)
+01460         \{
+01461 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01462                 buf = *bnodeS | *rbnodeS;
+01463                 i = NODENEXTLEAST(buf, -1);
+01464                 \textcolor{keywordflow}{while} (i >= 0) \{
+01465                         *(bnodeR+i) ^= *(rbnodeR+i);
+01466                         \textcolor{keywordflow}{if} (*(bnodeR+i) == 0)
+01467                                 *bnodeS &= ~(ONE << i);
+01468                         i = NODENEXTLEAST(buf, i);
+01469                 \}
+01470 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01471                 \_mm\_store\_si128 (&buf.mi, \_mm\_or\_si128 (rbnodeS->mi, bnodeS->mi));
+01472                 i = NODENEXTLEAST(buf, -1);
+01473                 \textcolor{keywordflow}{while} (i >= 0) \{
+01474                         \_mm\_store\_si128 (&(bnodeR+i)->mi, \_mm\_xor\_si128 ((rbnodeR+i)->mi, (bnodeR+i)->mi));
+01475                         \textcolor{keywordflow}{if} (\_mm\_comieq\_ss((bnodeR+i)->mi, \_\_zero))
+01476                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01477                         i = NODENEXTLEAST(buf, i);
+01478                 \}
+01479 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01480                 \_mm256\_store\_pd(&buf.md,\_mm256\_or\_pd(rbnodeS->md, bnodeS->md));
+01481                 i = NODENEXTLEAST(buf, -1);
+01482                 \textcolor{keywordflow}{while} (i >= 0) \{
+01483                         \_mm256\_store\_pd(&(bnodeR+i)->md,\_mm256\_xor\_pd((rbnodeR+i)->md, (bnodeR+i)->md));
+01484                         \textcolor{keywordflow}{if} (\_mm256\_testz\_si256((bnodeR+i)->md, \_\_zero))
+01485                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] &= ~\_\_oneshifted[i];
+01486                         i = NODENEXTLEAST(buf, i);
+01487                 \}
+01488 \textcolor{preprocessor}{#endif}
+01489         \}
+01490 \}
+01491 
+01502 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} intersectOf(BitMap * bmvec, BitMap \textcolor{keyword}{const} * abmvec, BitMap \textcolor{keyword}{const} * bbmvec) \{
+01503         NODETYPE * bnodeS;
+01504         NODETYPE * abnodeS;
+01505         NODETYPE * bbnodeS;
+01506         NODETYPE * bnodeR;
+01507         NODETYPE * abnodeR;
+01508         NODETYPE * bbnodeR;
+01509         \textcolor{keywordtype}{int} i;
+01510 
+01511         \textcolor{keywordflow}{for} (bnodeS = bmvec->S, abnodeS = abmvec->S, bbnodeS = bbmvec->S, bnodeR = bmvec->
+      R, abnodeR = abmvec->R, bbnodeR = bbmvec->R;
+01512                         bnodeS < bmvec->R; bnodeS++, abnodeS++, bbnodeS++, bnodeR+=
+      BSIZE, abnodeR+=BSIZE, bbnodeR+=BSIZE)
+01513         \{
+01514 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01515                 *bnodeS = *abnodeS & *bbnodeS;
+01516                 i = NODENEXTLEAST(*bnodeS, -1);
+01517                 \textcolor{keywordflow}{while} (i >= 0) \{
+01518                         *(bnodeR+i) = *(bbnodeR+i) & *(abnodeR+i);
+01519                         \textcolor{keywordflow}{if} (*(bnodeR+i) == 0)
+01520                                 *bnodeS = *bnodeS & ~(ONE << i);
+01521                         i = NODENEXTLEAST(*bnodeS, i);
+01522                 \}
+01523 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01524                 \_mm\_store\_si128 (&bnodeS->mi, \_mm\_and\_si128 (abnodeS->mi, bbnodeS->mi));
+01525                 i = NODENEXTLEAST(*bnodeS, -1);
+01526                 \textcolor{keywordflow}{while} (i >= 0) \{
+01527                         \_mm\_store\_si128 (&(bnodeR+i)->mi, \_mm\_and\_si128 ((bbnodeR+i)->mi, (abnodeR+i)->mi))
+      ;
+01528                         \textcolor{keywordflow}{if} (\_mm\_comieq\_ss((bnodeR+i)->mi, \_\_zero))
+01529                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] = bnodeS->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) 
+      \_\_index[i]] & ~\_\_oneshifted[i];
+01530                         i = NODENEXTLEAST(*bnodeS, -1);
+01531                 \}
+01532 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01533                 \_mm256\_store\_pd(&bnodeS->md,\_mm256\_and\_pd(abnodeS->md, bbnodeS->md));
+01534                 i = NODENEXTLEAST(*bnodeS, -1);
+01535                 \textcolor{keywordflow}{while} (i >= 0) \{
+01536                         \_mm256\_store\_pd(&(bnodeR+i)->md,\_mm256\_and\_pd((bbnodeR+i)->md, (abnodeR+i)->md));
+01537                         \textcolor{keywordflow}{if} (\_mm256\_testz\_si256((bnodeR+i)->md, \_\_zero))
+01538                                 bnodeS->ui64[(\textcolor{keywordtype}{unsigned} int) \_\_index[i]] = bnodeS->ui64[(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}) 
+      \_\_index[i]] & ~\_\_oneshifted[i];
+01539                         i = NODENEXTLEAST(*bnodeS, -1);
+01540                 \}
+01541 \textcolor{preprocessor}{#endif}
+01542         \}
+01543 \}
+01544 
+01545 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} isSubset(BitMap \textcolor{keyword}{const} * abmvec, BitMap \textcolor{keyword}{const} * bbmvec) \{
+01546         NODETYPE * abnodeS;
+01547         NODETYPE * bbnodeS;
+01548         NODETYPE * abnodeR;
+01549         NODETYPE * bbnodeR;
+01550         \textcolor{keywordtype}{int} i;
+01551 
+01552         \textcolor{keywordflow}{for} (abnodeS = abmvec->S, bbnodeS = bbmvec->S, abnodeR = abmvec->R, bbnodeR = bbmvec->
+      R;
+01553                         abnodeS < abmvec->R && *abnodeS == (*abnodeS & *bbnodeS); abnodeS++, bbnodeS++, 
+      abnodeR+=BSIZE, bbnodeR+=BSIZE)
+01554         \{
+01555 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01556                 i = NODENEXTLEAST(*abnodeS, -1);
+01557                 \textcolor{keywordflow}{while} (i >= 0)
+01558                         \textcolor{keywordflow}{if} (*(abnodeR+i) == (*(abnodeR+i) & *(bbnodeR+i)))
+01559                                 i = NODENEXTLEAST(*abnodeS, i);
+01560                         \textcolor{keywordflow}{else}
+01561                                 \textcolor{keywordflow}{return} 0;
+01562 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01563                 i = NODENEXTLEAST(*abnodeS, -1);
+01564                 \textcolor{keywordflow}{while} (i >= 0)
+01565                         \textcolor{keywordflow}{if} (\_mm\_comieq\_ss((abnodeR+i)->m, (\_\_m128) \_mm\_and\_si128((abnodeR+i)->mi, (bbnodeR+
+      i)->mi)))
+01566                                 i = NODENEXTLEAST(*abnodeS, i);
+01567                         \textcolor{keywordflow}{else}
+01568                                 \textcolor{keywordflow}{return} 0;
+01569 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01570                 i = NODENEXTLEAST(*abnodeS, -1);
+01571                 \textcolor{keywordflow}{while} (i >= 0)
+01572                         \textcolor{keywordflow}{if} (\_mm256\_testz\_si256((abnodeR+i)->mi, (\_\_m256i) \_mm256\_and\_pd((abnodeR+i)->md, (
+      bbnodeR+i)->md)))
+01573                                 i = NODENEXTLEAST(*abnodeS, i);
+01574                         \textcolor{keywordflow}{else}
+01575                                 \textcolor{keywordflow}{return} 0;
+01576 \textcolor{preprocessor}{#endif}
+01577         \}
+01578         \textcolor{keywordflow}{return} abnodeS == abmvec->R;
+01579 \}
+01580 
+01581 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} printSetNodes(BitMap \textcolor{keyword}{const} * s) \{
+01582         NODETYPE * node;
+01583 
+01584 \textcolor{preprocessor}{#ifdef \_ARCH32\_}
+01585 \textcolor{preprocessor}{#define FORMX " %lx"}
+01586 \textcolor{preprocessor}{#elif \_ARCH64\_}
+01587 \textcolor{preprocessor}{#define FORMX " %llx"}
+01588 \textcolor{preprocessor}{#elif \_ARCH128\_}
+01589 \textcolor{preprocessor}{#define FORMX " %llx %llx"}
+01590 \textcolor{preprocessor}{#elif \_ARCH256\_}
+01591 \textcolor{preprocessor}{#define FORMX " %llx %llx %llx %llx"}
+01592 \textcolor{preprocessor}{#else}
+01593 \textcolor{preprocessor}{#define FORMX " %x"}
+01594 \textcolor{preprocessor}{#endif}
+01595 
+01596         printf(\textcolor{stringliteral}{"SUMMARY: ["});
+01597         fflush(NULL);
+01598         \textcolor{keywordflow}{for} (node = s->R-1; node >= s->S; node--)
+01599 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01600                 printf(FORMX, *node);
+01601 \textcolor{preprocessor}{#elif defined(\_ARCHA128\_)}
+01602                 printf(FORMX, node->ui64[1], node->ui64[0]);
+01603 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01604                 printf(FORMX, node->ui64[3], node->ui64[2], node->ui64[1], node->ui64[0]);
+01605 \textcolor{preprocessor}{#endif}
+01606         printf(\textcolor{stringliteral}{" ]  "});
+01607         fflush(NULL);
+01608         printf(\textcolor{stringliteral}{"SET: ["});
+01609         fflush(NULL);
+01610         \textcolor{keywordflow}{for} (node = s->R+s->nRnodes-1; node >= s->R; node--)
+01611 \textcolor{preprocessor}{#if defined(\_ARCH8\_) || defined(\_ARCH32\_) || defined(\_ARCH64\_)}
+01612                 printf(FORMX, *node);
+01613 \textcolor{preprocessor}{#elif defined(\_ARCH128\_)}
+01614                 printf(FORMX, node->ui64[1], node->ui64[0]);
+01615 \textcolor{preprocessor}{#elif defined(\_ARCH256\_)}
+01616                 printf(FORMX, node->ui64[3], node->ui64[2], node->ui64[1], node->ui64[0]);
+01617 \textcolor{preprocessor}{#endif}
+01618         printf(\textcolor{stringliteral}{" ]\(\backslash\)n"});
+01619         fflush(NULL);
+01620 \}
+01621 
+01622 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* BITMAP\_H\_ */}\textcolor{preprocessor}{}
+\end{DoxyCode}

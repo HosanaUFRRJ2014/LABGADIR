@@ -1,0 +1,34 @@
+.TH "BitMap" 3 "Segunda, 31 de Outubro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BitMap \- Bitmap implementation of sets of integers of the type $\{ 0, 1, \ldots, n-1 \}$, for a specified integer $n \geq 0$\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <bitmap\&.h>\fP
+.SS "Campos de Dados"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBptr\fP"
+.br
+.RI "\fIUnaligned pointer to this map\&. \fP"
+.ti -1c
+.RI "\fBNODETYPE\fP * \fBR\fP"
+.br
+.RI "\fIMap\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Bitmap implementation of sets of integers of the type $\{ 0, 1, \ldots, n-1 \}$, for a specified integer $n \geq 0$\&. 
+
+A bitmap is an array of bits to represent sets in which a bit of index \fCi\fP represents element \fCi\fP of the set\&. For a bitmap \fCB\fP, \fCB\fP[\fCi\fP] \fC=\fP \fC1\fP means that element \fCi\fP is in the set; otherwise, \fCi\fP is not\&.
+.PP
+Bitmaps are defined as arrays of five different types depending on the number of bits per node, namely: \fCunsigned\fP \fCchar\fP (8 bits per node), \fCunsigned\fP \fClong\fP \fCint\fP (32 bits per node), and \fCunsigned\fP \fClong\fP \fClong\fP \fCint\fP (64 bits per node)\&. The type currently in use is selected by means of the definition of a macro name, respectively with \fC-D_ARCH8_\fP, \fC-D_ARCH32_\fP, \fC-D_ARCH64_\fP, \fC-D_ARCH128_\fP, or \fC-D_ARCH256_\fP in the \fCgcc\fP command line\&. 
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

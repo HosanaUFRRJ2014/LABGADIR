@@ -1,0 +1,356 @@
+\section{Referência do Arquivo /home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab3.h}
+\label{trab3_8h}\index{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab3.\+h@{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab3.\+h}}
+
+
+Especificações das funções a serem implementadas no trabalho 3.  
+
+
+{\ttfamily \#include $<$graph.\+h$>$}\\*
+\subsection*{Definições de Tipos}
+\begin{DoxyCompactItemize}
+\item 
+typedef void {\bf No\+\_\+\+Vertice\+\_\+L}
+\begin{DoxyCompactList}\small\item\em Nó de enumeração do conjunto de vértices de um grafo segundo um percurso em largura. \end{DoxyCompactList}\item 
+typedef void {\bf No\+\_\+\+Aresta\+\_\+L}
+\begin{DoxyCompactList}\small\item\em Nó de enumeração do conjunto de arestas de um grafo segundo um percurso em largura. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int {\bf ident3} ()
+\begin{DoxyCompactList}\small\item\em Identificação do autor por seu número de matrícula. \end{DoxyCompactList}\item 
+{\bf No\+\_\+\+Vertice\+\_\+L} $\ast$ {\bf partida\+\_\+\+VL} (Graph $\ast$const g, Vertice u)
+\begin{DoxyCompactList}\small\item\em Partida de uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um vértice especificado. \end{DoxyCompactList}\item 
+{\bf No\+\_\+\+Vertice\+\_\+L} $\ast$ {\bf avancar\+\_\+\+VL} ({\bf No\+\_\+\+Vertice\+\_\+L} $\ast$no)
+\begin{DoxyCompactList}\small\item\em Avançar em uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um nó especificado. \end{DoxyCompactList}\item 
+int {\bf chegada\+\_\+\+VL} ({\bf No\+\_\+\+Vertice\+\_\+L} $\ast$no)
+\begin{DoxyCompactList}\small\item\em Verifica se um nó especificado é o nó de chegada de uma enumeração dos vértices de um grafo especificado. \end{DoxyCompactList}\item 
+void {\bf free\+No\+\_\+\+Vertice\+\_\+L} ({\bf No\+\_\+\+Vertice\+\_\+L} $\ast$no)
+\begin{DoxyCompactList}\small\item\em Libera nó de percurso em largura dos vértices previamente criado com \doxyref{partida\+\_\+\+VL}{pag.}{trab3_8h_a448f63c33d44fc1cbf26600681de5cd3}. \end{DoxyCompactList}\item 
+{\bf No\+\_\+\+Aresta\+\_\+L} $\ast$ {\bf partida\+\_\+\+AL} (Graph $\ast$const g, Vertice u)
+\begin{DoxyCompactList}\small\item\em Partida de uma enumeração das arestas de um grafo especificado segundo um percurso em largura a partir de um vértice especificado. \end{DoxyCompactList}\item 
+void {\bf free\+No\+\_\+\+Aresta\+\_\+L} ({\bf No\+\_\+\+Aresta\+\_\+L} $\ast$no)
+\begin{DoxyCompactList}\small\item\em Libera nó de percurso em largura das arestas previamente criado com \doxyref{partida\+\_\+\+AL}{pag.}{trab3_8h_a58c581fd6fd4b3a080cd71af73c04b03}. \end{DoxyCompactList}\item 
+Vertice {\bf alvo} ({\bf No\+\_\+\+Vertice\+\_\+L} $\ast$const no)
+\begin{DoxyCompactList}\small\item\em Determinação do alvo de um nó de enumeração dos vértices de um grafo segundo um percurso em largura. \end{DoxyCompactList}\item 
+Dist\+\_\+V {\bf distancia} ({\bf No\+\_\+\+Vertice\+\_\+L} $\ast$const no)
+\begin{DoxyCompactList}\small\item\em Determinação da distância ao vértice de partida de um nó de enumeração dos vértices de um grafo segundo um percurso em largura. \end{DoxyCompactList}\item 
+Vertice {\bf alvo\+\_\+menor} ({\bf No\+\_\+\+Aresta\+\_\+L} $\ast$const no)
+\begin{DoxyCompactList}\small\item\em Determinação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de menor distância. \end{DoxyCompactList}\item 
+Vertice {\bf alvo\+\_\+maior} ({\bf No\+\_\+\+Aresta\+\_\+L} $\ast$const no)
+\begin{DoxyCompactList}\small\item\em Determinação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de maior distância. \end{DoxyCompactList}\item 
+int {\bf eh\+\_\+subbipartido} (Graph $\ast$const g, {\bf Bit\+Map} const $\ast$r, {\bf Bit\+Map} $\ast$s, {\bf Bit\+Map} $\ast$t)
+\begin{DoxyCompactList}\small\item\em Determina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição. \end{DoxyCompactList}\item 
+int {\bf eh\+\_\+bipartido} (Graph $\ast$const g, {\bf Bit\+Map} $\ast$s, {\bf Bit\+Map} $\ast$t)
+\begin{DoxyCompactList}\small\item\em Determina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Especificações das funções a serem implementadas no trabalho 3. 
+
+\begin{DoxyDate}{Data}
+Sep 5, 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Autor}
+Ricardo C. Corrêa ({\tt correa@ufrrj.\+br})
+\end{DoxyAuthor}
+Este trabalho é constituído de 5 funções, com 4 delas envolvendo percurso em largura em grafos. Nessas funções, algumas manipulações dos tipos \doxyref{Bit\+Map}{pag.}{structBitMap} e Graph são necessárias. As especificações detalhas das funções de \doxyref{Bit\+Map}{pag.}{structBitMap} e Graph podem ser obtidas em suas respectivas páginas.
+
+Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice {\ttfamily u}, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a {\ttfamily u}. A {\itshape distância} {\ttfamily dist(u,v)} entre dois vértices {\ttfamily u} e {\ttfamily v} é o número de arestas em um caminho mais curto entre {\ttfamily u} e {\ttfamily v}.
+
+Uma enumeração das arestas de um grafo segundo um percurso em largura, partindo de um certo vértice {\ttfamily u}, é uma enumeração do conjunto de arestas do grafo em ordem não decrescente de distância a {\ttfamily u}. A {\itshape distância} de uma aresta {\ttfamily vw} a {\ttfamily u} é um par {\ttfamily dist(u,vw)=}(d1,d2) tal que {\ttfamily d1=min\{dist(u,v)},dist(u,w)\} e {\ttfamily d2=max\{dist(u,v)},dist(u,w)\}.
+
+A comparação de distâncias de arestas {\ttfamily vw} e {\ttfamily yz} a um vértice {\ttfamily u} é feita segundo a ordem lexicográfica. Mais precisamente, sejam {\ttfamily dist(u,vw)=}(d1,d2) e {\ttfamily dist(u,yz)=}(e1,e2). Então\+:
+
+{\ttfamily dist(u,vw)} {\ttfamily $<$=} {\ttfamily dist(u,yz)} se e somente se {\ttfamily d1} {\ttfamily $<$} {\ttfamily e1} ou {\ttfamily }(d1=e1 e {\ttfamily d2} {\ttfamily $<$=} {\ttfamily e2}). 
+
+\subsection{Definições dos tipos}
+\index{trab3.\+h@{trab3.\+h}!No\+\_\+\+Aresta\+\_\+L@{No\+\_\+\+Aresta\+\_\+L}}
+\index{No\+\_\+\+Aresta\+\_\+L@{No\+\_\+\+Aresta\+\_\+L}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{No\+\_\+\+Aresta\+\_\+L}]{\setlength{\rightskip}{0pt plus 5cm}typedef void No\+\_\+\+Aresta\+\_\+L}\label{trab3_8h_a21c7ca95b90e5ea4acbd4df17d711a0c}
+
+
+Nó de enumeração do conjunto de arestas de um grafo segundo um percurso em largura. 
+
+Este tipo precisa ser definido e as funções de inspeção \doxyref{alvo\+\_\+menor}{pag.}{trab3_8h_a92731c5075be2caeb01a6b2db5f539d8} e \doxyref{alvo\+\_\+maior}{pag.}{trab3_8h_ad30c02f04c8bf287b39ef6fe993ab90a} implementadas. \index{trab3.\+h@{trab3.\+h}!No\+\_\+\+Vertice\+\_\+L@{No\+\_\+\+Vertice\+\_\+L}}
+\index{No\+\_\+\+Vertice\+\_\+L@{No\+\_\+\+Vertice\+\_\+L}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{No\+\_\+\+Vertice\+\_\+L}]{\setlength{\rightskip}{0pt plus 5cm}typedef void No\+\_\+\+Vertice\+\_\+L}\label{trab3_8h_a99861594e8a498be93334ef137a20ac8}
+
+
+Nó de enumeração do conjunto de vértices de um grafo segundo um percurso em largura. 
+
+Este tipo precisa ser definido e a função de inspeção \doxyref{alvo}{pag.}{trab3_8h_a6bec9bca3298ae1d0732817be536b1d1} implementada. 
+
+\subsection{Funções}
+\index{trab3.\+h@{trab3.\+h}!alvo@{alvo}}
+\index{alvo@{alvo}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{alvo(\+No\+\_\+\+Vertice\+\_\+\+L $\ast$const no)}]{\setlength{\rightskip}{0pt plus 5cm}Vertice alvo (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Vertice\+\_\+L} $\ast$const}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a6bec9bca3298ae1d0732817be536b1d1}
+
+
+Determinação do alvo de um nó de enumeração dos vértices de um grafo segundo um percurso em largura. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó cujo alvo deve ser determinado\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Alvo do nó especificado 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!alvo\+\_\+maior@{alvo\+\_\+maior}}
+\index{alvo\+\_\+maior@{alvo\+\_\+maior}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{alvo\+\_\+maior(\+No\+\_\+\+Aresta\+\_\+\+L $\ast$const no)}]{\setlength{\rightskip}{0pt plus 5cm}Vertice alvo\+\_\+maior (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Aresta\+\_\+L} $\ast$const}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_ad30c02f04c8bf287b39ef6fe993ab90a}
+
+
+Determinação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de maior distância. 
+
+Uma aresta é formada por dois vértices. Dentre esses dois vértices, o alvo menor é o que está à menor distância do vértice de partida da enumeração à qual está associado o nó em questão. Em caso de dois vértices de mesma distância, o alvo menor é determinado pela ordem lexicográfica. O outro vértice é o alvo maior.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó cujo alvo maior deve ser determinado\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Alvo maior do nó especificado 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!alvo\+\_\+menor@{alvo\+\_\+menor}}
+\index{alvo\+\_\+menor@{alvo\+\_\+menor}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{alvo\+\_\+menor(\+No\+\_\+\+Aresta\+\_\+\+L $\ast$const no)}]{\setlength{\rightskip}{0pt plus 5cm}Vertice alvo\+\_\+menor (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Aresta\+\_\+L} $\ast$const}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a92731c5075be2caeb01a6b2db5f539d8}
+
+
+Determinação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de menor distância. 
+
+Uma aresta é formada por dois vértices. Dentre esses dois vértices, o alvo menor é o que está à menor distância do vértice de partida da enumeração à qual está associado o nó em questão. Em caso de dois vértices de mesma distância, o alvo menor é determinado pela ordem lexicográfica. O outro vértice é o alvo maior.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó cujo alvo menor deve ser determinado\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Alvo menor do nó especificado 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!avancar\+\_\+\+VL@{avancar\+\_\+\+VL}}
+\index{avancar\+\_\+\+VL@{avancar\+\_\+\+VL}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{avancar\+\_\+\+V\+L(\+No\+\_\+\+Vertice\+\_\+\+L $\ast$no)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf No\+\_\+\+Vertice\+\_\+L}$\ast$ avancar\+\_\+\+VL (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Vertice\+\_\+L} $\ast$}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a6230f822ecce7d5f5f7f54e8088b892c}
+
+
+Avançar em uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um nó especificado. 
+
+Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice {\ttfamily u}, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a {\ttfamily u}. Dado um nó nessa enumeração, esta função realiza o avanço para o nó seguinte, caso haja, ou para o nó de chegada, em caso contrário.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó corrente na enumeração\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+O mesmo nó de entrada, alterado para representar o vértice seguinte em um percurso em largura, caso haja, ou o nó de chegada, em caso contrário 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!chegada\+\_\+\+VL@{chegada\+\_\+\+VL}}
+\index{chegada\+\_\+\+VL@{chegada\+\_\+\+VL}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{chegada\+\_\+\+V\+L(\+No\+\_\+\+Vertice\+\_\+\+L $\ast$no)}]{\setlength{\rightskip}{0pt plus 5cm}int chegada\+\_\+\+VL (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Vertice\+\_\+L} $\ast$}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a028318975502c954bdc493df926c3b89}
+
+
+Verifica se um nó especificado é o nó de chegada de uma enumeração dos vértices de um grafo especificado. 
+
+Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice {\ttfamily u}, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a {\ttfamily u}. Dado um nó nessa enumeração, esta função verifica se o nó especificado é o o nó de chegada da enumeração.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó de uma enumeração a ser verificado\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+0 se o nó espcificado é o nó de chegada de uma enumeração, e um valor diferente de 0 em caso contrário 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!distancia@{distancia}}
+\index{distancia@{distancia}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{distancia(\+No\+\_\+\+Vertice\+\_\+\+L $\ast$const no)}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int distancia (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Vertice\+\_\+L} $\ast$const}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a396b19df2387752e195fc1a63edfb406}
+
+
+Determinação da distância ao vértice de partida de um nó de enumeração dos vértices de um grafo segundo um percurso em largura. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó cuja distância deve ser determinado\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Distância do nó especificado ao nó de partida da enumeração 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!eh\+\_\+bipartido@{eh\+\_\+bipartido}}
+\index{eh\+\_\+bipartido@{eh\+\_\+bipartido}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{eh\+\_\+bipartido(\+Graph $\ast$const g, Bit\+Map $\ast$s, Bit\+Map $\ast$t)}]{\setlength{\rightskip}{0pt plus 5cm}int eh\+\_\+bipartido (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{{\bf Bit\+Map} $\ast$}]{s, }
+\item[{{\bf Bit\+Map} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a8d1df9d763f2dceb289c2edef2fd961c}
+
+
+Determina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição. 
+
+Um subconjunto $W \subseteq V$ do conjunto de vértices de um grafo $G=(V,E)$ é um {\itshape conjunto independente} se $uv \not\in E$ é satisfeito para todo par $u,v \in W$, $u \ne v$. Um grafo $G=(V,E)$ é {\itshape bipartido} se existe uma partição $V=S \cup T$ tal que $S$ e $T$ são conjuntos independentes. Esta função preenche os conjuntos fornecidos como entrada com os vértices do grafo de tal forma que o primeiro deles abrigue os vértices a distância par do menor vértice no conjunto que restringe a verificação, enquanto outro conjunto os de distância ímpar. Se o grafo especificado é bipartido, então os conjuntos formam uma bipartição do conjunto de vértices em conjuntos independentes.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em s} & Conjunto a ser preenchido com os vértices a distância par do menor vértice em {\ttfamily r} \\
+\hline
+{\em t} & Conjunto a ser preenchido com os vértices a distância ímpar do menor vértice em {\ttfamily r} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+0 se o grafo especificado não é bipartido, e um valor diferente de 0 em caso contrário 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!eh\+\_\+subbipartido@{eh\+\_\+subbipartido}}
+\index{eh\+\_\+subbipartido@{eh\+\_\+subbipartido}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{eh\+\_\+subbipartido(\+Graph $\ast$const g, Bit\+Map const $\ast$r, Bit\+Map $\ast$s, Bit\+Map $\ast$t)}]{\setlength{\rightskip}{0pt plus 5cm}int eh\+\_\+subbipartido (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{{\bf Bit\+Map} const $\ast$}]{r, }
+\item[{{\bf Bit\+Map} $\ast$}]{s, }
+\item[{{\bf Bit\+Map} $\ast$}]{t}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a550a13f98480bbdcfc6a6cb0ad4b6df5}
+
+
+Determina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição. 
+
+Um subconjunto $W \subseteq V$ do conjunto de vértices de um grafo $G=(V,E)$ é um {\itshape conjunto independente} se $uv \not\in E$ é satisfeito para todo par $u,v \in W$, $u \ne v$. Um grafo $G=(V,E)$ é {\itshape bipartido} se existe uma partição $V=S \cup T$ tal que $S$ e $T$ são conjuntos independentes. Esta função preenche os conjuntos fornecidos como entrada com os vértices do grafo de tal forma que o primeiro deles abrigue os vértices a distância par do vértice 0, enquanto outro conjunto os de distância ímpar. Se o grafo especificado, quando restrito a um subconjunto de vértices, é bipartido, então os conjuntos formam uma bipartição do conjunto de vértices em conjuntos independentes.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em r} & Conjunto de vértices que restringe a verificação de bipartido \\
+\hline
+{\em s} & Conjunto a ser preenchido com os vértices a distância par do vértice 0 \\
+\hline
+{\em t} & Conjunto a ser preenchido com os vértices a distância ímpar do vértice 0\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+0 se o grafo especificado restrito a {\ttfamily r} não é bipartido, e um valor diferente de 0 em caso contrário 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!free\+No\+\_\+\+Aresta\+\_\+L@{free\+No\+\_\+\+Aresta\+\_\+L}}
+\index{free\+No\+\_\+\+Aresta\+\_\+L@{free\+No\+\_\+\+Aresta\+\_\+L}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{free\+No\+\_\+\+Aresta\+\_\+\+L(\+No\+\_\+\+Aresta\+\_\+\+L $\ast$no)}]{\setlength{\rightskip}{0pt plus 5cm}void free\+No\+\_\+\+Aresta\+\_\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Aresta\+\_\+L} $\ast$}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a1313087ef386771c4e33436b9d984896}
+
+
+Libera nó de percurso em largura das arestas previamente criado com \doxyref{partida\+\_\+\+AL}{pag.}{trab3_8h_a58c581fd6fd4b3a080cd71af73c04b03}. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó a ser liberado \\
+\hline
+\end{DoxyParams}
+\index{trab3.\+h@{trab3.\+h}!free\+No\+\_\+\+Vertice\+\_\+L@{free\+No\+\_\+\+Vertice\+\_\+L}}
+\index{free\+No\+\_\+\+Vertice\+\_\+L@{free\+No\+\_\+\+Vertice\+\_\+L}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{free\+No\+\_\+\+Vertice\+\_\+\+L(\+No\+\_\+\+Vertice\+\_\+\+L $\ast$no)}]{\setlength{\rightskip}{0pt plus 5cm}void free\+No\+\_\+\+Vertice\+\_\+L (
+\begin{DoxyParamCaption}
+\item[{{\bf No\+\_\+\+Vertice\+\_\+L} $\ast$}]{no}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_ad88b684bd89f89f9b7b9ac5aeac3ae66}
+
+
+Libera nó de percurso em largura dos vértices previamente criado com \doxyref{partida\+\_\+\+VL}{pag.}{trab3_8h_a448f63c33d44fc1cbf26600681de5cd3}. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em no} & Nó a ser liberado \\
+\hline
+\end{DoxyParams}
+\index{trab3.\+h@{trab3.\+h}!ident3@{ident3}}
+\index{ident3@{ident3}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{ident3()}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int ident3 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_aa4b695c130f79b911c9aac6b16fb2023}
+
+
+Identificação do autor por seu número de matrícula. 
+
+\begin{DoxyReturn}{Retorna}
+Número de matrícula, sem pontos nem traços 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!partida\+\_\+\+AL@{partida\+\_\+\+AL}}
+\index{partida\+\_\+\+AL@{partida\+\_\+\+AL}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{partida\+\_\+\+A\+L(\+Graph $\ast$const g, Vertice u)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf No\+\_\+\+Aresta\+\_\+L}$\ast$ partida\+\_\+\+AL (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{Vertice}]{u}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a58c581fd6fd4b3a080cd71af73c04b03}
+
+
+Partida de uma enumeração das arestas de um grafo especificado segundo um percurso em largura a partir de um vértice especificado. 
+
+Uma enumeração das arestas de um grafo segundo um percurso em largura, partindo de um certo vértice {\ttfamily u}, é uma enumeração do conjunto de arestas do grafo em ordem não decrescente de distância lexicográfica a {\ttfamily u}. A partida dessa enumeração é o nó correspondendo ao vértice de partida do percurso em largura.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em u} & Um vértice de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Nó de partida da enumeração a partir do vértice especificado 
+\end{DoxyReturn}
+\index{trab3.\+h@{trab3.\+h}!partida\+\_\+\+VL@{partida\+\_\+\+VL}}
+\index{partida\+\_\+\+VL@{partida\+\_\+\+VL}!trab3.\+h@{trab3.\+h}}
+\subsubsection[{partida\+\_\+\+V\+L(\+Graph $\ast$const g, Vertice u)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf No\+\_\+\+Vertice\+\_\+L}$\ast$ partida\+\_\+\+VL (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{Vertice}]{u}
+\end{DoxyParamCaption}
+)}\label{trab3_8h_a448f63c33d44fc1cbf26600681de5cd3}
+
+
+Partida de uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um vértice especificado. 
+
+Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice {\ttfamily u}, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a {\ttfamily u}. A partida dessa enumeração é o nó correspondendo ao vértice de partida do percurso em largura.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em u} & Um vértice de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Nó de partida da enumeração a partir do vértice especificado 
+\end{DoxyReturn}

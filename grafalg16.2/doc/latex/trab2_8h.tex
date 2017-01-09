@@ -1,0 +1,78 @@
+\section{Referência do Arquivo /home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab2.h}
+\label{trab2_8h}\index{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab2.\+h@{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab2.\+h}}
+
+
+Especificações das funções a serem implementadas no trabalho 2.  
+
+
+{\ttfamily \#include $<$graph.\+h$>$}\\*
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf eh\+\_\+subaciclico} (Graph $\ast$const g, {\bf Bit\+Map} $\ast$const s)
+\begin{DoxyCompactList}\small\item\em Determina se um subgrafo especificado é acíclico. \end{DoxyCompactList}\item 
+int {\bf eh\+\_\+aciclico} (Graph $\ast$const g)
+\begin{DoxyCompactList}\small\item\em Determina se um grafo especificado é acíclico. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Especificações das funções a serem implementadas no trabalho 2. 
+
+\begin{DoxyDate}{Data}
+Sep 5, 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Autor}
+Ricardo C. Corrêa ({\tt correa@ufrrj.\+br})
+\end{DoxyAuthor}
+Este trabalho é constituído de 1 função. Nessa função, algumas manipulações dos tipos \doxyref{Bit\+Map}{pag.}{structBitMap} e Graph são necessárias. As funções em \doxyref{heap.\+h}{pag.}{heap_8h} para manipulação de heaps também podem ser úteis. As especificações detalhas das funções de \doxyref{Bit\+Map}{pag.}{structBitMap}, Graph e \doxyref{heap.\+h}{pag.}{heap_8h} podem ser obtidas em suas respectivas páginas. 
+
+\subsection{Funções}
+\index{trab2.\+h@{trab2.\+h}!eh\+\_\+aciclico@{eh\+\_\+aciclico}}
+\index{eh\+\_\+aciclico@{eh\+\_\+aciclico}!trab2.\+h@{trab2.\+h}}
+\subsubsection[{eh\+\_\+aciclico(\+Graph $\ast$const g)}]{\setlength{\rightskip}{0pt plus 5cm}int eh\+\_\+aciclico (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g}
+\end{DoxyParamCaption}
+)}\label{trab2_8h_abf81032820d5ed410c54d055853efc76}
+
+
+Determina se um grafo especificado é acíclico. 
+
+Um {\itshape ciclo} em um grafo é uma sequência \[ v_1 e_1 v_2 e_2 \ldots v_\ell e_\ell v_1 \] de vértices distintos $v_1, \ldots, v_\ell $ e arestas $e_1, \ldots, e_\ell $ tal que $e_i = v_iv_{i+1}$, para todo $i \in \{ 1, \ldots, \ell \}$. O {\itshape tamanho} de um ciclo é a sua quantidade de arestas (na notação usada acima, o valor $\ell$). Um grafo é {\itshape acíclico} se nenhum de seus vértices pertence a um ciclo de tamanho maior que 0.
+
+Esta função verifica se existe, no grafo especificado, um ciclo de tamanho maior que 0.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+0 se o grafo especificado não é acíclico, e um valor diferente de 0 em caso contrário 
+\end{DoxyReturn}
+\index{trab2.\+h@{trab2.\+h}!eh\+\_\+subaciclico@{eh\+\_\+subaciclico}}
+\index{eh\+\_\+subaciclico@{eh\+\_\+subaciclico}!trab2.\+h@{trab2.\+h}}
+\subsubsection[{eh\+\_\+subaciclico(\+Graph $\ast$const g, Bit\+Map $\ast$const s)}]{\setlength{\rightskip}{0pt plus 5cm}int eh\+\_\+subaciclico (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{{\bf Bit\+Map} $\ast$const}]{s}
+\end{DoxyParamCaption}
+)}\label{trab2_8h_a881e32958fdcc54488f37bbe8811739f}
+
+
+Determina se um subgrafo especificado é acíclico. 
+
+Um {\itshape ciclo} em um grafo é uma sequência \[ v_1 e_1 v_2 e_2 \ldots v_\ell e_\ell v_1 \] de vértices distintos $v_1, \ldots, v_\ell $ e arestas $e_1, \ldots, e_\ell $ tal que $e_i = v_iv_{i+1}$, para todo $i \in \{ 1, \ldots, \ell \}$. O {\itshape tamanho} de um ciclo é a sua quantidade de arestas (na notação usada acima, o valor $\ell$). Um grafo é {\itshape acíclico} se nenhum de seus vértices pertence a um ciclo de tamanho maior que 0.
+
+Esta função verifica se existe, no grafo especificado, um ciclo de tamanho maior que 0 contendo apenas vértices de um conjunto especificado.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em s} & Subconjunto de vértices definindo subgrafo\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+0 se o subgrafo especificado não é acíclico, e um valor diferente de 0 em caso contrário 
+\end{DoxyReturn}

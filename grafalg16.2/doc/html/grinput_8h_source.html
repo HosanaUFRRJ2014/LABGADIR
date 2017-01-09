@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>AB781 Laboratýrio de Grafos e Algoritmos: Código-Fonte de graph/grinput.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://www.mathjax.org/mathjax/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratýrio de Grafos e Algoritmos
+   &#160;<span id="projectnumber">2016.2</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_12552d7fa429bf94a2e32e5cf39f7e69.html">graph</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">grinput.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="grinput_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#ifndef GRINPUT_H_</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define GRINPUT_H_</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="graph_8h.html">graph.h</a>&gt;</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<a class="code" href="structGraph.html">Graph</a> * <a class="code" href="grinput_8h.html#ad7ec08491139209b12ec0f3b7fce19bc">readDimacsGraph</a>(FILE* graphFile);</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">double</span> * <a class="code" href="grinput_8h.html#a95356fce747831b3cf76ce641614fdea">readIntWeights</a>(<span class="keywordtype">size_t</span> n, FILE* weightsFile);</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">double</span> * <a class="code" href="grinput_8h.html#a26bee71d5b04e5934647f961cbdf5cf1">readDoubleWeights</a>(<span class="keywordtype">size_t</span> n, FILE* weightsFile);</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* GRINPUT_H_ */</span><span class="preprocessor"></span></div><div class="ttc" id="grinput_8h_html_ad7ec08491139209b12ec0f3b7fce19bc"><div class="ttname"><a href="grinput_8h.html#ad7ec08491139209b12ec0f3b7fce19bc">readDimacsGraph</a></div><div class="ttdeci">Graph * readDimacsGraph(FILE *graphFile)</div><div class="ttdoc">Reads a graph from a specified file in the DIMACS format. </div><div class="ttdef"><b>Definition:</b> <a href="grinput_8c_source.html#l00055">grinput.c:55</a></div></div>
+<div class="ttc" id="grinput_8h_html_a95356fce747831b3cf76ce641614fdea"><div class="ttname"><a href="grinput_8h.html#a95356fce747831b3cf76ce641614fdea">readIntWeights</a></div><div class="ttdeci">double * readIntWeights(size_t n, FILE *weightsFile)</div><div class="ttdoc">Read and return an array of integer weights from a specified file. </div><div class="ttdef"><b>Definition:</b> <a href="grinput_8c_source.html#l00136">grinput.c:136</a></div></div>
+<div class="ttc" id="grinput_8h_html_a26bee71d5b04e5934647f961cbdf5cf1"><div class="ttname"><a href="grinput_8h.html#a26bee71d5b04e5934647f961cbdf5cf1">readDoubleWeights</a></div><div class="ttdeci">double * readDoubleWeights(size_t n, FILE *weightsFile)</div><div class="ttdoc">Read and return an array of double weights from a specified file. </div><div class="ttdef"><b>Definition:</b> <a href="grinput_8c_source.html#l00102">grinput.c:102</a></div></div>
+<div class="ttc" id="structGraph_html"><div class="ttname"><a href="structGraph.html">Graph</a></div><div class="ttdoc">Bitmap implementation of a graph adjacency matrix. </div><div class="ttdef"><b>Definition:</b> <a href="graph_8h_source.html#l00025">graph.h:25</a></div></div>
+<div class="ttc" id="graph_8h_html"><div class="ttname"><a href="graph_8h.html">graph.h</a></div><div class="ttdoc">Macros and inline functions of a bitmap implementation of a graph adjacency matrix. </div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Domingo, 18 de Setembro de 2016 08:21:53 para AB781 Laboratýrio de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

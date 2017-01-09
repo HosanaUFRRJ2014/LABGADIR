@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>AB781 Laboratório de Grafos e Algoritmos: Referência do Arquivo /home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/graph/summary/bitmap.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://www.mathjax.org/mathjax/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratório de Grafos e Algoritmos
+   &#160;<span id="projectnumber">2016.2</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_6ed4c3dd9b72227a2e882bc281efbe06.html">graph</a></li><li class="navelem"><a class="el" href="dir_b57d7c07c40056c704208d9721cb8638.html">summary</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Estruturas de Dados</a> &#124;
+<a href="#define-members">Definições e Macros</a> &#124;
+<a href="#typedef-members">Definições de Tipos</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência do Arquivo bitmap.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Macros and inline functions for bitwise operations on bitmaps using bit-parallelism.  
+<a href="#details">Mais...</a></p>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Estruturas de Dados</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structBitMap.html">BitMap</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmap implementation of sets of integers of the type \(\{ 0, 1, \ldots, n-1 \}\), for a specified integer \(n \geq 0\).  <a href="structBitMap.html#details">Mais...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structNode.html">Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identification of a member of a bitmap.  <a href="structNode.html#details">Mais...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Definições e Macros</h2></td></tr>
+<tr class="memitem:a403cf3149c084cea115b85c90721039a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a403cf3149c084cea115b85c90721039a"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a403cf3149c084cea115b85c90721039a">BSIZE</a>&#160;&#160;&#160;8</td></tr>
+<tr class="memdesc:a403cf3149c084cea115b85c90721039a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bits in a node. <br /></td></tr>
+<tr class="separator:a403cf3149c084cea115b85c90721039a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7edb6b8a8c89cb564d6e1b85ed80e7db"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7edb6b8a8c89cb564d6e1b85ed80e7db"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a7edb6b8a8c89cb564d6e1b85ed80e7db">WSIZE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a7edb6b8a8c89cb564d6e1b85ed80e7db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of bytes in a node. <br /></td></tr>
+<tr class="separator:a7edb6b8a8c89cb564d6e1b85ed80e7db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afced88f944530b6dfb95807ae45120a6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afced88f944530b6dfb95807ae45120a6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#afced88f944530b6dfb95807ae45120a6">LOGB</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:afced88f944530b6dfb95807ae45120a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logarithmic of BSIZE. <br /></td></tr>
+<tr class="separator:afced88f944530b6dfb95807ae45120a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6f0b43ab85743ce5de50d53bda6de62"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6f0b43ab85743ce5de50d53bda6de62"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#ac6f0b43ab85743ce5de50d53bda6de62">LOGW</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ac6f0b43ab85743ce5de50d53bda6de62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logarithmic of WSIZE. <br /></td></tr>
+<tr class="separator:ac6f0b43ab85743ce5de50d53bda6de62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adaab21e44ecc67f293c370259571617c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adaab21e44ecc67f293c370259571617c"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#adaab21e44ecc67f293c370259571617c">LOGBW</a>&#160;&#160;&#160;3</td></tr>
+<tr class="memdesc:adaab21e44ecc67f293c370259571617c"><td class="mdescLeft">&#160;</td><td class="mdescRight">LOGB <code>+</code> LOGW. <br /></td></tr>
+<tr class="separator:adaab21e44ecc67f293c370259571617c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a206b6f5362e56b51ca957635350b70b6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a206b6f5362e56b51ca957635350b70b6"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a206b6f5362e56b51ca957635350b70b6">ONE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memdesc:a206b6f5362e56b51ca957635350b70b6"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structNode.html" title="Identification of a member of a bitmap. ">Node</a> set to <code>1</code>. <br /></td></tr>
+<tr class="separator:a206b6f5362e56b51ca957635350b70b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7ff4ea4784ba1f3d083f292fa8858a5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af7ff4ea4784ba1f3d083f292fa8858a5"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#af7ff4ea4784ba1f3d083f292fa8858a5">NODEMAX</a>&#160;&#160;&#160;0xFF</td></tr>
+<tr class="memdesc:af7ff4ea4784ba1f3d083f292fa8858a5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structNode.html" title="Identification of a member of a bitmap. ">Node</a>'s maximum value. <br /></td></tr>
+<tr class="separator:af7ff4ea4784ba1f3d083f292fa8858a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44f677bb805ccf52a98b641df22ad839"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a44f677bb805ccf52a98b641df22ad839"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a44f677bb805ccf52a98b641df22ad839">MASKB</a>&#160;&#160;&#160;0x07</td></tr>
+<tr class="memdesc:a44f677bb805ccf52a98b641df22ad839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mask used to select the LOGB least significant bits. <br /></td></tr>
+<tr class="separator:a44f677bb805ccf52a98b641df22ad839"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1979fd3808c70cc2eaf720ec1816a21"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1979fd3808c70cc2eaf720ec1816a21"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#ad1979fd3808c70cc2eaf720ec1816a21">MASKSZ</a>&#160;&#160;&#160;(<a class="el" href="summary_2bitmap_8h.html#a403cf3149c084cea115b85c90721039a">BSIZE</a>+1)</td></tr>
+<tr class="memdesc:ad1979fd3808c70cc2eaf720ec1816a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of elements in __mask. <br /></td></tr>
+<tr class="separator:ad1979fd3808c70cc2eaf720ec1816a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebeb87d7e27e1bd467b131d39e26a550"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aebeb87d7e27e1bd467b131d39e26a550"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#aebeb87d7e27e1bd467b131d39e26a550">NODECOUNTER</a>(w)&#160;&#160;&#160;__builtin_popcount(w)</td></tr>
+<tr class="memdesc:aebeb87d7e27e1bd467b131d39e26a550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin function: Returns the number of 1-bits in <code>w</code>. <br /></td></tr>
+<tr class="separator:aebeb87d7e27e1bd467b131d39e26a550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc75c90250f604f7b39bd95b31065060"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afc75c90250f604f7b39bd95b31065060"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#afc75c90250f604f7b39bd95b31065060">NODELEAST</a>(w)&#160;&#160;&#160;(__builtin_ffs(w)-1)</td></tr>
+<tr class="memdesc:afc75c90250f604f7b39bd95b31065060"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin function: Returns the index of the least significant 1-bit of <code>w</code>, or if <code>w</code> is zero, returns <code>-1</code>. <br /></td></tr>
+<tr class="separator:afc75c90250f604f7b39bd95b31065060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a221a194080aa8915012589aad1242b0f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a221a194080aa8915012589aad1242b0f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a221a194080aa8915012589aad1242b0f">NODENEXTLEAST</a>(w,  i)&#160;&#160;&#160;(<a class="el" href="summary_2bitmap_8h.html#afc75c90250f604f7b39bd95b31065060">NODELEAST</a>((w) &amp; __mask[i + 1]))</td></tr>
+<tr class="memdesc:a221a194080aa8915012589aad1242b0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin function: Returns the index of the least significant 1-bit of <code>w</code> greater than <code>i</code>, or if <code>w</code> is zero, returns <code>-1</code>. <br /></td></tr>
+<tr class="separator:a221a194080aa8915012589aad1242b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d04be6fd312695e90eaf4c44d59c8fd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d04be6fd312695e90eaf4c44d59c8fd"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a2d04be6fd312695e90eaf4c44d59c8fd">NODEMOST</a>(i)&#160;&#160;&#160;(nodeMost(i))</td></tr>
+<tr class="memdesc:a2d04be6fd312695e90eaf4c44d59c8fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin function: Returns the index of the most significant 1-bit of <code>w</code>, or if <code>w</code> is zero, returns <code>-1</code>. <br /></td></tr>
+<tr class="separator:a2d04be6fd312695e90eaf4c44d59c8fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40516649a3771e319c376d4ca991cd3d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a40516649a3771e319c376d4ca991cd3d"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a40516649a3771e319c376d4ca991cd3d">NODEPREVMOST</a>(w,  i)&#160;&#160;&#160;(<a class="el" href="summary_2bitmap_8h.html#a2d04be6fd312695e90eaf4c44d59c8fd">NODEMOST</a>((w) &amp; ~__mask[i]))</td></tr>
+<tr class="memdesc:a40516649a3771e319c376d4ca991cd3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builtin function: Returns the index of the most significant 1-bit of <code>w</code> smaller than <code>i</code>, or if <code>w</code> is zero, returns <code>-1</code>. <br /></td></tr>
+<tr class="separator:a40516649a3771e319c376d4ca991cd3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14fc6dc47eef5bf11c7f0cc62d5810be"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a14fc6dc47eef5bf11c7f0cc62d5810be"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a14fc6dc47eef5bf11c7f0cc62d5810be">ISINNODE</a>(w,  i)&#160;&#160;&#160;((w) &amp; (<a class="el" href="summary_2bitmap_8h.html#a206b6f5362e56b51ca957635350b70b6">ONE</a> &lt;&lt; (i)))</td></tr>
+<tr class="memdesc:a14fc6dc47eef5bf11c7f0cc62d5810be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a node set to a non-zero value if the bit of index <code>i</code> in node <code>w</code> is a 1-bit; otherwise a node set to <code>0</code>. <br /></td></tr>
+<tr class="separator:a14fc6dc47eef5bf11c7f0cc62d5810be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4642ff745cdc525c7566b436f452e33f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4642ff745cdc525c7566b436f452e33f"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a4642ff745cdc525c7566b436f452e33f">NELEM</a>(i)&#160;&#160;&#160;((i) &lt;&lt; <a class="el" href="summary_2bitmap_8h.html#afced88f944530b6dfb95807ae45120a6">LOGB</a>)</td></tr>
+<tr class="memdesc:a4642ff745cdc525c7566b436f452e33f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Smallest element in the entry <code>i</code> of the bitmap. <br /></td></tr>
+<tr class="separator:a4642ff745cdc525c7566b436f452e33f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8ce022c2df6a106a810279b8fa255fb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab8ce022c2df6a106a810279b8fa255fb"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#ab8ce022c2df6a106a810279b8fa255fb">NODEIDX</a>(i)&#160;&#160;&#160;((i) &gt;&gt; <a class="el" href="summary_2bitmap_8h.html#afced88f944530b6dfb95807ae45120a6">LOGB</a>)</td></tr>
+<tr class="memdesc:ab8ce022c2df6a106a810279b8fa255fb"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="structNode.html" title="Identification of a member of a bitmap. ">Node</a> index in the bitmap of element <code>i</code>. <br /></td></tr>
+<tr class="separator:ab8ce022c2df6a106a810279b8fa255fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38e54c56fc0272a1b9d42ba71935bb25"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a38e54c56fc0272a1b9d42ba71935bb25"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#a38e54c56fc0272a1b9d42ba71935bb25">IDXINNODE</a>(i)&#160;&#160;&#160;((i) &amp; <a class="el" href="summary_2bitmap_8h.html#a44f677bb805ccf52a98b641df22ad839">MASKB</a>)</td></tr>
+<tr class="memdesc:a38e54c56fc0272a1b9d42ba71935bb25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Element index in the corresponding node of the bitmap. <br /></td></tr>
+<tr class="separator:a38e54c56fc0272a1b9d42ba71935bb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac32556261ee02f538964a7becc48e97"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac32556261ee02f538964a7becc48e97"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#aac32556261ee02f538964a7becc48e97">RETAINLEAST</a>(w,  i)&#160;&#160;&#160;((w) &amp; (<a class="el" href="summary_2bitmap_8h.html#af7ff4ea4784ba1f3d083f292fa8858a5">NODEMAX</a> &gt;&gt; (<a class="el" href="summary_2bitmap_8h.html#a403cf3149c084cea115b85c90721039a">BSIZE</a>-(i))))</td></tr>
+<tr class="memdesc:aac32556261ee02f538964a7becc48e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retains <code>i</code> least significant elements of node <code>w</code>. <br /></td></tr>
+<tr class="separator:aac32556261ee02f538964a7becc48e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Definições de Tipos</h2></td></tr>
+<tr class="memitem:ae9bd242669320bacfb6ef4a86a1fd5d4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9bd242669320bacfb6ef4a86a1fd5d4"></a>
+typedef unsigned char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="summary_2bitmap_8h.html#ae9bd242669320bacfb6ef4a86a1fd5d4">NODETYPE</a></td></tr>
+<tr class="memdesc:ae9bd242669320bacfb6ef4a86a1fd5d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bitmap node's type. <br /></td></tr>
+<tr class="separator:ae9bd242669320bacfb6ef4a86a1fd5d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descrição Detalhada</h2>
+<div class="textblock"><p>Macros and inline functions for bitwise operations on bitmaps using bit-parallelism. </p>
+<dl class="section date"><dt>Data</dt><dd>Sep 24, 2013 </dd></dl>
+<dl class="section author"><dt>Autor</dt><dd>Ricardo C. Corrêa (<a href="#" onclick="location.href='mai'+'lto:'+'cor'+'re'+'a@l'+'ia'+'.uf'+'c.'+'br'; return false;">corre<span style="display: none;">.nosp@m.</span>a@li<span style="display: none;">.nosp@m.</span>a.ufc<span style="display: none;">.nosp@m.</span>.br</a>)</dd></dl>
+<p>A bitmap is an array of bits to represent sets in which a bit of index <code>i</code> represents element <code>i</code> of the set. For a bitmap <code>B</code>, <code>B</code>[<code>i</code>] <code>=</code> <code>1</code> means that element <code>i</code> is in the set; otherwise, <code>i</code> is not.</p>
+<p>Bitmaps are defined as arrays of three different types depending on the number of bits per node, namely: <code>unsigned</code> <code>char</code> (8 bits per node), <code>unsigned</code> <code>long</code> <code>int</code> (32 bits per node), and <code>unsigned</code> <code>long</code> <code>long</code> <code>int</code> (64 bits per node). The type currently in use is selected by means of the definition of a macro name, respectively with <code>-D_ARCH8_</code>, <code>-D_ARCH32_</code>, or <code>-D_ARCH64_</code>, in the <code>gcc</code> command line. </p>
+</div></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Domingo, 25 de Setembro de 2016 09:08:53 para AB781 Laboratório de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

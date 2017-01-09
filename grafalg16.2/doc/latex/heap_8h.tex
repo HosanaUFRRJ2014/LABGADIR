@@ -1,0 +1,265 @@
+\section{Referência do Arquivo /home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/datast/heap.h}
+\label{heap_8h}\index{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/datast/heap.\+h@{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/datast/heap.\+h}}
+
+
+Heap manipulation functions.  
+
+
+{\ttfamily \#include $<$stddef.\+h$>$}\\*
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf heapify} (void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$))
+\begin{DoxyCompactList}\small\item\em Rearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function. \end{DoxyCompactList}\item 
+void {\bf heapify\+\_\+a} (void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$), int $\ast$pos, int($\ast$hash)(const void $\ast$))
+\begin{DoxyCompactList}\small\item\em Rearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function, keeping a specified array of positions updated. \end{DoxyCompactList}\item 
+int {\bf heapup} (void $\ast$base, int i, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$))
+\begin{DoxyCompactList}\small\item\em Move a specified element upward in the head. \end{DoxyCompactList}\item 
+int {\bf heapup\+\_\+a} (void $\ast$base, int i, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$), int $\ast$pos, int($\ast$hash)(const void $\ast$))
+\begin{DoxyCompactList}\small\item\em Move a specified element upward in the head, keeping a specified array of positions updated. \end{DoxyCompactList}\item 
+void {\bf heappoll} (void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$))
+\begin{DoxyCompactList}\small\item\em Remove the first element of the heap. \end{DoxyCompactList}\item 
+void {\bf heappoll\+\_\+a} (void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$), int $\ast$pos, int($\ast$hash)(const void $\ast$))
+\begin{DoxyCompactList}\small\item\em Remove the first element of the head, keeping a specified array of positions updated. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Heap manipulation functions. 
+
+\begin{DoxyDate}{Data}
+Sep 1, 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Autor}
+Ricardo C. Corrêa ({\tt correa@ufrrj.\+br})
+\end{DoxyAuthor}
+A heap is a way to organize the elements of an array that allows for fast retrieval of the element with the smallest value at any moment, even repeatedly, while allowing for fast insertion of new elements.
+
+The element with the smallest value is always the first element in the array. The order of the other elements depends on the particular implementation, but it is consistent throughout all heap-\/related functions of this header.
+
+The type of the elements in the heap is arbitrary. Distinct elements are allowed to be of different types, but they must be all of same size (in bytes). The elements are compared using a comparison function provided in every function call. The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second. If two members compare as equal, their order in the sorted array is undefined.
+
+In the following example, some of the heap functions are used to sort an array {\ttfamily a} in a nondecreasing order of {\ttfamily b}. Each element in {\ttfamily a} is an index of an element in {\ttfamily b}.
+
+
+\begin{DoxyCode}
+\textcolor{keywordtype}{void} heapsort(\textcolor{keywordtype}{int} a[], \textcolor{keywordtype}{int} n, \textcolor{keywordtype}{int} b[]) \{
+
+  \textcolor{keywordtype}{int} compard(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *i, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *j) \{
+    \textcolor{keywordflow}{return} b[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) j)] - b[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) i)];
+  \}
+
+  heapify(a, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), compard);
+
+  \textcolor{keywordflow}{while} (n > 0) \{
+    \textcolor{keywordtype}{int} e = a[0];
+    heappoll(a, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), compard);
+    a[--n] = e;
+  \}
+\}
+\end{DoxyCode}
+
+
+The following is a version of the previous function with an additional parameter\+: an array {\ttfamily pos} that indicates the position of each element in {\ttfamily a}. More precisely, array {\ttfamily pos} is such that {\ttfamily pos}[a[i]]=i. This property is remains valid after the execution of the function below.
+
+
+\begin{DoxyCode}
+\textcolor{keywordtype}{void} heapsort\_a(\textcolor{keywordtype}{int} a[], \textcolor{keywordtype}{int} n, \textcolor{keywordtype}{int} b[], \textcolor{keywordtype}{int} pos[]) \{
+
+  \textcolor{keywordtype}{int} compard(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *i, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *j) \{
+    \textcolor{keywordflow}{return} b[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) j)] - b[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) i)];
+  \}
+
+  \textcolor{keywordtype}{int} hash(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *i) \{
+        \textcolor{keywordflow}{return} *((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) i);
+  \}
+
+  heapify_a(a, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), compard, pos, hash);
+
+  \textcolor{keywordflow}{while} (n > 0) \{
+    \textcolor{keywordtype}{int} e = a[0];
+    heappoll_a(a, n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), compard, pos, hash);
+    a[--n] = e;
+  \}
+\}
+\end{DoxyCode}
+ 
+
+\subsection{Funções}
+\index{heap.\+h@{heap.\+h}!heapify@{heapify}}
+\index{heapify@{heapify}!heap.\+h@{heap.\+h}}
+\subsubsection[{heapify(void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}void heapify (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{base, }
+\item[{size\+\_\+t}]{nmemb, }
+\item[{size\+\_\+t}]{size, }
+\item[{int($\ast$)(const void $\ast$, const void $\ast$)}]{compar}
+\end{DoxyParamCaption}
+)}\label{heap_8h_ae57066a2bae1cd6bb9c8de054f632457}
+
+
+Rearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function. 
+
+The contents of the specified array are partially sorted in ascending order according to a comparison function, which is called with two arguments that point to the objects being compared. The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second. If two members compare as equal, their order in the sorted array is undefined.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em base} & Points to the start of the array to be heapified \\
+\hline
+{\em nmemb} & Number of members in the specified array \\
+\hline
+{\em size} & In bytes of each member in the specified array \\
+\hline
+{\em compar} & Points to a comparison function \\
+\hline
+\end{DoxyParams}
+\index{heap.\+h@{heap.\+h}!heapify\+\_\+a@{heapify\+\_\+a}}
+\index{heapify\+\_\+a@{heapify\+\_\+a}!heap.\+h@{heap.\+h}}
+\subsubsection[{heapify\+\_\+a(void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$), int $\ast$pos, int($\ast$hash)(const void $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}void heapify\+\_\+a (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{base, }
+\item[{size\+\_\+t}]{nmemb, }
+\item[{size\+\_\+t}]{size, }
+\item[{int($\ast$)(const void $\ast$, const void $\ast$)}]{compar, }
+\item[{int $\ast$}]{pos, }
+\item[{int($\ast$)(const void $\ast$)}]{hash}
+\end{DoxyParamCaption}
+)}\label{heap_8h_a7aa4f29910444567fd410035e71b592f}
+
+
+Rearrange the elements in a specified array in such a way that they form a heap according to a specified comparison function, keeping a specified array of positions updated. 
+
+The contents of the specified array are partially sorted in ascending order according to a comparison function, which is called with two arguments that point to the objects being compared. The comparison function must return an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second. If two members compare as equal, their order in the sorted array is undefined.
+
+An array of positions is an array {\ttfamily pos} such that {\ttfamily pos}[hash[e]] is the index of element {\ttfamily e} in the heap. This function keeps this property valid including for the elements that are moved within the array.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em base} & Points to the start of the array to be heapified \\
+\hline
+{\em nmemb} & Number of members in the specified array \\
+\hline
+{\em size} & In bytes of each member in the specified array \\
+\hline
+{\em compar} & Points to a comparison function \\
+\hline
+{\em pos} & Array that indicates the position of each element in the heap \\
+\hline
+{\em hash} & Hash function that gives the index of each element in {\ttfamily pos} \\
+\hline
+\end{DoxyParams}
+\index{heap.\+h@{heap.\+h}!heappoll@{heappoll}}
+\index{heappoll@{heappoll}!heap.\+h@{heap.\+h}}
+\subsubsection[{heappoll(void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}void heappoll (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{base, }
+\item[{size\+\_\+t}]{nmemb, }
+\item[{size\+\_\+t}]{size, }
+\item[{int($\ast$)(const void $\ast$, const void $\ast$)}]{compar}
+\end{DoxyParamCaption}
+)}\label{heap_8h_ae80ef23b4ebbdbe74e4c92774f2e58b7}
+
+
+Remove the first element of the heap. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em base} & Points to the start of the array to be heapified \\
+\hline
+{\em nmemb} & Number of members in the specified array \\
+\hline
+{\em size} & In bytes of each member in the specified array \\
+\hline
+{\em compar} & Points to a comparison function \\
+\hline
+\end{DoxyParams}
+\index{heap.\+h@{heap.\+h}!heappoll\+\_\+a@{heappoll\+\_\+a}}
+\index{heappoll\+\_\+a@{heappoll\+\_\+a}!heap.\+h@{heap.\+h}}
+\subsubsection[{heappoll\+\_\+a(void $\ast$base, size\+\_\+t nmemb, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$), int $\ast$pos, int($\ast$hash)(const void $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}void heappoll\+\_\+a (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{base, }
+\item[{size\+\_\+t}]{nmemb, }
+\item[{size\+\_\+t}]{size, }
+\item[{int($\ast$)(const void $\ast$, const void $\ast$)}]{compar, }
+\item[{int $\ast$}]{pos, }
+\item[{int($\ast$)(const void $\ast$)}]{hash}
+\end{DoxyParamCaption}
+)}\label{heap_8h_a1f1c6d2e52914ea12f584e667c4b8b32}
+
+
+Remove the first element of the head, keeping a specified array of positions updated. 
+
+An array of positions is an array {\ttfamily pos} such that {\ttfamily pos}[hash[e]] is the index of element {\ttfamily e} in the heap. This function keeps this property valid including for the elements that are moved within the array.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em base} & Points to the start of the array to be heapified \\
+\hline
+{\em nmemb} & Number of members in the specified array \\
+\hline
+{\em size} & In bytes of each member in the specified array \\
+\hline
+{\em compar} & Points to a comparison function \\
+\hline
+{\em pos} & Array that indicates the position of each element in the heap \\
+\hline
+{\em hash} & Hash function that gives the index of each element in {\ttfamily pos} \\
+\hline
+\end{DoxyParams}
+\index{heap.\+h@{heap.\+h}!heapup@{heapup}}
+\index{heapup@{heapup}!heap.\+h@{heap.\+h}}
+\subsubsection[{heapup(void $\ast$base, int i, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}int heapup (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{base, }
+\item[{int}]{i, }
+\item[{size\+\_\+t}]{size, }
+\item[{int($\ast$)(const void $\ast$, const void $\ast$)}]{compar}
+\end{DoxyParamCaption}
+)}\label{heap_8h_ae20c6ccd26610849ed65389f529a6dd8}
+
+
+Move a specified element upward in the head. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em base} & Points to the start of the array to be heapified \\
+\hline
+{\em i} & Element to move upward \\
+\hline
+{\em size} & In bytes of each member in the specified array \\
+\hline
+{\em compar} & Points to a comparison function \\
+\hline
+\end{DoxyParams}
+\index{heap.\+h@{heap.\+h}!heapup\+\_\+a@{heapup\+\_\+a}}
+\index{heapup\+\_\+a@{heapup\+\_\+a}!heap.\+h@{heap.\+h}}
+\subsubsection[{heapup\+\_\+a(void $\ast$base, int i, size\+\_\+t size, int($\ast$compar)(const void $\ast$, const void $\ast$), int $\ast$pos, int($\ast$hash)(const void $\ast$))}]{\setlength{\rightskip}{0pt plus 5cm}int heapup\+\_\+a (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{base, }
+\item[{int}]{i, }
+\item[{size\+\_\+t}]{size, }
+\item[{int($\ast$)(const void $\ast$, const void $\ast$)}]{compar, }
+\item[{int $\ast$}]{pos, }
+\item[{int($\ast$)(const void $\ast$)}]{hash}
+\end{DoxyParamCaption}
+)}\label{heap_8h_a3ecc2a03d3d853f2927d44263aa88ff6}
+
+
+Move a specified element upward in the head, keeping a specified array of positions updated. 
+
+An array of positions is an array {\ttfamily pos} such that {\ttfamily pos}[hash[e]] is the index of element {\ttfamily e} in the heap. This function keeps this property valid including for the elements that are moved within the array.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em base} & Points to the start of the array to be heapified \\
+\hline
+{\em i} & Element to move upward \\
+\hline
+{\em size} & In bytes of each member in the specified array \\
+\hline
+{\em compar} & Points to a comparison function \\
+\hline
+{\em pos} & Array that indicates the position of each element in the heap \\
+\hline
+{\em hash} & Hash function that gives the index of each element in {\ttfamily pos} \\
+\hline
+\end{DoxyParams}

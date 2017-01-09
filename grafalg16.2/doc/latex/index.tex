@@ -1,0 +1,98 @@
+Orientações e gerenciamento dos trabalhos de programação. \begin{DoxyDate}{Data}
+Aug 1, 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Autor}
+Ricardo C. Corrêa ({\tt correa@ufrrj.\+br})
+\end{DoxyAuthor}
+Estas são instruções gerais para trabalhos práticos de programação. Notação\+:
+
+
+\begin{DoxyEnumerate}
+\item {\ttfamily }[Y]\+: número do trabalho. Deve ser substituído por 1 para o trabalho 1, 2 para o trabalho 2, e assim por diante.
+\item {\ttfamily }[L\+A\+B\+G\+A\+D\+IR]\+: diretório para abrigar os arquivos dos trabalhos. Deve ser substituído pelo nome de escolha pessoal para abrigar os arquivos relativos aos trabalhos de Laboratório de Grafos e Algoritmos.
+\item {\ttfamily }[A\+R\+CH]\+: arquitetura da máquina utilizada. Deve ser substituído por 32 ou 64, dependendo da arquitetura utilizada.
+\end{DoxyEnumerate}\section{Arquivos Fornecidos}\label{index_arquivos}
+Além da descrição disponível na aba {\tt Arquivos}, os seguintes arquivos são fornecidos em {\ttfamily trab}[Y].tar.\+gz\+:
+
+
+\begin{DoxyEnumerate}
+\item {\ttfamily grinput.\+o\+:} código-\/objeto contendo funções para leitura de arquivos de entrada.
+\item {\ttfamily trab\+\_\+main.\+o\+:} código-\/objeto contendo a entrada de dados e a correção do trabalho.
+\item {\ttfamily trab}[Y].o\+: código-\/objeto de gerenciamento do trabalho {\ttfamily }[Y].
+\item {\ttfamily trab}[Y]\+\_\+000000001.\+c\+: arquivo a ser preenchido com as implementações das funções especificadas em {\ttfamily trab}[Y].h (conforme instruções abaixo).
+\item {\ttfamily grafalg16.\+2/trabs/\+Makefile}\+: script para compilação.
+\item {\ttfamily instancias/$\ast$}.clq\+: vários grafos usados como instâncias.
+\end{DoxyEnumerate}
+
+O arquivo {\ttfamily trab}[Y].tar.\+gz é construído com o comando\+: \begin{DoxyVerb}    tar cvzf trab[Y].tar.gz grafalg16.2/bin/ grafalg16.2/lib/ grafalg16.2/trabs/Makefile grafalg16.2/trabs/autor_0000000001/trab[Y]\_0000000001.c doc instancias/ lib/ datast/heap.h graph/direct/ graph/graph.h
+\end{DoxyVerb}
+
+
+A organização desses arquivos nos diretórios é a seguinte\+: \begin{DoxyVerb}    datast
+    -- heap.h
+
+    graph
+    -- graph.h
+    +- direct
+       -- bitmap.h
+
+    grafalg16.2
+    +- trabs
+    |  -- Makefile
+    |  +- autor_0000000001
+    |     -- trab[Y]_0000000001.c
+    +- lib
+    |  +- autor_0000000001
+    +- bin
+
+    lib
+    -- grinput_32.o
+    -- trab_main_32.o
+    -- grinput_64.o
+    -- trab_main_64.o
+    +- trab[Y]
+       -- trab[Y]_32.o
+       -- trab[Y]_64.o
+
+    doc
+
+    instancias
+\end{DoxyVerb}
+
+
+Os diretórios {\ttfamily grafalg16.\+2/lib} e {\ttfamily grafalg16.\+2/bin} destinam-\/se a abrigar códigos gerados como produtos da compilação de {\ttfamily trab}[Y]\+\_\+0000000001.\+c. O diretório {\ttfamily doc} contém esta documentação. Os arquivos gerados na compilação são o código-\/objeto {\ttfamily grafalg16.\+2/lib/trab}[Y]\+\_\+0000000001\+\_\+[A\+R\+CH].o e o executável {\ttfamily grafalg16.\+2/bin/autor\+\_\+}[X\+X\+X\+X\+X\+X\+X\+X\+XX]\+\_\+[A\+R\+CH].\section{Preparação}\label{index_preparacao}
+Os passos para a preparação de um trabalho são os seguintes\+:
+
+
+\begin{DoxyEnumerate}
+\item Recuperar o arquivo compactado do trabalho, denominado {\ttfamily trab}[Y].tgz.
+\item Crie um diretório para abrigar os arquivos. Nesta documentação, refere-\/se a esse diretório pelo símbolo [L\+A\+B\+G\+A\+D\+IR].
+\item Descompactar o arquivo {\ttfamily trab}[Y]-\/tar.\+gz em {\ttfamily }[L\+A\+B\+G\+A\+D\+IR], o que criará uma estrutura de diretórios como a indicada acima.
+\item Renomear o arquivo {\ttfamily trab}[Y]\+\_\+0000000001.\+c, substituindo o {\ttfamily 0000000001} pelo seu número de matrícula {\ttfamily }[X\+X\+X\+X\+X\+X\+X\+X\+XX] (somente os números, omitindo o \char`\"{}-\/\char`\"{}).
+\item Renomear os diretórios {\ttfamily grafalg16.\+2/trabs/autor\+\_\+0000000001} e {\ttfamily grafalg16.\+2/lib/autor\+\_\+0000000001}, substituindo o {\ttfamily 0000000001} pelo seu número de matrícula (somente os números, omitindo o \char`\"{}-\/\char`\"{}).
+\item Copiar os seus arquivos {\ttfamily trab1\+\_\+}[X\+X\+X\+X\+X\+X\+X\+X\+XX].c, ..., {\ttfamily trab}[Y-\/1]\+\_\+[X\+X\+X\+X\+X\+X\+X\+X\+XX].c para o diretório {\ttfamily grafalg16.\+2/trabs/autor\+\_\+}[X\+X\+X\+X\+X\+X\+X\+X\+XX].
+\item Editar o arquivo {\ttfamily trab}[Y]\+\_\+0000000001.\+c usando um editor de textos a fim de\+:
+\begin{DoxyEnumerate}
+\item Na função {\ttfamily ident}[Y](), substituir {\ttfamily 0000000001} pelo seu número de matrícula (somente os números, omitindo o \char`\"{}-\/\char`\"{}).
+\item Implementar o código de cada uma das demais funções.
+\end{DoxyEnumerate}
+\item Compilar.
+\item Executar.
+\end{DoxyEnumerate}\subsection{Programação}\label{index_Programação}
+As funções a serem implementadas estão listadas no arquivo {\ttfamily trab}[Y]\+\_\+0000000001.\+c. Os detalhes das suas especificações estão disponíveis no link {\ttfamily trab}[Y].h na aba {\tt Arquivos}.
+
+Algumas das funções em {\ttfamily trab}[Y]\+\_\+0000000001.\+c podem já estar implementadas. Esses casos devem ser tomados como exemplos de utilização de funções de {\ttfamily graph.\+h} e {\ttfamily \doxyref{direct/bitmap.\+h}{pag.}{bitmap_8h}}.\subsection{Compilação}\label{index_Compilação}
+
+\begin{DoxyEnumerate}
+\item Editar o arquivo {\ttfamily grafalg16.\+2/trabs/\+Makefile}, alterando as definições das seguintes variáveis\+: \begin{DoxyVerb} WKSPCDIR:=$(HOME) -->  WKSPCDIR:=$(HOME)/[Caminho até o diretório [LABGADIR]]
+ SRCDIR:=$(WKSPCDIR) --> SRCDIR:=$(WKSPCDIR)/[LABGADIR]
+\end{DoxyVerb}
+
+\item Executar o comando {\ttfamily make} {\ttfamily alltrabs} no diretório {\ttfamily }[L\+A\+B\+G\+A\+D\+IR]/grafalg16.2/trabs.
+\end{DoxyEnumerate}
+
+Caso seja necessário, o comando {\ttfamily make} {\ttfamily clearall} quando executado no diretório {\ttfamily }[L\+A\+B\+G\+A\+D\+IR]/grafalg16.2/trabs remove todos os arquivos gerados em uma compilação.\subsection{Execução e Testes}\label{index_execucao}
+No diretório {\ttfamily }[L\+A\+B\+G\+A\+D\+IR]/grafalg16.2/bin, executar o comando {\ttfamily }./autor\+\_\+[X\+X\+X\+X\+X\+X\+X\+X\+XX]\+\_\+[A\+R\+CH]. A primeira ação a ser realizada é a definição do grafo a ser usado, o que é feito na opção {\ttfamily g-\/} {\ttfamily grafo}. A opção {\ttfamily e-\/} {\ttfamily executar} deve ser usada para selecionar o problema e executá-\/lo.
+
+Realizar testes com os diferentes grafos disponíveis.\section{Arquivo a Enviar}\label{index_enviar}
+O arquivo a ser enviado é {\ttfamily trab}[Y]\+\_\+[X\+X\+X\+X\+X\+X\+X\+X\+XX].c. 

@@ -1,0 +1,271 @@
+\section{trab1.\+c}
+\label{trab1_8c_source}\index{grafalg16.\+2/trabs/trab1/trab1.\+c@{grafalg16.\+2/trabs/trab1/trab1.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <trab1.h>}
+00002 
+00003 \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{ NULO=-1, VIZCOMUM, EHCLIQUE, VIZCOMUMEHCLIQUE, SUBGRAUS, CONTAARESTAS, VIZCOMUMCONTAARESTAS,
+       GRAUIMPAR, NPROBS1 \} PROBS1;
+00004 
+00005 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{string} nomes[NPROBS1] = \{  \textcolor{stringliteral}{"Vizinhança comum a dois vértices"},
+00006                                                                                 \textcolor{stringliteral}{"Verificação de clique"},
+00007                                                                                 \textcolor{stringliteral}{"Verificação de clique em
+       vizinhança comum"},
+00008                                                                                 \textcolor{stringliteral}{"Determinação de graus em
+       subgrafo"},
+00009                                                                                 \textcolor{stringliteral}{"Contagem de arestas"},
+00010                                                                                 \textcolor{stringliteral}{"Contagem de arestas em
+       vizinhança comum"},
+00011                                                                                 \textcolor{stringliteral}{"Determinação de vértices
+       de grau ímpar"} \};
+00012 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{string} descricoes[NPROBS1] = \{ \textcolor{stringliteral}{"Dados um grafo G e dois vértices u e v, determinar a
+       vizinhança comum a u e v em G."},
+00013                                                                                         \textcolor{stringliteral}{"Dados um grafo G e
+       um subconjunto s dos seus vértices, determinar se s é uma clique em G."},
+00014                                                                                         \textcolor{stringliteral}{"Dados um grafo G e
+       dois vértices u e v, determinar se a vizinhança comum a u e v em G é uma clique em G."},
+00015                                                                                         \textcolor{stringliteral}{"Dados um grafo G e
+       um subconjunto s dos seus vértices, calcular o grau de cada vértice de s no grafo G restrito aos vértices
+       de s."},
+00016                                                                                         \textcolor{stringliteral}{"Dados um grafo G e
+       um subconjunto s dos seus vértices, calcular o número de arestas envolvendo vértices de s em G."},
+00017                                                                                         \textcolor{stringliteral}{"Dados um grafo G e
+       dois vértices u e v, calcular o número de arestas envolvendo vértices da vizinhança comum a u e v em G."},
+00018                                                                                         \textcolor{stringliteral}{"Dados um grafo G e
+       um subconjunto s dos seus vértices, determinar os vértices em s que possuem grau ímpar em G, restrito a s."}
+       \};
+00019 
+00020 \textcolor{keyword}{static} \textcolor{keyword}{const} Trab \_trab1 = \{ NPROBS1, \textcolor{stringliteral}{"Trabalho Prático sobre Grafos em Bitmap"}, nomes, descricoes \};
+00021 
+00022 Trab \textcolor{keyword}{const} * descTrab1() \{
+00023         \textcolor{keywordflow}{return} &\_trab1;
+00024 \}
+00025 
+00026 \textcolor{keyword}{static} BitMap * viz\_comum\_prof(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00027         BitMap * viz = newBitMap(getN(g));
+00028         intersectOf(viz, neig(g,u), neig(g,v));
+00029         \textcolor{keywordflow}{return} viz;
+00030 \}
+00031 
+00032 \textcolor{keyword}{static} \textcolor{keywordtype}{int} eh\_clique\_prof(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00033         BitMap * aux = cloneBitMap(s);
+00034 
+00035         Node node;
+00036         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00037                 delElement(aux, &node);
+00038                 \textcolor{keywordflow}{if} (!isSubset(aux, neig(g, getElement(&node))))
+00039                         \textcolor{keywordflow}{return} 0;
+00040         \}
+00041 
+00042         freeBitMap(aux);
+00043         \textcolor{keywordflow}{return} 1;
+00044 \}
+00045 
+00046 \textcolor{keyword}{static} \textcolor{keywordtype}{int} viz\_comum\_eh\_clique\_prof(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00047         BitMap * viz = viz_comum(g, u, v);
+00048         \textcolor{keywordtype}{int} ret = eh\_clique\_prof(g, viz);
+00049         freeBitMap(viz);
+00050         \textcolor{keywordflow}{return} ret;
+00051 \}
+00052 
+00053 \textcolor{keyword}{static} \textcolor{keywordtype}{void} subgraus\_prof(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} * d) \{
+00054         Node node;
+00055         BitMap * aux = similarBitMap(s);
+00056         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00057                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v = getElement(&node);
+00058                 intersectOf(aux, s, neig(g, v));
+00059                 d[v] = cardOf(aux);
+00060         \}
+00061         freeBitMap(aux);
+00062 \}
+00063 
+00064 \textcolor{keyword}{static} \textcolor{keywordtype}{int} conta\_arestas\_prof(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00065         \textcolor{keywordtype}{int} ret = 0;
+00066         BitMap * aux = similarBitMap(s);
+00067 
+00068         Node node;
+00069         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00070                 intersectOf(aux, s, neig(g, getElement(&node)));
+00071                 ret += cardOf(aux);
+00072         \}
+00073 
+00074         freeBitMap(aux);
+00075         \textcolor{keywordflow}{return} ret >> 1;
+00076 \}
+00077 
+00078 \textcolor{keyword}{static} \textcolor{keywordtype}{int} viz\_comum\_conta\_arestas\_prof(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00079         BitMap * viz = viz_comum(g, u, v);
+00080         \textcolor{keywordtype}{int} ret = conta\_arestas\_prof(g, viz);
+00081         freeBitMap(viz);
+00082         \textcolor{keywordflow}{return} ret;
+00083 \}
+00084 
+00085 \textcolor{keyword}{static} BitMap * grau\_impar\_prof(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00086         BitMap * imp = similarBitMap(s);
+00087         BitMap * viz = newBitMap(getN(g));
+00088 
+00089         Node node;
+00090         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00091                 intersectOf(viz, s, neig(g, getElement(&node)));
+00092                 \textcolor{keywordflow}{if} (cardOf(viz) % 2)
+00093                         addElement(imp, &node);
+00094         \}
+00095 
+00096         freeBitMap(viz);
+00097         \textcolor{keywordflow}{return} imp;
+00098 \}
+00099 
+00100 \textcolor{keyword}{static} \textcolor{keywordtype}{void} entradaIntVet(FILE * stream, \textcolor{keywordtype}{int} ** v, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} * n) \{
+00101         \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o tamanho do vetor: "});
+00102         fscanf(stream,\textcolor{stringliteral}{"%u"},n);
+00103         *v = (\textcolor{keywordtype}{int} *) calloc(*n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+00104         \textcolor{keywordtype}{int} i;
+00105         \textcolor{keywordflow}{for} (i = 0; i < *n; i++) \{
+00106                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o elemento v[%d]: "},i);
+00107                 fscanf(stream,\textcolor{stringliteral}{"%d"},&(*v)[i]);
+00108         \}
+00109 \}
+00110 
+00111 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} execTrab1(Graph * g, FILE *stream, \textcolor{keywordtype}{int} prob) \{
+00112         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ret = 0;
+00113 
+00114         \textcolor{keywordflow}{switch} (prob) \{
+00115         \textcolor{keywordflow}{case} VIZCOMUM: \{
+00116                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, v;
+00117                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o vértice u: "});
+00118                 fscanf(stream,\textcolor{stringliteral}{"%u"},&u);
+00119                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o vértice v: "});
+00120                 fscanf(stream,\textcolor{stringliteral}{"%u"},&v);
+00121 
+00122                 BitMap * viz = viz_comum(g, u, v);
+00123                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: "});
+00124                 printSetNodes(viz);
+00125 
+00126                 BitMap * viz\_prof = viz\_comum\_prof(g, u, v);
+00127 
+00128                 ret = areEqual(viz,viz\_prof);
+00129 
+00130                 freeBitMap(viz);
+00131                 freeBitMap(viz\_prof);
+00132                 \textcolor{keywordflow}{break};
+00133         \}
+00134         \textcolor{keywordflow}{case} EHCLIQUE: \{
+00135                 \textcolor{keywordtype}{int} * v;
+00136                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n;
+00137                 entradaIntVet(stream, &v, &n);
+00138 
+00139                 BitMap * s = pack(v, n, getN(g));
+00140                 \textcolor{keywordtype}{int} ec = eh_clique(g, s);
+00141                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: %d\(\backslash\)n"}, ec);
+00142 
+00143                 BitMap * s\_prof = pack(v, n, getN(g));
+00144                 ret = (!ec == !eh\_clique\_prof(g, s\_prof) && areEqual(s, s\_prof));
+00145 
+00146                 freeBitMap(s);
+00147                 freeBitMap(s\_prof);
+00148                 free(v);
+00149                 \textcolor{keywordflow}{break};
+00150         \}
+00151         \textcolor{keywordflow}{case} VIZCOMUMEHCLIQUE: \{
+00152                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, v;
+00153                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o vértice u: "});
+00154                 fscanf(stream,\textcolor{stringliteral}{"%u"},&u);
+00155                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o vértice v: "});
+00156                 fscanf(stream,\textcolor{stringliteral}{"%u"},&v);
+00157 
+00158                 \textcolor{keywordtype}{int} ec = viz_comum_eh_clique(g, u, v);
+00159                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: %d\(\backslash\)n"},ec);
+00160 
+00161                 ret = (!ec == !viz\_comum\_eh\_clique\_prof(g, u, v));
+00162                 \textcolor{keywordflow}{break};
+00163         \}
+00164         \textcolor{keywordflow}{case} SUBGRAUS: \{
+00165                 \textcolor{keywordtype}{int} * v;
+00166                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n;
+00167                 entradaIntVet(stream, &v, &n);
+00168 
+00169                 BitMap * s = pack(v, n, getN(g));
+00170                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} d[getN(g)];
+00171                 subgraus(g, s, d);
+00172                 \textcolor{keywordflow}{if} (stream == stdin) \{
+00173                         \textcolor{keywordtype}{int} i;
+00174                         printf(\textcolor{stringliteral}{"Resultado obtido: \(\backslash\)n"});
+00175                         \textcolor{keywordflow}{for} (i = 0; i < n; i++)
+00176                                 printf(\textcolor{stringliteral}{"d[%d]=%u\(\backslash\)n"}, i, d[v[i]]);
+00177                 \}
+00178 
+00179                 BitMap * s\_prof = pack(v, n, getN(g));
+00180                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} d\_prof[getN(g)];
+00181                 subgraus\_prof(g, s\_prof, d\_prof);
+00182 
+00183                 ret = 0;
+00184                 \textcolor{keywordtype}{int} i;
+00185                 \textcolor{keywordflow}{for} (i = 0; i < n; i++)
+00186                         ret += (d[v[i]] == d\_prof[v[i]]);
+00187 
+00188                 ret = (ret == n) && areEqual(s, s\_prof);
+00189 
+00190                 freeBitMap(s);
+00191                 freeBitMap(s\_prof);
+00192                 free(v);
+00193                 \textcolor{keywordflow}{break};
+00194         \}
+00195         \textcolor{keywordflow}{case} CONTAARESTAS: \{
+00196                 \textcolor{keywordtype}{int} * v;
+00197                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n;
+00198                 entradaIntVet(stream, &v, &n);
+00199 
+00200                 BitMap * s = pack(v, n, getN(g));
+00201                 \textcolor{keywordtype}{int} ec = conta_arestas(g, s);
+00202                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: %d\(\backslash\)n"}, ec);
+00203 
+00204                 BitMap * s\_prof = pack(v, n, getN(g));
+00205                 ret = (ec == conta\_arestas\_prof(g, s\_prof) && areEqual(s, s\_prof));
+00206 
+00207                 freeBitMap(s);
+00208                 freeBitMap(s\_prof);
+00209                 free(v);
+00210                 \textcolor{keywordflow}{break};
+00211         \}
+00212         \textcolor{keywordflow}{case} VIZCOMUMCONTAARESTAS: \{
+00213                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, v;
+00214                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o vértice u: "});
+00215                 fscanf(stream,\textcolor{stringliteral}{"%u"},&u);
+00216                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o vértice v: "});
+00217                 fscanf(stream,\textcolor{stringliteral}{"%u"},&v);
+00218 
+00219                 \textcolor{keywordtype}{int} ec = viz_comum_conta_arestas(g, u, v);
+00220                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: %d\(\backslash\)n"},ec);
+00221 
+00222                 ret = (ec == viz\_comum\_conta\_arestas\_prof(g, u, v));
+00223                 \textcolor{keywordflow}{break};
+00224         \}
+00225         \textcolor{keywordflow}{case} GRAUIMPAR: \{
+00226                 \textcolor{keywordtype}{int} * v;
+00227                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n;
+00228                 entradaIntVet(stream, &v, &n);
+00229 
+00230                 BitMap * s = pack(v, n, getN(g));
+00231                 BitMap * imp = grau_impar(g, s);
+00232                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: "});
+00233                 printSetNodes(imp);
+00234 
+00235                 BitMap * s\_prof = pack(v, n, getN(g));
+00236                 BitMap * imp\_prof = grau\_impar\_prof(g, s);
+00237 
+00238                 ret = areEqual(imp,imp\_prof);
+00239 
+00240                 freeBitMap(s);
+00241                 freeBitMap(s\_prof);
+00242                 freeBitMap(imp);
+00243                 freeBitMap(imp\_prof);
+00244                 free(v);
+00245                 \textcolor{keywordflow}{break};
+00246         \}
+00247         \textcolor{keywordflow}{default}:
+00248                 \textcolor{keywordflow}{break};
+00249         \}
+00250 
+00251         \textcolor{keywordflow}{return} ret;
+00252 \}
+\end{DoxyCode}

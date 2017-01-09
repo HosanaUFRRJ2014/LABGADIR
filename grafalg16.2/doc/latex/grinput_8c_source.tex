@@ -1,0 +1,171 @@
+\section{grinput.\+c}
+\label{grinput_8c_source}\index{graph/grinput.\+c@{graph/grinput.\+c}}
+
+\begin{DoxyCode}
+00001 
+00002 \textcolor{preprocessor}{#include <stdio.h>}
+00003 \textcolor{preprocessor}{#include <string.h>}
+00004 
+00005 \textcolor{preprocessor}{#include <grinput.h>}
+00006 
+00007 \textcolor{keyword}{static} \textcolor{keywordtype}{void} getGraphSize(FILE* graphFile, \textcolor{keywordtype}{size\_t} * n, \textcolor{keywordtype}{size\_t} * m) \{
+00008         \textcolor{keywordtype}{char} type = \textcolor{charliteral}{' '};
+00009         \textcolor{keywordtype}{char} linestr[100];
+00010         \textcolor{keywordtype}{char}* datastr;
+00011         *n = 0;
+00012         *m = 0;
+00013 
+00014         \textcolor{keywordflow}{while} (type != \textcolor{charliteral}{'p'}) \{
+00015                 type = fgetc(graphFile);
+00016                 \textcolor{keywordflow}{if} (type != EOF) \{
+00017 
+00018                         \textcolor{comment}{/* header */}
+00019                         \textcolor{keywordflow}{if} (type == \textcolor{charliteral}{'c'}) \{
+00020                                 datastr = fgets(linestr, 100, graphFile);
+00021                                 \textcolor{keywordflow}{if} (datastr != NULL)
+00022                                         printf(\textcolor{stringliteral}{"%s"}, linestr);
+00023                                 \textcolor{keywordflow}{else} \{
+00024                                         *n = -1;
+00025                                         \textcolor{keywordflow}{return};
+00026                                 \}
+00027                         \}
+00028 
+00029                         \textcolor{comment}{/* Vertices */}
+00030                         \textcolor{keywordflow}{if} (type == \textcolor{charliteral}{'p'}) \{
+00031                                 datastr = fgets(linestr, 100, graphFile);
+00032                                 \textcolor{keywordflow}{if} (datastr == NULL) \{
+00033                                         *n = -1;
+00034                                         \textcolor{keywordflow}{return};
+00035                                 \}
+00036                                 datastr = strtok(linestr, \textcolor{stringliteral}{" "});
+00037                                 printf(\textcolor{stringliteral}{"\(\backslash\)tdatastr:%s\(\backslash\)n"}, datastr);
+00038                                 \textcolor{keywordflow}{if} (!strcmp(datastr, \textcolor{stringliteral}{"edge"}) || !strcmp(datastr, \textcolor{stringliteral}{"col"})) \{
+00039                                         datastr = strtok(NULL, \textcolor{stringliteral}{" "});
+00040                                         printf(\textcolor{stringliteral}{"\(\backslash\)tdatastr:%s\(\backslash\)n"}, datastr);
+00041                                 \}
+00042                                 *n = atoi(datastr);
+00043 
+00044                                 datastr = strtok(NULL, \textcolor{stringliteral}{" "});
+00045                                 printf(\textcolor{stringliteral}{"\(\backslash\)tdatastr:%s\(\backslash\)n"}, datastr);
+00046                                 *m = atoll(datastr);
+00047 
+00048                                 printf(\textcolor{stringliteral}{"Graph with (%ld) vertices and (%ld) edges.\(\backslash\)n"}, *n, *m);
+00049                                 printf(\textcolor{stringliteral}{"Density: %3.2f\(\backslash\)n"}, 2.0 * ((\textcolor{keywordtype}{double}) *m) / (*n * (*n)));
+00050                         \}
+00051                 \}
+00052         \}
+00053 \}
+00054 
+00055 Graph * readDimacsGraph(FILE* graphFile) \{
+00056         \textcolor{keywordtype}{char} type = \textcolor{charliteral}{' '};
+00057         \textcolor{keywordtype}{char} linestr[100];
+00058         \textcolor{keywordtype}{char}* datastr;
+00059         \textcolor{keywordtype}{int} i, j;
+00060         \textcolor{keywordtype}{size\_t} n;
+00061         \textcolor{keywordtype}{size\_t} m;
+00062 
+00063         printf(\textcolor{stringliteral}{"\(\backslash\)t#Starts reading...\(\backslash\)n"});
+00064         fflush(NULL);
+00065         getGraphSize(graphFile, &n, &m);
+00066 
+00068         \textcolor{comment}{// Graph variables}
+00070 \textcolor{comment}{}        Graph * g = newGraph(n);
+00071         g->m = m;
+00072 
+00073         type = fgetc(graphFile);
+00074         \textcolor{keywordflow}{while} (type != EOF) \{
+00075                 \textcolor{comment}{/* Edges */}
+00076                 \textcolor{keywordflow}{if} (type == \textcolor{charliteral}{'e'}) \{
+00077                         datastr = fgets(linestr, 100, graphFile);
+00078                         \textcolor{keywordflow}{if} (datastr == NULL)
+00079                                 \textcolor{keywordflow}{return} 0;
+00080 
+00081                         datastr = strtok(linestr, \textcolor{stringliteral}{" "});
+00082                         i = atoi(datastr) - 1;
+00083 
+00084                         datastr = strtok(NULL, \textcolor{stringliteral}{" "});
+00085                         j = atoi(datastr) - 1;
+00086 
+00087                         addEdge(g, i, j);
+00088                 \} \textcolor{keywordflow}{else} \{
+00089                         datastr = fgets(linestr, 100, graphFile);
+00090                         \textcolor{keywordflow}{if} (datastr != NULL)
+00091                                 printf(\textcolor{stringliteral}{" %s\(\backslash\)n"}, linestr);
+00092                         \textcolor{keywordflow}{else}
+00093                                 \textcolor{keywordflow}{return} NULL;
+00094                 \}
+00095                 type = fgetc(graphFile);
+00096         \}
+00097         printf(\textcolor{stringliteral}{"\(\backslash\)t#Finishes reading graph\(\backslash\)n"});
+00098 
+00099         \textcolor{keywordflow}{return} g;
+00100 \}
+00101 
+00102 \textcolor{keywordtype}{double} * readDoubleWeights(\textcolor{keywordtype}{size\_t} n, FILE* weightsFile) \{
+00103         \textcolor{keywordtype}{char} type = \textcolor{charliteral}{' '};
+00104         \textcolor{keywordtype}{char} linestr[100];
+00105         \textcolor{keywordtype}{char}* datastr;
+00106         \textcolor{keywordtype}{int} i;
+00107 
+00108         \textcolor{keywordtype}{double} * w;
+00109         w = calloc(n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));
+00110 
+00111         i = 0;
+00112         type = fgetc(weightsFile);
+00113         \textcolor{keywordflow}{while} (i < n && type != EOF) \{
+00114                 \textcolor{comment}{/* Edges */}
+00115                 \textcolor{keywordflow}{if} (type == \textcolor{charliteral}{'w'}) \{
+00116                         datastr = fgets(linestr, 100, weightsFile);
+00117                         \textcolor{keywordflow}{if} (datastr == NULL)
+00118                                 \textcolor{keywordflow}{return} 0;
+00119 
+00120                         datastr = strtok(linestr, \textcolor{stringliteral}{" "});
+00121                         w[i++] = atof(datastr);
+00122                 \} \textcolor{keywordflow}{else} \{
+00123                         datastr = fgets(linestr, 100, weightsFile);
+00124                         \textcolor{keywordflow}{if} (datastr != NULL)
+00125                                 printf(\textcolor{stringliteral}{" %s\(\backslash\)n"}, linestr);
+00126                         \textcolor{keywordflow}{else}
+00127                                 \textcolor{keywordflow}{return} NULL;
+00128                 \}
+00129                 type = fgetc(weightsFile);
+00130         \}
+00131         printf(\textcolor{stringliteral}{"\(\backslash\)t#Finishes reading weights\(\backslash\)n"});
+00132 
+00133         \textcolor{keywordflow}{return} w;
+00134 \}
+00135 
+00136 \textcolor{keywordtype}{double} * readIntWeights(\textcolor{keywordtype}{size\_t} n, FILE* weightsFile) \{
+00137         \textcolor{keywordtype}{char} type = \textcolor{charliteral}{' '};
+00138         \textcolor{keywordtype}{char} linestr[100];
+00139         \textcolor{keywordtype}{char}* datastr;
+00140         \textcolor{keywordtype}{int} i;
+00141 
+00142         \textcolor{keywordtype}{double} * w;
+00143         w = calloc(n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));
+00144 
+00145         i = 0;
+00146         type = fgetc(weightsFile);
+00147         \textcolor{keywordflow}{while} (i < n && type != EOF) \{
+00148                 \textcolor{comment}{/* Edges */}
+00149                 \textcolor{keywordflow}{if} (type == \textcolor{charliteral}{'w'}) \{
+00150                         datastr = fgets(linestr, 100, weightsFile);
+00151                         \textcolor{keywordflow}{if} (datastr == NULL)
+00152                                 \textcolor{keywordflow}{return} 0;
+00153 
+00154                         datastr = strtok(linestr, \textcolor{stringliteral}{" "});
+00155                         w[i++] = (int) (10 * atof(datastr));
+00156                 \} \textcolor{keywordflow}{else} \{
+00157                         datastr = fgets(linestr, 100, weightsFile);
+00158                         \textcolor{keywordflow}{if} (datastr != NULL)
+00159                                 printf(\textcolor{stringliteral}{" %s\(\backslash\)n"}, linestr);
+00160                         \textcolor{keywordflow}{else}
+00161                                 \textcolor{keywordflow}{return} NULL;
+00162                 \}
+00163                 type = fgetc(weightsFile);
+00164         \}
+00165         printf(\textcolor{stringliteral}{"\(\backslash\)t#Finishes reading weights\(\backslash\)n"});
+00166 
+00167         \textcolor{keywordflow}{return} w;
+00168 \}
+\end{DoxyCode}

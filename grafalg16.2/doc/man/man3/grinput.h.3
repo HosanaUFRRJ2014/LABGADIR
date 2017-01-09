@@ -1,0 +1,122 @@
+.TH "/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/graph/grinput.h" 3 "Domingo, 25 de Setembro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/graph/grinput.h \- Functions to read a graph from a file in the DIMACS format\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <graph\&.h>\fP
+.br
+
+.SS "Funções"
+
+.in +1c
+.ti -1c
+.RI "\fBGraph\fP * \fBreadDimacsGraph\fP (FILE *graphFile)"
+.br
+.RI "\fIReads a graph from a specified file in the DIMACS format\&. \fP"
+.ti -1c
+.RI "double * \fBreadIntWeights\fP (size_t n, FILE *weightsFile)"
+.br
+.RI "\fIRead and return an array of integer weights from a specified file\&. \fP"
+.ti -1c
+.RI "double * \fBreadDoubleWeights\fP (size_t n, FILE *weightsFile)"
+.br
+.RI "\fIRead and return an array of double weights from a specified file\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Functions to read a graph from a file in the DIMACS format\&. 
+
+
+.PP
+\fBData:\fP
+.RS 4
+Sep 28, 2013 
+.RE
+.PP
+\fBAutor:\fP
+.RS 4
+Ricardo C\&. Corrêa (correa@ufrrj.br) 
+.RE
+.PP
+
+.SH "Funções"
+.PP 
+.SS "\fBGraph\fP* readDimacsGraph (FILE * graphFile)"
+
+.PP
+Reads a graph from a specified file in the DIMACS format\&. A new graph is created\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIgraphFile\fP The input file in the DIMACS format\&.
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+The graph read from the specified file\&. 
+.RE
+.PP
+
+.SS "double* readDoubleWeights (size_t n, FILE * weightsFile)"
+
+.PP
+Read and return an array of double weights from a specified file\&. A new array is allocated to store the weights\&.
+.PP
+File format: 
+.PP
+.nf
+  c random-1.clq
+  c
+  c Created on: Jan 20, 2011
+  c     Author: correa
+  c
+  c 4096 values
+  c
+  w 0.0246
+
+.fi
+.PP
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIn\fP the number of weights to read 
+.br
+\fIweightsFile\fP the file containing the weights 
+.RE
+.PP
+
+.SS "double* readIntWeights (size_t n, FILE * weightsFile)"
+
+.PP
+Read and return an array of integer weights from a specified file\&. A new array is allocated to store the weights\&.
+.PP
+File format: 
+.PP
+.nf
+  c random-1.clq
+  c
+  c Created on: Jan 20, 2011
+  c     Author: correa
+  c
+  c 4096 values
+  c
+  w 0.0246
+
+.fi
+.PP
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIn\fP the number of weights to read 
+.br
+\fIweightsFile\fP the file containing the weights 
+.RE
+.PP
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

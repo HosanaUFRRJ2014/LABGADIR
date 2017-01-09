@@ -1,0 +1,116 @@
+\section{Referência do Arquivo /home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/grinput.h}
+\label{grinput_8h}\index{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/grinput.\+h@{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/grinput.\+h}}
+
+
+Functions to read a graph from a file in the D\+I\+M\+A\+CS format.  
+
+
+{\ttfamily \#include $<$graph.\+h$>$}\\*
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Graph} $\ast$ {\bf read\+Dimacs\+Graph} (F\+I\+LE $\ast$graph\+File)
+\begin{DoxyCompactList}\small\item\em Reads a graph from a specified file in the D\+I\+M\+A\+CS format. \end{DoxyCompactList}\item 
+double $\ast$ {\bf read\+Int\+Weights} (size\+\_\+t n, F\+I\+LE $\ast$weights\+File)
+\begin{DoxyCompactList}\small\item\em Read and return an array of integer weights from a specified file. \end{DoxyCompactList}\item 
+double $\ast$ {\bf read\+Double\+Weights} (size\+\_\+t n, F\+I\+LE $\ast$weights\+File)
+\begin{DoxyCompactList}\small\item\em Read and return an array of double weights from a specified file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Functions to read a graph from a file in the D\+I\+M\+A\+CS format. 
+
+\begin{DoxyDate}{Data}
+Sep 28, 2013 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Autor}
+Ricardo C. Corrêa ({\tt correa@ufrrj.\+br}) 
+\end{DoxyAuthor}
+
+
+\subsection{Funções}
+\index{grinput.\+h@{grinput.\+h}!read\+Dimacs\+Graph@{read\+Dimacs\+Graph}}
+\index{read\+Dimacs\+Graph@{read\+Dimacs\+Graph}!grinput.\+h@{grinput.\+h}}
+\subsubsection[{read\+Dimacs\+Graph(\+F\+I\+L\+E $\ast$graph\+File)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Graph}$\ast$ read\+Dimacs\+Graph (
+\begin{DoxyParamCaption}
+\item[{F\+I\+LE $\ast$}]{graph\+File}
+\end{DoxyParamCaption}
+)}\label{grinput_8h_ad7ec08491139209b12ec0f3b7fce19bc}
+
+
+Reads a graph from a specified file in the D\+I\+M\+A\+CS format. 
+
+A new graph is created.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em graph\+File} & The input file in the D\+I\+M\+A\+CS format.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+The graph read from the specified file. 
+\end{DoxyReturn}
+\index{grinput.\+h@{grinput.\+h}!read\+Double\+Weights@{read\+Double\+Weights}}
+\index{read\+Double\+Weights@{read\+Double\+Weights}!grinput.\+h@{grinput.\+h}}
+\subsubsection[{read\+Double\+Weights(size\+\_\+t n, F\+I\+L\+E $\ast$weights\+File)}]{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ read\+Double\+Weights (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{n, }
+\item[{F\+I\+LE $\ast$}]{weights\+File}
+\end{DoxyParamCaption}
+)}\label{grinput_8h_a26bee71d5b04e5934647f961cbdf5cf1}
+
+
+Read and return an array of double weights from a specified file. 
+
+A new array is allocated to store the weights.
+
+File format\+: \begin{DoxyVerb}  c random-1.clq
+  c
+  c Created on: Jan 20, 2011
+  c     Author: correa
+  c
+  c 4096 values
+  c
+  w 0.0246
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em n} & the number of weights to read \\
+\hline
+{\em weights\+File} & the file containing the weights \\
+\hline
+\end{DoxyParams}
+\index{grinput.\+h@{grinput.\+h}!read\+Int\+Weights@{read\+Int\+Weights}}
+\index{read\+Int\+Weights@{read\+Int\+Weights}!grinput.\+h@{grinput.\+h}}
+\subsubsection[{read\+Int\+Weights(size\+\_\+t n, F\+I\+L\+E $\ast$weights\+File)}]{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ read\+Int\+Weights (
+\begin{DoxyParamCaption}
+\item[{size\+\_\+t}]{n, }
+\item[{F\+I\+LE $\ast$}]{weights\+File}
+\end{DoxyParamCaption}
+)}\label{grinput_8h_a95356fce747831b3cf76ce641614fdea}
+
+
+Read and return an array of integer weights from a specified file. 
+
+A new array is allocated to store the weights.
+
+File format\+: \begin{DoxyVerb}  c random-1.clq
+  c
+  c Created on: Jan 20, 2011
+  c     Author: correa
+  c
+  c 4096 values
+  c
+  w 0.0246
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em n} & the number of weights to read \\
+\hline
+{\em weights\+File} & the file containing the weights \\
+\hline
+\end{DoxyParams}

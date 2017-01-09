@@ -1,0 +1,216 @@
+\section{Referência do Arquivo /home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab1.h}
+\label{trab1_8h}\index{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab1.\+h@{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/framework/trabs/trab1.\+h}}
+
+
+Especificações das funções a serem implementadas no trabalho 1.  
+
+
+{\ttfamily \#include $<$graph.\+h$>$}\\*
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Bit\+Map} $\ast$ {\bf viz\+\_\+comum} (Graph $\ast$const g, unsigned int u, unsigned int v)
+\begin{DoxyCompactList}\small\item\em Vizinhança comum a dois vértices. \end{DoxyCompactList}\item 
+int {\bf eh\+\_\+clique} (Graph $\ast$const g, {\bf Bit\+Map} $\ast$const s)
+\begin{DoxyCompactList}\small\item\em Verificação de clique. \end{DoxyCompactList}\item 
+int {\bf viz\+\_\+comum\+\_\+eh\+\_\+clique} (Graph $\ast$const g, unsigned int u, unsigned int v)
+\begin{DoxyCompactList}\small\item\em Verificação de clique em vizinhança comum. \end{DoxyCompactList}\item 
+void {\bf subgraus} (Graph $\ast$const g, {\bf Bit\+Map} $\ast$const s, unsigned int $\ast$d)
+\begin{DoxyCompactList}\small\item\em Determinação de graus em subgrafo. \end{DoxyCompactList}\item 
+int {\bf conta\+\_\+arestas} (Graph $\ast$const g, {\bf Bit\+Map} $\ast$const s)
+\begin{DoxyCompactList}\small\item\em Contagem de arestas. \end{DoxyCompactList}\item 
+int {\bf viz\+\_\+comum\+\_\+conta\+\_\+arestas} (Graph $\ast$const g, unsigned int u, unsigned int v)
+\begin{DoxyCompactList}\small\item\em Contagem de arestas em vizinhança comum. \end{DoxyCompactList}\item 
+{\bf Bit\+Map} $\ast$ {\bf grau\+\_\+impar} (Graph $\ast$const g, {\bf Bit\+Map} $\ast$const s)
+\begin{DoxyCompactList}\small\item\em Determinação de vértices de grau ímpar. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Especificações das funções a serem implementadas no trabalho 1. 
+
+\begin{DoxyDate}{Data}
+Aug 1, 2016 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Autor}
+Ricardo C. Corrêa ({\tt correa@ufrrj.\+br})
+\end{DoxyAuthor}
+Este trabalho é constituído de 6 funções, das quais 3 já estão implementadas e servem de exemplo para implementação das outras 3. As funções já implementadas são \doxyref{viz\+\_\+comum}{pag.}{trab1_8h_aaa61e9b6387641f5805e511b86b81a23}, \doxyref{eh\+\_\+clique}{pag.}{trab1_8h_ab88f7c774acfac47e4cd883585683bb4} e \doxyref{viz\+\_\+comum\+\_\+eh\+\_\+clique}{pag.}{trab1_8h_ad197d91480774d9db812781ed35918b7}. Nessas funções, algumas manipulações dos tipos \doxyref{Bit\+Map}{pag.}{structBitMap} e Graph são utilizadas a título de ilustração. As especificações detalhas das funções de \doxyref{Bit\+Map}{pag.}{structBitMap} e Graph podem ser obtidas em suas respectivas páginas. As funções a serem implementadas são \doxyref{conta\+\_\+arestas}{pag.}{trab1_8h_a8faa3da228c3dccaee6b7920df175bd9}, \doxyref{viz\+\_\+comum\+\_\+conta\+\_\+arestas}{pag.}{trab1_8h_a207b39716dc23a7f3264e351a353fa2a} e \doxyref{grau\+\_\+impar}{pag.}{trab1_8h_a274f8aa335ab44673d48d44b8b953872}. 
+
+\subsection{Funções}
+\index{trab1.\+h@{trab1.\+h}!conta\+\_\+arestas@{conta\+\_\+arestas}}
+\index{conta\+\_\+arestas@{conta\+\_\+arestas}!trab1.\+h@{trab1.\+h}}
+\subsubsection[{conta\+\_\+arestas(\+Graph $\ast$const g, Bit\+Map $\ast$const s)}]{\setlength{\rightskip}{0pt plus 5cm}int conta\+\_\+arestas (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{{\bf Bit\+Map} $\ast$const}]{s}
+\end{DoxyParamCaption}
+)}\label{trab1_8h_a8faa3da228c3dccaee6b7920df175bd9}
+
+
+Contagem de arestas. 
+
+Calcula o número de arestas {\ttfamily xy} de um grafo especificado tais que ambos {\ttfamily x} e {\ttfamily y} pertencem a um conjunto de vértices especificado.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em s} & Subconjunto de vértices de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Número de arestas de {\ttfamily g} definidas por vértices em {\ttfamily s} 
+\end{DoxyReturn}
+\index{trab1.\+h@{trab1.\+h}!eh\+\_\+clique@{eh\+\_\+clique}}
+\index{eh\+\_\+clique@{eh\+\_\+clique}!trab1.\+h@{trab1.\+h}}
+\subsubsection[{eh\+\_\+clique(\+Graph $\ast$const g, Bit\+Map $\ast$const s)}]{\setlength{\rightskip}{0pt plus 5cm}int eh\+\_\+clique (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{{\bf Bit\+Map} $\ast$const}]{s}
+\end{DoxyParamCaption}
+)}\label{trab1_8h_ab88f7c774acfac47e4cd883585683bb4}
+
+
+Verificação de clique. 
+
+Determina se um subconjunto de vértices especificado é uma clique em um grafo especificado. Um subconjunto de vértices é uma clique se todos são vizinhos entre si. Ilustração do uso das funções de enumeração de \doxyref{Bit\+Map}{pag.}{structBitMap}\+: \#begin, que determina a partida da enumeração, \#end, que testa a chegada, e \#next para avançar um nó na enumeração. A função \#get\+Element para obtenção do alvo de um nó também é usada. As duas funções de manipulação de \doxyref{Bit\+Map}{pag.}{structBitMap} que aparecem como ilustração são \#del\+Element, para remoção de um elemento, e \#is\+Subset, para comparar dois \doxyref{Bit\+Map}{pag.}{structBitMap}. Além disso, há o uso da função \#neig para obter o \doxyref{Bit\+Map}{pag.}{structBitMap} dos vizinhos de um vértice especificado.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em s} & Subconjunto de vértices de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+0 se {\ttfamily s} não é uma clique em {\ttfamily g}, e um valor diferente de 0 em caso contrário 
+\end{DoxyReturn}
+\index{trab1.\+h@{trab1.\+h}!grau\+\_\+impar@{grau\+\_\+impar}}
+\index{grau\+\_\+impar@{grau\+\_\+impar}!trab1.\+h@{trab1.\+h}}
+\subsubsection[{grau\+\_\+impar(\+Graph $\ast$const g, Bit\+Map $\ast$const s)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bit\+Map}$\ast$ grau\+\_\+impar (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{{\bf Bit\+Map} $\ast$const}]{s}
+\end{DoxyParamCaption}
+)}\label{trab1_8h_a274f8aa335ab44673d48d44b8b953872}
+
+
+Determinação de vértices de grau ímpar. 
+
+Determinar os vértices de um conjunto especificado que possuem grau ímpar em um grafo especificado, restrito ao mencionado conjunto. Seja {\ttfamily s} um conjunto de vértices do grafo especificado. O grau, no grafo especificado e restrito a {\ttfamily s}, de um vértice {\ttfamily u} pertencente a {\ttfamily s} é dado pela quantidade de vizinhos de {\ttfamily u} no grafo especificado que também pertencem a {\ttfamily s}. Mais especificamente, a cardinalidade de \[ \{ v \mid uv \in E, v \in s \}, \] supondo que {\ttfamily E} seja o conjunto de arestas do grafo especificado.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em s} & Subconjunto de vértices de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Conjunto de vértices de {\ttfamily s} que possuem uma quantidade ímpar de vizinhos em {\ttfamily g} que também pertencem a {\ttfamily s} 
+\end{DoxyReturn}
+\index{trab1.\+h@{trab1.\+h}!subgraus@{subgraus}}
+\index{subgraus@{subgraus}!trab1.\+h@{trab1.\+h}}
+\subsubsection[{subgraus(\+Graph $\ast$const g, Bit\+Map $\ast$const s, unsigned int $\ast$d)}]{\setlength{\rightskip}{0pt plus 5cm}void subgraus (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{{\bf Bit\+Map} $\ast$const}]{s, }
+\item[{unsigned int $\ast$}]{d}
+\end{DoxyParamCaption}
+)}\label{trab1_8h_a42b204b9fa048a47890114109a9b1db8}
+
+
+Determinação de graus em subgrafo. 
+
+Calcula o grau de cada vértice de um conjunto especificado no grafo especificado restrito aos vértices do conjunto. Os graus calculados são retornados em um vetor especificado.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em s} & Subconjunto de vértices de {\ttfamily g} \\
+\hline
+{\em d} & Vetor indexado pelos vértices de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\index{trab1.\+h@{trab1.\+h}!viz\+\_\+comum@{viz\+\_\+comum}}
+\index{viz\+\_\+comum@{viz\+\_\+comum}!trab1.\+h@{trab1.\+h}}
+\subsubsection[{viz\+\_\+comum(\+Graph $\ast$const g, unsigned int u, unsigned int v)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bit\+Map}$\ast$ viz\+\_\+comum (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{unsigned int}]{u, }
+\item[{unsigned int}]{v}
+\end{DoxyParamCaption}
+)}\label{trab1_8h_aaa61e9b6387641f5805e511b86b81a23}
+
+
+Vizinhança comum a dois vértices. 
+
+Determina a vizinhança comum a dois vértices especificados de um grafo especificado. Ilustração do uso das funções \#new\+Bit\+Map, para criação de um \doxyref{Bit\+Map}{pag.}{structBitMap} a partir da sua amplitude, e \#intersect\+Of, para interseção de dois \doxyref{Bit\+Map}{pag.}{structBitMap}. Além disso, há o uso da função \#neig para obter o \doxyref{Bit\+Map}{pag.}{structBitMap} dos vizinhos de um vértice especificado.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em u} & Um vértice de {\ttfamily g} \\
+\hline
+{\em v} & Outro vértice de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Conjunto de vizinhos comuns a {\ttfamily u} e {\ttfamily v}, em um bitmap 
+\end{DoxyReturn}
+\index{trab1.\+h@{trab1.\+h}!viz\+\_\+comum\+\_\+conta\+\_\+arestas@{viz\+\_\+comum\+\_\+conta\+\_\+arestas}}
+\index{viz\+\_\+comum\+\_\+conta\+\_\+arestas@{viz\+\_\+comum\+\_\+conta\+\_\+arestas}!trab1.\+h@{trab1.\+h}}
+\subsubsection[{viz\+\_\+comum\+\_\+conta\+\_\+arestas(\+Graph $\ast$const g, unsigned int u, unsigned int v)}]{\setlength{\rightskip}{0pt plus 5cm}int viz\+\_\+comum\+\_\+conta\+\_\+arestas (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{unsigned int}]{u, }
+\item[{unsigned int}]{v}
+\end{DoxyParamCaption}
+)}\label{trab1_8h_a207b39716dc23a7f3264e351a353fa2a}
+
+
+Contagem de arestas em vizinhança comum. 
+
+Calcula o número de arestas {\ttfamily xy} de um grafo especificado tais que ambos {\ttfamily x} e {\ttfamily y} pertencem à vizinhança comum a dois vértices especificados.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em u} & Um vértice de {\ttfamily g} \\
+\hline
+{\em v} & Outro vértice de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+Número de arestas de {\ttfamily g} definidas por vértices na vizinhança comum a {\ttfamily u} e {\ttfamily v} 
+\end{DoxyReturn}
+\index{trab1.\+h@{trab1.\+h}!viz\+\_\+comum\+\_\+eh\+\_\+clique@{viz\+\_\+comum\+\_\+eh\+\_\+clique}}
+\index{viz\+\_\+comum\+\_\+eh\+\_\+clique@{viz\+\_\+comum\+\_\+eh\+\_\+clique}!trab1.\+h@{trab1.\+h}}
+\subsubsection[{viz\+\_\+comum\+\_\+eh\+\_\+clique(\+Graph $\ast$const g, unsigned int u, unsigned int v)}]{\setlength{\rightskip}{0pt plus 5cm}int viz\+\_\+comum\+\_\+eh\+\_\+clique (
+\begin{DoxyParamCaption}
+\item[{Graph $\ast$const}]{g, }
+\item[{unsigned int}]{u, }
+\item[{unsigned int}]{v}
+\end{DoxyParamCaption}
+)}\label{trab1_8h_ad197d91480774d9db812781ed35918b7}
+
+
+Verificação de clique em vizinhança comum. 
+
+Determina se a vizinhança comum a dois vértices especificados é uma clique em grafo especificado. Esta função ilustra a utilização das duas funções \doxyref{eh\+\_\+clique}{pag.}{trab1_8h_ab88f7c774acfac47e4cd883585683bb4} e \doxyref{viz\+\_\+comum\+\_\+eh\+\_\+clique}{pag.}{trab1_8h_ad197d91480774d9db812781ed35918b7}. Há ainda a ilustração do uso da função \#free\+Bit\+Map para liberação de um \doxyref{Bit\+Map}{pag.}{structBitMap}.
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em g} & Grafo \\
+\hline
+{\em u} & Um vértice de {\ttfamily g} \\
+\hline
+{\em v} & Outro vértice de {\ttfamily g} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+0 se a vizinhança comum a {\ttfamily u} e {\ttfamily v} não é uma clique em {\ttfamily g}, e um valor diferente de 0 em caso contrário 
+\end{DoxyReturn}

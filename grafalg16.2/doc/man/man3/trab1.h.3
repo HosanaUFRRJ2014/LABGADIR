@@ -1,0 +1,195 @@
+.TH "/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/framework/trabs/trab1.h" 3 "Segunda, 31 de Outubro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/framework/trabs/trab1.h \- Especificações das funções a serem implementadas no trabalho 1\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <graph\&.h>\fP
+.br
+
+.SS "Funções"
+
+.in +1c
+.ti -1c
+.RI "\fBBitMap\fP * \fBviz_comum\fP (Graph *const g, unsigned int u, unsigned int v)"
+.br
+.RI "\fIVizinhança comum a dois vértices\&. \fP"
+.ti -1c
+.RI "int \fBeh_clique\fP (Graph *const g, \fBBitMap\fP *const s)"
+.br
+.RI "\fIVerificação de clique\&. \fP"
+.ti -1c
+.RI "int \fBviz_comum_eh_clique\fP (Graph *const g, unsigned int u, unsigned int v)"
+.br
+.RI "\fIVerificação de clique em vizinhança comum\&. \fP"
+.ti -1c
+.RI "void \fBsubgraus\fP (Graph *const g, \fBBitMap\fP *const s, unsigned int *d)"
+.br
+.RI "\fIDeterminação de graus em subgrafo\&. \fP"
+.ti -1c
+.RI "int \fBconta_arestas\fP (Graph *const g, \fBBitMap\fP *const s)"
+.br
+.RI "\fIContagem de arestas\&. \fP"
+.ti -1c
+.RI "int \fBviz_comum_conta_arestas\fP (Graph *const g, unsigned int u, unsigned int v)"
+.br
+.RI "\fIContagem de arestas em vizinhança comum\&. \fP"
+.ti -1c
+.RI "\fBBitMap\fP * \fBgrau_impar\fP (Graph *const g, \fBBitMap\fP *const s)"
+.br
+.RI "\fIDeterminação de vértices de grau ímpar\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Especificações das funções a serem implementadas no trabalho 1\&. 
+
+
+.PP
+\fBData:\fP
+.RS 4
+Aug 1, 2016 
+.RE
+.PP
+\fBAutor:\fP
+.RS 4
+Ricardo C\&. Corrêa (correa@ufrrj.br)
+.RE
+.PP
+Este trabalho é constituído de 6 funções, das quais 3 já estão implementadas e servem de exemplo para implementação das outras 3\&. As funções já implementadas são \fBviz_comum\fP, \fBeh_clique\fP e \fBviz_comum_eh_clique\fP\&. Nessas funções, algumas manipulações dos tipos \fBBitMap\fP e Graph são utilizadas a título de ilustração\&. As especificações detalhas das funções de \fBBitMap\fP e Graph podem ser obtidas em suas respectivas páginas\&. As funções a serem implementadas são \fBconta_arestas\fP, \fBviz_comum_conta_arestas\fP e \fBgrau_impar\fP\&. 
+.SH "Funções"
+.PP 
+.SS "int conta_arestas (Graph *const g, \fBBitMap\fP *const s)"
+
+.PP
+Contagem de arestas\&. Calcula o número de arestas \fCxy\fP de um grafo especificado tais que ambos \fCx\fP e \fCy\fP pertencem a um conjunto de vértices especificado\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIs\fP Subconjunto de vértices de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Número de arestas de \fCg\fP definidas por vértices em \fCs\fP 
+.RE
+.PP
+
+.SS "int eh_clique (Graph *const g, \fBBitMap\fP *const s)"
+
+.PP
+Verificação de clique\&. Determina se um subconjunto de vértices especificado é uma clique em um grafo especificado\&. Um subconjunto de vértices é uma clique se todos são vizinhos entre si\&. Ilustração do uso das funções de enumeração de \fBBitMap\fP: #begin, que determina a partida da enumeração, #end, que testa a chegada, e #next para avançar um nó na enumeração\&. A função #getElement para obtenção do alvo de um nó também é usada\&. As duas funções de manipulação de \fBBitMap\fP que aparecem como ilustração são #delElement, para remoção de um elemento, e #isSubset, para comparar dois \fBBitMap\fP\&. Além disso, há o uso da função #neig para obter o \fBBitMap\fP dos vizinhos de um vértice especificado\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIs\fP Subconjunto de vértices de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+0 se \fCs\fP não é uma clique em \fCg\fP, e um valor diferente de 0 em caso contrário 
+.RE
+.PP
+
+.SS "\fBBitMap\fP* grau_impar (Graph *const g, \fBBitMap\fP *const s)"
+
+.PP
+Determinação de vértices de grau ímpar\&. Determinar os vértices de um conjunto especificado que possuem grau ímpar em um grafo especificado, restrito ao mencionado conjunto\&. Seja \fCs\fP um conjunto de vértices do grafo especificado\&. O grau, no grafo especificado e restrito a \fCs\fP, de um vértice \fCu\fP pertencente a \fCs\fP é dado pela quantidade de vizinhos de \fCu\fP no grafo especificado que também pertencem a \fCs\fP\&. Mais especificamente, a cardinalidade de \[ \{ v \mid uv \in E, v \in s \}, \] supondo que \fCE\fP seja o conjunto de arestas do grafo especificado\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIs\fP Subconjunto de vértices de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Conjunto de vértices de \fCs\fP que possuem uma quantidade ímpar de vizinhos em \fCg\fP que também pertencem a \fCs\fP 
+.RE
+.PP
+
+.SS "void subgraus (Graph *const g, \fBBitMap\fP *const s, unsigned int * d)"
+
+.PP
+Determinação de graus em subgrafo\&. Calcula o grau de cada vértice de um conjunto especificado no grafo especificado restrito aos vértices do conjunto\&. Os graus calculados são retornados em um vetor especificado\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIs\fP Subconjunto de vértices de \fCg\fP 
+.br
+\fId\fP Vetor indexado pelos vértices de \fCg\fP 
+.RE
+.PP
+
+.SS "\fBBitMap\fP* viz_comum (Graph *const g, unsigned int u, unsigned int v)"
+
+.PP
+Vizinhança comum a dois vértices\&. Determina a vizinhança comum a dois vértices especificados de um grafo especificado\&. Ilustração do uso das funções #newBitMap, para criação de um \fBBitMap\fP a partir da sua amplitude, e #intersectOf, para interseção de dois \fBBitMap\fP\&. Além disso, há o uso da função #neig para obter o \fBBitMap\fP dos vizinhos de um vértice especificado\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIu\fP Um vértice de \fCg\fP 
+.br
+\fIv\fP Outro vértice de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Conjunto de vizinhos comuns a \fCu\fP e \fCv\fP, em um bitmap 
+.RE
+.PP
+
+.SS "int viz_comum_conta_arestas (Graph *const g, unsigned int u, unsigned int v)"
+
+.PP
+Contagem de arestas em vizinhança comum\&. Calcula o número de arestas \fCxy\fP de um grafo especificado tais que ambos \fCx\fP e \fCy\fP pertencem à vizinhança comum a dois vértices especificados\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIu\fP Um vértice de \fCg\fP 
+.br
+\fIv\fP Outro vértice de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Número de arestas de \fCg\fP definidas por vértices na vizinhança comum a \fCu\fP e \fCv\fP 
+.RE
+.PP
+
+.SS "int viz_comum_eh_clique (Graph *const g, unsigned int u, unsigned int v)"
+
+.PP
+Verificação de clique em vizinhança comum\&. Determina se a vizinhança comum a dois vértices especificados é uma clique em grafo especificado\&. Esta função ilustra a utilização das duas funções \fBeh_clique\fP e \fBviz_comum_eh_clique\fP\&. Há ainda a ilustração do uso da função #freeBitMap para liberação de um \fBBitMap\fP\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIu\fP Um vértice de \fCg\fP 
+.br
+\fIv\fP Outro vértice de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+0 se a vizinhança comum a \fCu\fP e \fCv\fP não é uma clique em \fCg\fP, e um valor diferente de 0 em caso contrário 
+.RE
+.PP
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

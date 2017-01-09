@@ -1,0 +1,100 @@
+\section{trab1\+\_\+2014780291.\+c}
+\label{trab1__2014780291_8c_source}\index{grafalg16.\+2/trabs/autor\+\_\+2014780291/trab1\+\_\+2014780291.\+c@{grafalg16.\+2/trabs/autor\+\_\+2014780291/trab1\+\_\+2014780291.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <graph.h>}
+00002 
+00003 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident1() \{
+00004         \textcolor{keywordflow}{return} 2014780291;
+00005 \}
+00006 
+00007 BitMap * viz_comum(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00008         BitMap * viz = newBitMap(getN(g));
+00009         intersectOf(viz, neig(g,u), neig(g,v));
+00010         \textcolor{keywordflow}{return} viz;
+00011 \}
+00012 
+00013 \textcolor{keywordtype}{int} eh_clique(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00014         BitMap * aux = cloneBitMap(s);
+00015 
+00016         Node node;
+00017         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00018                 delElement(aux, &node);
+00019                 \textcolor{keywordflow}{if} (!isSubset(aux, neig(g, getElement(&node))))
+00020                         \textcolor{keywordflow}{return} 0;
+00021         \}
+00022 
+00023         freeBitMap(aux);
+00024         \textcolor{keywordflow}{return} 1;
+00025 \}
+00026 
+00027 \textcolor{keywordtype}{int} viz_comum_eh_clique(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00028         BitMap * viz = viz_comum(g, u, v);
+00029         \textcolor{keywordtype}{int} ret = eh_clique(g, viz);
+00030         freeBitMap(viz);
+00031         \textcolor{keywordflow}{return} ret;
+00032 \}
+00033 
+00034 \textcolor{keywordtype}{void} subgraus(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} * d) \{
+00035         Node node;
+00036         BitMap * aux = similarBitMap(s);
+00037         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00038                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v = getElement(&node);
+00039                 intersectOf(aux, s, neig(g, v));
+00040                 d[v] = cardOf(aux);
+00041         \}
+00042         freeBitMap(aux);
+00043 \}
+00044 
+00045 \textcolor{keywordtype}{int} conta_arestas(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00046         BitMap *visitadas = newBitMap(getN(g));         \textcolor{comment}{//conjunto de arestas ja observadas}
+00047         BitMap *aux = newBitMap(getN(g));                       \textcolor{comment}{//auxiliar}
+00048     \textcolor{keywordtype}{int} arestas = 0;                                                    \textcolor{comment}{//quantidade  de arestas}
+00049     Node noAresta;                                                                      \textcolor{comment}{//no que percorre
+       as arestas do grafo}
+00050     Node noVizinhos;                                                            \textcolor{comment}{//no para "andar" nos
+       vizinhos de cada aresta do grafo}
+00051                 \textcolor{keywordflow}{for} (begin(s,&noAresta); !end(&noAresta); next(&noAresta))\{             \textcolor{comment}{//percorre os
+       vertices do conjunto s}
+00052                         intersectOf(aux,neig(g,getElement(&noAresta)),s);                               \textcolor{comment}{//
+      considera apenas os vizinhos do no que estao contidos em s}
+00053                   \textcolor{keywordflow}{for} (begin(aux,&noVizinhos);!end(&noVizinhos); next(&noVizinhos))\{     \textcolor{comment}{//percorre todos
+       os vizinhos do no avaliado}
+00054                     \textcolor{keywordflow}{if}(!hasElement(visitadas,getElement(&noVizinhos)))\{                 \textcolor{comment}{//verifica se o
+       vizinho ja nao foi percorrido}
+00055                       arestas++;                                                                                \textcolor{comment}{
+      //Itera a quantidade de arestas  }
+00056                         \}
+00057         addElement(visitadas,&noAresta);                                                                \textcolor{comment}{//
+      Adiciona ao conjunto de arestas ja percorridas}
+00058                 \}
+00059         \}
+00060     \textcolor{keywordflow}{return} arestas;
+00061 \}
+00062 
+00063 \textcolor{keywordtype}{int} viz_comum_conta_arestas(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00064         \textcolor{keywordflow}{return} conta_arestas(g,viz_comum(g,u,v));
+00065 \}
+00066 
+00067 BitMap * grau_impar(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00068     BitMap *aux = newBitMap(getN(g));
+00069     BitMap *vizinho = newBitMap(getN(g));
+00070     Node no;
+00071     Node noVizinhos;
+00072     \textcolor{keywordtype}{int} contador;
+00073         \textcolor{keywordflow}{for}(begin(s,&no); !end(&no); next(&no))\{                \textcolor{comment}{//percorre todos os nos do conjunto}
+00074                 contador = 0;
+00075             vizinho = newBitMap(getN(g));                                               \textcolor{comment}{//conjunto auxiliar}
+00076         intersectOf(vizinho,neig(g,getElement(&no)),s); \textcolor{comment}{//considera apenas os vizinhos do no contidos em s}
+00077                 \textcolor{keywordflow}{for}(begin(vizinho,&noVizinhos); !end(&noVizinhos); next(&noVizinhos))\textcolor{comment}{//percorre os vizinhos}
+00078                     contador++;                                                                 \textcolor{comment}{//
+      contabiliza a quantidade de arestas vizinhas do no}
+00079                 \textcolor{keywordflow}{if}(contador % 2 != 0)                                                           \textcolor{comment}{//verifica
+       se o numero de vizinhos e impar}
+00080                     addElement(aux,&no);                                                \textcolor{comment}{//adiciona o no da
+       atual iteracao ao conjunto resposta}
+00081         \}
+00082 
+00083         \textcolor{keywordflow}{return} cloneBitMap(aux);
+00084 \}
+\end{DoxyCode}

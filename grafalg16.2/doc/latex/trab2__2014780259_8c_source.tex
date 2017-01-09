@@ -1,0 +1,99 @@
+\section{trab2\+\_\+2014780259.\+c}
+\label{trab2__2014780259_8c_source}\index{grafalg16.\+2/trabs/autor\+\_\+2014780259/trab2\+\_\+2014780259.\+c@{grafalg16.\+2/trabs/autor\+\_\+2014780259/trab2\+\_\+2014780259.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <graph.h>}
+00002 \textcolor{preprocessor}{#include <heap.h>}
+00003 
+00004 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident2() \{
+00005         \textcolor{keywordflow}{return} 2014780259;
+00006 \}
+00007 
+00008 \textcolor{keywordtype}{int} hash (\textcolor{keyword}{const} \textcolor{keywordtype}{void} * elemento)\{
+00009     \textcolor{keywordflow}{return} (*(\textcolor{keyword}{const} \textcolor{keywordtype}{int}*) elemento);
+00010 \}
+00011 
+00012 \textcolor{keywordtype}{int} eh_aciclico(Graph *\textcolor{keyword}{const} g) \{
+00013     \textcolor{keywordtype}{int} tam = getN(g); \textcolor{comment}{// tam do grafo}
+00014     \textcolor{keywordtype}{int} i = 0, graus[tam], alvos[tam], indices[tam], w, j;
+00015     BitMap * aux = newBitMap(getN(g)); \textcolor{comment}{// bitmap auxiliar de tamanho do grafo}
+00016     Node node;
+00017 
+00018     \textcolor{keywordtype}{int} Comparador(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *a, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *b) \{
+00019         \textcolor{keywordflow}{return} graus[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) a)]-graus[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) b)];
+00020     \}
+00021 
+00022     \textcolor{keywordflow}{for}(i=0;i<tam;i++)\{ \textcolor{comment}{// preenche todos os vetores. graus, alvos e indices}
+00023         graus[i] = cardOf(neig(g, i));
+00024         alvos[i] = i;
+00025         indices[i] = i;
+00026         setElement(&node,i);
+00027         addElement(aux, &node); \textcolor{comment}{// Adiciona o elemento no bmp auxiliar. }
+00028     \}    
+00029 
+00030     heapify_a(alvos, tam, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), Comparador, indices, hash); \textcolor{comment}{// transforma o vetor alvos em uma heap}
+00031 
+00032     \textcolor{keywordflow}{while}((tam > 0) && (graus[alvos[0]] <= 1))\{    \textcolor{comment}{// condição do pseudocodigo lista 6}
+00033         \textcolor{keywordtype}{int} alvo\_r = alvos[0], grau\_r = graus[alvos[0]]; \textcolor{comment}{// alvo removido e grau removido.}
+00034 
+00035         heappoll_a(alvos, tam, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), Comparador, indices, hash); \textcolor{comment}{// remove a cabeça da heap alvos}
+00036 
+00037         tam--; \textcolor{comment}{// diminui o tamanho, pois a cabeça da heap foi removida}
+00038 
+00039         \textcolor{keywordflow}{if}(grau\_r == 1)\{ \textcolor{comment}{// se o grau removido = 1}
+00040             BitMap * a = cloneBitMap(aux); 
+00041             intersectOf(a, a, neig(g, alvo\_r)); \textcolor{comment}{// reter da lista}
+00042             begin(a, &node); \textcolor{comment}{// partida no bitmap a que é clone do aux preenchido no primeiro for}
+00043             graus[getElement(&node)] = graus[getElement(&node)] - 1; \textcolor{comment}{// atualiza os graus dos outros nós!}
+00044             \textcolor{keywordflow}{for} (j = 0; j < getN(g); j++)
+00045             \{
+00046                 \textcolor{keywordflow}{if}(alvos[j] == getElement(&node))\{
+00047                     w = i;
+00048                 \}
+00049             \}
+00050             heapup_a(alvos, w, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}), Comparador, indices, hash);
+00051         \}
+00052     \}
+00053     \textcolor{keywordflow}{if}(tam == 0)\{
+00054         \textcolor{keywordflow}{return} 1;
+00055     \}
+00056 
+00057     \textcolor{keywordflow}{return} 0;
+00058 \}
+00059 
+00060 \textcolor{keywordtype}{int} eh_subaciclico(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00061     Graph *a = newGraph(getN(g)), *b = newGraph(cardOf(s));
+00062     Node node;
+00063     Node node2;
+00064 
+00065     \textcolor{keywordtype}{int} alvosBmp[cardOf(s)];
+00066     
+00067     
+00068     \textcolor{keywordtype}{int} alvoVisitado1, alvoVisitado2, i=0;
+00069 
+00070     \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node))\{ \textcolor{comment}{//Adicionando alvos no alvosBmp[i]}
+00071         alvosBmp[i] = getElement(&node);
+00072         i++;
+00073     \}
+00074 
+00075     \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{ \textcolor{comment}{// Percorre o subconjunto do bitmap}
+00076         \textcolor{keywordflow}{for} (begin(neig(g, getElement(&node)), &node2); !end(&node2); next(&node2)) \{ \textcolor{comment}{// Percorre conjunto
+       de vizinhos do nó de cima no nó 2}
+00077             \textcolor{keywordflow}{if} (hasEdge(a, getElement(&node), getElement(&node2)) == 0 && 
+      hasElement(s, getElement(&node2))) \{ \textcolor{comment}{// se não existir aresta entre no1 e no2 E no2 existir}
+00078                 addEdge(a, getElement(&node), getElement(&node2)); \textcolor{comment}{// Adiciona aresta no 1 e no 2}
+00079                 \textcolor{keywordflow}{for}(i = 0; i < cardOf(s); i++)\{ \textcolor{comment}{// mapeia restante dos vértices}
+00080                     \textcolor{keywordflow}{if}(alvosBmp[i] == getElement(&node))\{
+00081                         alvoVisitado1=i;
+00082                     \}
+00083                     \textcolor{keywordflow}{if}(alvosBmp[i] == getElement(&node2))\{
+00084                         alvoVisitado2=i;
+00085                     \}
+00086                 \}
+00087                 addEdge(b, alvoVisitado1, alvoVisitado2);
+00088             \}
+00089         \}
+00090     \}
+00091     \textcolor{keywordflow}{return} eh_aciclico(b);
+00092 \} 
+\end{DoxyCode}

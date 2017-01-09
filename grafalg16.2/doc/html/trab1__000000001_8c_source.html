@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AB781 Laboratório de Grafos e Algoritmos: Código-Fonte de grafalg16.2/trabs/autor_000000001/trab1_000000001.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratório de Grafos e Algoritmos
+   &#160;<span id="projectnumber">2016.2</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,'Busca');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_98015047146478a335e6ac73db1f8de9.html">grafalg16.2</a></li><li class="navelem"><a class="el" href="dir_c7858c8456a9c2cba270f3e9cf8f0720.html">trabs</a></li><li class="navelem"><a class="el" href="dir_bd79f9a49bf59f48189f70c31e9adbea.html">autor_000000001</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">trab1_000000001.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="graph_8h.html">graph.h</a>&gt;</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ident() {</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;        <span class="keywordflow">return</span> 000000001;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;}</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="trab1_8h.html#aaa61e9b6387641f5805e511b86b81a23">    7</a></span>&#160;<a class="code" href="structBitMap.html">BitMap</a> * <a class="code" href="trab1_8h.html#aaa61e9b6387641f5805e511b86b81a23">viz_comum</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> u, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> v) {</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <a class="code" href="structBitMap.html">BitMap</a> * viz = newBitMap(getN(g));</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        intersectOf(viz, <a class="code" href="graph_8h.html#a7eb170a6fc9d06abaf99aa981a56791b">neig</a>(g,u), <a class="code" href="graph_8h.html#a7eb170a6fc9d06abaf99aa981a56791b">neig</a>(g,v));</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keywordflow">return</span> viz;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div><div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="trab1_8h.html#ab88f7c774acfac47e4cd883585683bb4">   13</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab1_8h.html#ab88f7c774acfac47e4cd883585683bb4">eh_clique</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="structBitMap.html">BitMap</a> * <span class="keyword">const</span> s) {</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="trab1_8h.html#ad197d91480774d9db812781ed35918b7">   17</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab1_8h.html#ad197d91480774d9db812781ed35918b7">viz_comum_eh_clique</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> u, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> v) {</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div><div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="trab1_8h.html#a8faa3da228c3dccaee6b7920df175bd9">   21</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab1_8h.html#a8faa3da228c3dccaee6b7920df175bd9">conta_arestas</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="structBitMap.html">BitMap</a> * <span class="keyword">const</span> s) {</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div><div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="trab1_8h.html#a207b39716dc23a7f3264e351a353fa2a">   25</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab1_8h.html#a207b39716dc23a7f3264e351a353fa2a">viz_comum_conta_arestas</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> u, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> v) {</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div><div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="trab1_8h.html#a274f8aa335ab44673d48d44b8b953872">   29</a></span>&#160;<a class="code" href="structBitMap.html">BitMap</a> * <a class="code" href="trab1_8h.html#a274f8aa335ab44673d48d44b8b953872">grau_impar</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="structBitMap.html">BitMap</a> * <span class="keyword">const</span> s) {</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span> cloneBitMap(s);</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div><div class="ttc" id="trab1_8h_html_ad197d91480774d9db812781ed35918b7"><div class="ttname"><a href="trab1_8h.html#ad197d91480774d9db812781ed35918b7">viz_comum_eh_clique</a></div><div class="ttdeci">int viz_comum_eh_clique(Graph *const g, unsigned int u, unsigned int v)</div><div class="ttdoc">Verificação de clique em vizinhança comum. </div><div class="ttdef"><b>Definition:</b> <a href="trab1__000000001_8c_source.html#l00017">trab1_000000001.c:17</a></div></div>
+<div class="ttc" id="trab1_8h_html_a8faa3da228c3dccaee6b7920df175bd9"><div class="ttname"><a href="trab1_8h.html#a8faa3da228c3dccaee6b7920df175bd9">conta_arestas</a></div><div class="ttdeci">int conta_arestas(Graph *const g, BitMap *const s)</div><div class="ttdoc">Contagem de arestas. </div><div class="ttdef"><b>Definition:</b> <a href="trab1__000000001_8c_source.html#l00021">trab1_000000001.c:21</a></div></div>
+<div class="ttc" id="trab1_8h_html_aaa61e9b6387641f5805e511b86b81a23"><div class="ttname"><a href="trab1_8h.html#aaa61e9b6387641f5805e511b86b81a23">viz_comum</a></div><div class="ttdeci">BitMap * viz_comum(Graph *const g, unsigned int u, unsigned int v)</div><div class="ttdoc">Vizinhança comum a dois vértices. </div><div class="ttdef"><b>Definition:</b> <a href="trab1__000000001_8c_source.html#l00007">trab1_000000001.c:7</a></div></div>
+<div class="ttc" id="trab1_8h_html_a274f8aa335ab44673d48d44b8b953872"><div class="ttname"><a href="trab1_8h.html#a274f8aa335ab44673d48d44b8b953872">grau_impar</a></div><div class="ttdeci">BitMap * grau_impar(Graph *const g, BitMap *const s)</div><div class="ttdoc">Determinação de vértices de grau ímpar. </div><div class="ttdef"><b>Definition:</b> <a href="trab1__000000001_8c_source.html#l00029">trab1_000000001.c:29</a></div></div>
+<div class="ttc" id="trab1_8h_html_a207b39716dc23a7f3264e351a353fa2a"><div class="ttname"><a href="trab1_8h.html#a207b39716dc23a7f3264e351a353fa2a">viz_comum_conta_arestas</a></div><div class="ttdeci">int viz_comum_conta_arestas(Graph *const g, unsigned int u, unsigned int v)</div><div class="ttdoc">Contagem de arestas em vizinhança comum. </div><div class="ttdef"><b>Definition:</b> <a href="trab1__000000001_8c_source.html#l00025">trab1_000000001.c:25</a></div></div>
+<div class="ttc" id="trab1_8h_html_ab88f7c774acfac47e4cd883585683bb4"><div class="ttname"><a href="trab1_8h.html#ab88f7c774acfac47e4cd883585683bb4">eh_clique</a></div><div class="ttdeci">int eh_clique(Graph *const g, BitMap *const s)</div><div class="ttdoc">Verificação de clique. </div><div class="ttdef"><b>Definition:</b> <a href="trab1__000000001_8c_source.html#l00013">trab1_000000001.c:13</a></div></div>
+<div class="ttc" id="graph_8h_html_a7eb170a6fc9d06abaf99aa981a56791b"><div class="ttname"><a href="graph_8h.html#a7eb170a6fc9d06abaf99aa981a56791b">neig</a></div><div class="ttdeci">static BitMap const  * neig(Graph *const g, unsigned long long int i)</div><div class="ttdoc">Returns a non-zero value if i, j defines an edge in g, and 0 otherwise. </div><div class="ttdef"><b>Definition:</b> <a href="graph_8h_source.html#l00075">graph.h:75</a></div></div>
+<div class="ttc" id="structGraph_html"><div class="ttname"><a href="structGraph.html">Graph</a></div><div class="ttdoc">Bitmap implementation of a graph adjacency matrix. </div><div class="ttdef"><b>Definition:</b> <a href="graph_8h_source.html#l00025">graph.h:25</a></div></div>
+<div class="ttc" id="graph_8h_html"><div class="ttname"><a href="graph_8h.html">graph.h</a></div><div class="ttdoc">Macros and inline functions of a bitmap implementation of a graph adjacency matrix. </div></div>
+<div class="ttc" id="structBitMap_html"><div class="ttname"><a href="structBitMap.html">BitMap</a></div><div class="ttdoc">Bitmap implementation of sets of integers of the type , for a specified integer . ...</div><div class="ttdef"><b>Definition:</b> <a href="direct_2bitmap_8h_source.html#l00745">bitmap.h:745</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Sexta, 5 de Agosto de 2016 09:12:19 para AB781 Laboratório de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

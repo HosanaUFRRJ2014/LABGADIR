@@ -1,0 +1,52 @@
+.TH "Graph" 3 "Domingo, 25 de Setembro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Graph \- Bitmap implementation of a graph adjacency matrix\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <graph\&.h>\fP
+.SS "Campos de Dados"
+
+.in +1c
+.ti -1c
+.RI "size_t \fBn\fP"
+.br
+.RI "\fINumber of vertices\&. \fP"
+.ti -1c
+.RI "size_t \fBm\fP"
+.br
+.RI "\fINumber of edges\&. \fP"
+.ti -1c
+.RI "\fBBitMap\fP * \fBmatrix\fP"
+.br
+.RI "\fIBitmap adjacency matrix\&. \fP"
+.ti -1c
+.RI "\fBBitMap\fP * \fBswap\fP"
+.br
+.RI "\fIBitmap used in the swap operation\&. \fP"
+.ti -1c
+.RI "\fBBitMap\fP \fBneig\fP"
+.br
+.RI "\fIReturned as neighborhood of a specified vertex\&. \fP"
+.ti -1c
+.RI "int \fBmaxcq\fP"
+.br
+.RI "\fISize of the maximum clique\&. \fP"
+.ti -1c
+.RI "double \fBmaxwcq\fP"
+.br
+.RI "\fIWeight of the maximum clique\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Bitmap implementation of a graph adjacency matrix\&. 
+
+In order to optimize indexing, the number of nodes in a row is augmented up to a power of 2\&. 
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

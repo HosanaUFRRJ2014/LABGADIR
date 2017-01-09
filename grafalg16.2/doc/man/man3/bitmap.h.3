@@ -1,0 +1,140 @@
+.TH "/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/graph/direct/bitmap.h" 3 "Segunda, 31 de Outubro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/graph/direct/bitmap.h \- Macros and inline functions for bitwise operations on bitmaps using bit-parallelism\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib\&.h>\fP
+.br
+\fC#include <stddef\&.h>\fP
+.br
+\fC#include <stdio\&.h>\fP
+.br
+\fC#include <string\&.h>\fP
+.br
+\fC#include <stdint\&.h>\fP
+.br
+
+.SS "Estruturas de Dados"
+
+.in +1c
+.ti -1c
+.RI "struct \fBBitMap\fP"
+.br
+.RI "\fIBitmap implementation of sets of integers of the type $\{ 0, 1, \ldots, n-1 \}$, for a specified integer $n \geq 0$\&. \fP"
+.ti -1c
+.RI "struct \fBNode\fP"
+.br
+.RI "\fIIdentification of a member of a bitmap\&. \fP"
+.in -1c
+.SS "Definições e Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBBSIZE\fP   8"
+.br
+.RI "\fINumber of bits in a node\&. \fP"
+.ti -1c
+.RI "#define \fBWSIZE\fP   1"
+.br
+.RI "\fINumber of bytes in a node\&. \fP"
+.ti -1c
+.RI "#define \fBLOGB\fP   3"
+.br
+.RI "\fILogarithmic of BSIZE\&. \fP"
+.ti -1c
+.RI "#define \fBLOGW\fP   0"
+.br
+.RI "\fILogarithmic of WSIZE\&. \fP"
+.ti -1c
+.RI "#define \fBLOGBW\fP   3"
+.br
+.RI "\fILOGB \fC+\fP LOGW\&. \fP"
+.ti -1c
+.RI "#define \fBONE\fP   1"
+.br
+.RI "\fI\fBNode\fP set to \fC1\fP\&. \fP"
+.ti -1c
+.RI "#define \fBNODEMAX\fP   0xFF"
+.br
+.RI "\fI\fBNode\fP's maximum value\&. \fP"
+.ti -1c
+.RI "#define \fBMASKB\fP   0x07"
+.br
+.RI "\fIMask used to select the LOGB least significant bits\&. \fP"
+.ti -1c
+.RI "#define \fBMASKSZ\fP   (\fBBSIZE\fP+1)"
+.br
+.RI "\fINumber of elements in __mask\&. \fP"
+.ti -1c
+.RI "#define \fBNODECOUNTER\fP(w)   __builtin_popcount(w)"
+.br
+.RI "\fIBuiltin function: Returns the number of 1-bits in \fCw\fP\&. \fP"
+.ti -1c
+.RI "#define \fBNODELEAST\fP(w)   (__builtin_ffs(w)\-1)"
+.br
+.RI "\fIBuiltin function: Returns the index of the least significant 1-bit of \fCw\fP, or if \fCw\fP is zero, returns \fC-1\fP\&. \fP"
+.ti -1c
+.RI "#define \fBNODENEXTLEAST\fP(w,  i)   (\fBNODELEAST\fP((w) & __mask[i + 1]))"
+.br
+.RI "\fIBuiltin function: Returns the index of the least significant 1-bit of \fCw\fP greater than \fCi\fP, or if \fCw\fP is zero, returns \fC-1\fP\&. \fP"
+.ti -1c
+.RI "#define \fBNODEMOST\fP(i)   (nodeMost(i))"
+.br
+.RI "\fIBuiltin function: Returns the index of the most significant 1-bit of \fCw\fP, or if \fCw\fP is zero, returns \fC-1\fP\&. \fP"
+.ti -1c
+.RI "#define \fBNODEPREVMOST\fP(w,  i)   (\fBNODEMOST\fP((w) & ~__mask[i]))"
+.br
+.RI "\fIBuiltin function: Returns the index of the most significant 1-bit of \fCw\fP smaller than \fCi\fP, or if \fCw\fP is zero, returns \fC-1\fP\&. \fP"
+.ti -1c
+.RI "#define \fBISINNODE\fP(w,  i)   ((w) & (\fBONE\fP << (i)))"
+.br
+.RI "\fIReturns a node set to a non-zero value if the bit of index \fCi\fP in node \fCw\fP is a 1-bit; otherwise a node set to \fC0\fP\&. \fP"
+.ti -1c
+.RI "#define \fBNELEM\fP(i)   ((i) << \fBLOGB\fP)"
+.br
+.RI "\fISmallest element in the entry \fCi\fP of the bitmap\&. \fP"
+.ti -1c
+.RI "#define \fBNODEIDX\fP(i)   ((i) >> \fBLOGB\fP)"
+.br
+.RI "\fI\fBNode\fP index in the bitmap of element \fCi\fP\&. \fP"
+.ti -1c
+.RI "#define \fBIDXINNODE\fP(i)   ((i) & \fBMASKB\fP)"
+.br
+.RI "\fIElement index in the corresponding node of the bitmap\&. \fP"
+.ti -1c
+.RI "#define \fBRETAINLEAST\fP(w,  i)   ((w) & (\fBNODEMAX\fP >> (\fBBSIZE\fP\-(i))))"
+.br
+.RI "\fIRetains \fCi\fP least significant elements of node \fCw\fP\&. \fP"
+.in -1c
+.SS "Definições de Tipos"
+
+.in +1c
+.ti -1c
+.RI "typedef unsigned char \fBNODETYPE\fP"
+.br
+.RI "\fIBitmap node's type\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Macros and inline functions for bitwise operations on bitmaps using bit-parallelism\&. 
+
+
+.PP
+\fBData:\fP
+.RS 4
+Sep 24, 2013 
+.RE
+.PP
+\fBAutor:\fP
+.RS 4
+Ricardo C\&. Corrêa (correa@ufrrj.br) 
+.RE
+.PP
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

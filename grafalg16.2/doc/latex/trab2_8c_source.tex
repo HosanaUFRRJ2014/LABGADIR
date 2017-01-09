@@ -1,0 +1,168 @@
+\section{trab2.\+c}
+\label{trab2_8c_source}\index{grafalg16.\+2/trabs/trab2/trab2.\+c@{grafalg16.\+2/trabs/trab2/trab2.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <trab2.h>}
+00002 
+00003 \textcolor{preprocessor}{#include <stdio.h>}
+00004 \textcolor{preprocessor}{#include <trab_main.h>}
+00005 \textcolor{preprocessor}{#include <graph.h>}
+00006 \textcolor{preprocessor}{#include <heap.h>}
+00007 \textcolor{preprocessor}{#include <trab1.h>}
+00008 
+00009 \textcolor{keyword}{typedef} \textcolor{keyword}{enum} \{ NULO=-1, EXSUBACICLICO, EHSUBACICLICO, EHACICLICO, NPROBS2 \} PROBS2;
+00010 
+00011 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{string} nomes[NPROBS2] = \{  \textcolor{stringliteral}{"Exemplo de execução de algoritmo de verificação de subgrafo
+       acíclico"},
+00012                                                                                 \textcolor{stringliteral}{"Verificação de subgrafo
+       acíclico"},
+00013                                                                                 \textcolor{stringliteral}{"Verificação de grafo
+       acíclico"} \};
+00014 \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{string} descricoes[NPROBS2] = \{ \textcolor{stringliteral}{"Exemplo de execução de um algoritmo para o problema de, dados
+       um grafo G e um subconjunto s dos seus vértices, determinar se s define um subgrafo acíclico de G. O
+       algoritmo é baseado em sucessivas remoções de vértices de grau menor que 2."},
+00015                                                                                         \textcolor{stringliteral}{"Dados um grafo G e
+       um subconjunto s dos seus vértices, determinar se s define um subgrafo acíclico de G."},
+00016                                                                                         \textcolor{stringliteral}{"Dado um grafo G,
+       determinar se G é acíclico."} \};
+00017 
+00018 \textcolor{keyword}{static} \textcolor{keyword}{const} Trab \_trab2 = \{ NPROBS2, \textcolor{stringliteral}{"Trabalho Prático sobre Grafos"}, nomes, descricoes \};
+00019 
+00020 Trab \textcolor{keyword}{const} * descTrab2() \{
+00021         \textcolor{keywordflow}{return} &\_trab2;
+00022 \}
+00023 
+00024 \textcolor{keyword}{static} \textcolor{keywordtype}{int} hash(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *i) \{
+00025         \textcolor{keywordflow}{return} *((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) i);
+00026 \}
+00027 
+00028 \textcolor{keyword}{static} \textcolor{keywordtype}{int} eh\_subaciclico\_prof(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s, \textcolor{keywordtype}{int} verb) \{
+00029         BitMap * cands = cloneBitMap(s);
+00030         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} nc = cardOf(cands);
+00031         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} h[nc];
+00032         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} map[getN(g)];
+00033         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} d[getN(g)];
+00034 
+00035         subgraus(g, s, d);
+00036         Node node;
+00037         \textcolor{keywordtype}{int} i = 0;
+00038         \textcolor{keywordflow}{for} (begin(cands, &node); !end(&node); next(&node)) \{
+00039                 h[i] = getElement(&node);
+00040                 map[h[i]] = i++;
+00041         \}
+00042 
+00043         \textcolor{keywordtype}{int} compard(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *i, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *j) \{
+00044                 \textcolor{keywordflow}{return} d[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) i)] - d[*((\textcolor{keyword}{const} \textcolor{keywordtype}{int} *) j)];
+00045         \}
+00046 
+00047         heapify_a(h, nc, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}), compard, map, hash);
+00048 
+00049         \textcolor{keywordflow}{if} (verb) \{
+00050                 printf(\textcolor{stringliteral}{"Graus \(\backslash\)t\(\backslash\)t ["});
+00051                 \textcolor{keywordflow}{for} (i = 0; i < nc; i++)
+00052                         printf(\textcolor{stringliteral}{" %u"},d[h[i]]);
+00053                 printf(\textcolor{stringliteral}{" ]\(\backslash\)nCandidatos \(\backslash\)t ["});
+00054                 \textcolor{keywordflow}{for} (i = 0; i < nc; i++)
+00055                         printf(\textcolor{stringliteral}{" %u"},h[i]);
+00056                 printf(\textcolor{stringliteral}{" ]\(\backslash\)n"});
+00057         \}
+00058 
+00059         BitMap * aux = similarBitMap(s);
+00060         \textcolor{keywordflow}{while} (nc > 0 && d[h[0]] <= 1) \{
+00061                 \textcolor{keywordtype}{int} v = -1;
+00062                 \textcolor{keywordflow}{if} (d[h[0]] == 1) \{
+00063                         intersectOf(aux, cands, neig(g, h[0]));
+00064                         begin(aux, &node);
+00065                         v = getElement(&node);
+00066                 \}
+00067 
+00068                 setElement(&node, h[0]);
+00069                 delElement(cands, &node);
+00070                 heappoll_a(h, nc, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}), compard, map, hash);
+00071                 nc--;
+00072 
+00073                 \textcolor{keywordflow}{if} (v >= 0) \{
+00074                         d[v]--;
+00075                         heapup_a(h, map[v], \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int}), compard, map, hash);
+00076                 \}
+00077 
+00078                 \textcolor{keywordflow}{if} (verb) \{
+00079                         printf(\textcolor{stringliteral}{"\(\backslash\)nGraus \(\backslash\)t\(\backslash\)t ["});
+00080                         \textcolor{keywordflow}{for} (i = 0; i < nc; i++)
+00081                                 printf(\textcolor{stringliteral}{" %u"},d[h[i]]);
+00082                         printf(\textcolor{stringliteral}{" ]\(\backslash\)nCandidatos \(\backslash\)t ["});
+00083                         \textcolor{keywordflow}{for} (i = 0; i < nc; i++)
+00084                                 printf(\textcolor{stringliteral}{" %u"},h[i]);
+00085                         printf(\textcolor{stringliteral}{" ]\(\backslash\)n"});
+00086                 \}
+00087         \}
+00088         freeBitMap(aux);
+00089         freeBitMap(cands);
+00090 
+00091         \textcolor{keywordflow}{return} nc == 0;
+00092 \}
+00093 
+00094 \textcolor{keyword}{static} \textcolor{keywordtype}{int} eh\_aciclico\_prof(Graph * \textcolor{keyword}{const} g) \{
+00095         \textcolor{keywordflow}{return} 0;
+00096 \}
+00097 
+00098 \textcolor{keyword}{static} \textcolor{keywordtype}{void} entradaIntVet(FILE * stream, \textcolor{keywordtype}{int} ** v, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} * n) \{
+00099         \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o tamanho do vetor: "});
+00100         fscanf(stream,\textcolor{stringliteral}{"%u"},n);
+00101         *v = (\textcolor{keywordtype}{int} *) calloc(*n, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int}));
+00102         \textcolor{keywordtype}{int} i;
+00103         \textcolor{keywordflow}{for} (i = 0; i < *n; i++) \{
+00104                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Entre o elemento v[%d]: "},i);
+00105                 fscanf(stream,\textcolor{stringliteral}{"%d"},&(*v)[i]);
+00106         \}
+00107 \}
+00108 
+00109 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} execTrab2(Graph * g, FILE *stream, \textcolor{keywordtype}{int} prob) \{
+00110         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ret = 0;
+00111 
+00112         \textcolor{keywordflow}{switch} (prob) \{
+00113         \textcolor{keywordflow}{case} EXSUBACICLICO: \{
+00114                 \textcolor{keywordtype}{int} * v;
+00115                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n;
+00116                 entradaIntVet(stream, &v, &n);
+00117 
+00118                 BitMap * s\_prof = pack(v, n, getN(g));
+00119                 ret = eh\_subaciclico\_prof(g, s\_prof, 1);
+00120                 freeBitMap(s\_prof);
+00121                 free(v);
+00122 
+00123                 ret = 1;
+00124                 \textcolor{keywordflow}{break};
+00125         \}
+00126         \textcolor{keywordflow}{case} EHSUBACICLICO: \{
+00127                 \textcolor{keywordtype}{int} * v;
+00128                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} n;
+00129                 entradaIntVet(stream, &v, &n);
+00130 
+00131                 BitMap * s = pack(v, n, getN(g));
+00132                 \textcolor{keywordtype}{int} ec = eh_subaciclico(g, s);
+00133                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: %d\(\backslash\)n"}, ec);
+00134 
+00135                 BitMap * s\_prof = pack(v, n, getN(g));
+00136                 ret = ((!ec == !eh\_subaciclico\_prof(g, s\_prof, 0)) && areEqual(s, s\_prof));
+00137 
+00138                 freeBitMap(s);
+00139                 freeBitMap(s\_prof);
+00140                 free(v);
+00141                 \textcolor{keywordflow}{break};
+00142         \}
+00143         \textcolor{keywordflow}{case} EHACICLICO: \{
+00144                 \textcolor{keywordtype}{int} ec = eh_aciclico(g);
+00145                 \textcolor{keywordflow}{if} (stream == stdin) printf(\textcolor{stringliteral}{"Resultado obtido: %d\(\backslash\)n"}, ec);
+00146 
+00147                 ret = (!ec == !eh\_aciclico\_prof(g));
+00148 
+00149                 \textcolor{keywordflow}{break};
+00150         \}
+00151         \textcolor{keywordflow}{default}:
+00152                 \textcolor{keywordflow}{break};
+00153         \}
+00154 
+00155         \textcolor{keywordflow}{return} ret;
+00156 \}
+\end{DoxyCode}

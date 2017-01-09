@@ -1,0 +1,54 @@
+\section{trab3.\+h}
+\label{trab3_8h_source}\index{grafalg16.\+2/trabs/trab3/trab3.\+h@{grafalg16.\+2/trabs/trab3/trab3.\+h}}
+
+\begin{DoxyCode}
+00001 
+00028 \textcolor{preprocessor}{#ifndef TRAB3\_H\_}
+00029 \textcolor{preprocessor}{#define TRAB3\_H\_}
+00030 
+00031 \textcolor{preprocessor}{#include <graph.h>}
+00032 
+00037 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} Vertice;
+00038 
+00044 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00045 \} No_Vertice_L;
+00046 
+00051 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} Dist_V;
+00052 
+00056 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00057         Vertice u; 
+00058         Vertice v; 
+00059 \} Aresta;
+00060 
+00066 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00067 \} No_Aresta_L;
+00068 
+00072 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00073         Dist_V d1; 
+00074         Dist_V d2; 
+00075 \} Dist_A;
+00076 
+00089 No_Vertice_L * partida_VL(Graph * \textcolor{keyword}{const} g, Vertice u);
+00090 
+00103 No_Vertice_L * avancar_VL(No_Vertice_L * no);
+00104 
+00117 \textcolor{keywordtype}{int} chegada_VL(No_Vertice_L * no);
+00118 
+00131 No_Aresta_L * partida_AL(Graph * \textcolor{keyword}{const} g, Vertice u);
+00132 
+00146 No_Aresta_L * avancar_AL(Graph * \textcolor{keyword}{const} g, No_Aresta_L * no);
+00147 
+00161 \textcolor{keywordtype}{int} chegada_AL(Graph * \textcolor{keyword}{const} g, No_Aresta_L * no);
+00162 
+00171 Vertice alvo_V(No_Vertice_L * \textcolor{keyword}{const} no);
+00172 
+00181 Dist_V dist_V(No_Vertice_L * \textcolor{keyword}{const} no);
+00182 
+00191 Aresta alvo_A(No_Aresta_L * \textcolor{keyword}{const} no);
+00192 
+00201 Dist_A dist_A(No_Aresta_L * \textcolor{keyword}{const} no);
+00202 
+00219 \textcolor{keywordtype}{int} eh_bipartido(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s, BitMap * \textcolor{keyword}{const} t);
+00220 
+00221 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB3\_H\_ */}\textcolor{preprocessor}{}
+\end{DoxyCode}

@@ -1,0 +1,91 @@
+\section{trab\+\_\+corretor.\+c}
+\label{trab__corretor_8c_source}\index{main/trab\+\_\+corretor.\+c@{main/trab\+\_\+corretor.\+c}}
+
+\begin{DoxyCode}
+00001 
+00008 \textcolor{preprocessor}{#include <stdio.h>}
+00009 \textcolor{preprocessor}{#include <stdlib.h>}
+00010 \textcolor{preprocessor}{#include <string.h>}
+00011 
+00012 \textcolor{preprocessor}{#ifdef \_trab1\_}
+00013 \textcolor{preprocessor}{#include "../trab1/src/trab1.h"}
+00014 \textcolor{preprocessor}{#include "../trab1/src/trab1\_prof.c"}
+00015 \textcolor{preprocessor}{#include "../trab1/src/trab1.c"}
+00016 \textcolor{preprocessor}{#endif}
+00017 
+00018 \textcolor{preprocessor}{#ifdef \_trab2\_}
+00019 \textcolor{preprocessor}{#include "../trab2/src/trab2.h"}
+00020 \textcolor{preprocessor}{#include "../trab2/src/trab2\_prof.c"}
+00021 \textcolor{preprocessor}{#include "../trab2/src/trab2.c"}
+00022 \textcolor{preprocessor}{#endif}
+00023 
+00024 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident();
+00025 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} execProb(FILE * stream, PROBS prob);
+00026 
+00027 PROBS selProb(\textcolor{keywordtype}{char} opt) \{
+00028         PROBS p;
+00029         \textcolor{keywordflow}{do} \{
+00030                 printf(\textcolor{stringliteral}{"\(\backslash\)n[opção %c] Escolha um problema [0 ... %u] ou %d para voltar: "}, opt, NPROBS-1, 
+      NPROBS);
+00031                 scanf(\textcolor{stringliteral}{"%d"},&p);
+00032                 \textcolor{keywordflow}{if} (p < 0 || p > NPROBS)
+00033                         printf(\textcolor{stringliteral}{"A opção \(\backslash\)"%d\(\backslash\)" é inválida.\(\backslash\)n"},p);
+00034         \} \textcolor{keywordflow}{while} (p < 0 || p > NPROBS);
+00035         \textcolor{keywordflow}{if} (p < NPROBS)
+00036                 printf(\textcolor{stringliteral}{"%s\(\backslash\)n"},nome\_str[p]);
+00037 
+00038         \textcolor{keywordflow}{return} p;
+00039 \}
+00040 
+00041 \textcolor{keywordtype}{int} buscaAluno(\textcolor{keywordtype}{int} \textcolor{keywordtype}{id}) \{
+00042         \textcolor{keywordtype}{int} i;
+00043         \textcolor{keywordflow}{for} (i = 0; turma[i] > 0; i++)
+00044                 \textcolor{keywordflow}{if} (turma[i] == \textcolor{keywordtype}{id})
+00045                         \textcolor{keywordflow}{return} 1;
+00046         \textcolor{keywordflow}{return} 0;
+00047 \}
+00048 
+00049 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv) \{
+00050         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \textcolor{keywordtype}{id} = ident();
+00051 
+00052         FILE * outfile = fopen(argv[1],\textcolor{stringliteral}{"a+"});
+00053         FILE * infile = fopen(argv[2],\textcolor{stringliteral}{"r"});
+00054 
+00055         \textcolor{keywordflow}{if} (\textcolor{keywordtype}{id} < 0 || !buscaAluno(\textcolor{keywordtype}{id})) \{
+00056                 printf(\textcolor{stringliteral}{"%u: Número de matrícula incorreto ou aluno(a) não inscrito(a).\(\backslash\)n"}, \textcolor{keywordtype}{id});
+00057                 exit(0);
+00058         \}
+00059 
+00060         \textcolor{keywordtype}{char} linestr[100];
+00061         \textcolor{keywordtype}{int} ninst = 4;
+00062         \textcolor{keywordtype}{int} ninstcertas = 0;
+00063         \textcolor{keywordflow}{while} (fgets(linestr, 100, infile) != NULL) \{
+00064                 \textcolor{keywordflow}{if} (strcmp(strtok(linestr, \textcolor{stringliteral}{" "}), \textcolor{stringliteral}{"\(\backslash\)n"})) \{
+00065                         \textcolor{keywordtype}{long}  pr = strtol(linestr, NULL, 10);
+00066 
+00067                         \textcolor{keywordflow}{if} (pr >= 0 && pr < NPROBS) \{
+00068                                 \textcolor{keywordflow}{if} (execProb(infile, pr))
+00069                                         ninstcertas++;
+00070                                 ninst++;
+00071                                 printf(\textcolor{stringliteral}{"instâncias: %d  certas: %d\(\backslash\)n"},ninst, ninstcertas);
+00072                                 fflush(NULL);
+00073                         \}
+00074                         \textcolor{keywordflow}{else} \{
+00075                                 fprintf(outfile, \textcolor{stringliteral}{"%u: erro de opção inválida (%ld) na instância %d do
+       arquivo de entrada.\(\backslash\)n"}, \textcolor{keywordtype}{id}, pr, ninst);
+00076                                 \textcolor{keywordflow}{goto} TERMINATE;
+00077                         \}
+00078                 \}
+00079         \};
+00080         \textcolor{keywordflow}{if} (ninst > 0)
+00081                 fprintf(outfile, \textcolor{stringliteral}{"%u  %d instâncias  %d certas  %3.1f\(\backslash\)n"},\textcolor{keywordtype}{id},ninst,ninstcertas,5.0*(1.0+((\textcolor{keywordtype}{
+      float}) ninstcertas)/ninst));
+00082         \textcolor{keywordflow}{else}
+00083                 fprintf(outfile, \textcolor{stringliteral}{"%u: nenhuma instância testada.\(\backslash\)n"},\textcolor{keywordtype}{id});
+00084 
+00085         TERMINATE:
+00086 
+00087         fclose(infile);
+00088         fclose(outfile);
+00089 \}
+\end{DoxyCode}

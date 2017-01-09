@@ -1,0 +1,45 @@
+\section{Referência da Estrutura Graph}
+\label{structGraph}\index{Graph@{Graph}}
+
+
+Bitmap implementation of a graph adjacency matrix.  
+
+
+
+
+{\ttfamily \#include $<$graph.\+h$>$}
+
+\subsection*{Campos de Dados}
+\begin{DoxyCompactItemize}
+\item 
+size\+\_\+t {\bf n}\label{structGraph_a6196749068b51bc6bd9c4b81bbf68b5b}
+
+\begin{DoxyCompactList}\small\item\em Number of vertices. \end{DoxyCompactList}\item 
+size\+\_\+t {\bf m}\label{structGraph_a6880fc5fa7af2603a45ad9b0f6f613ba}
+
+\begin{DoxyCompactList}\small\item\em Number of edges. \end{DoxyCompactList}\item 
+{\bf Bit\+Map} $\ast$ {\bf matrix}\label{structGraph_a9774d1845f2031cc38966b6515f01fe7}
+
+\begin{DoxyCompactList}\small\item\em Bitmap adjacency matrix. \end{DoxyCompactList}\item 
+{\bf Bit\+Map} $\ast$ {\bf swap}\label{structGraph_a1bf4e85e3734b658b25527434a5a7df4}
+
+\begin{DoxyCompactList}\small\item\em Bitmap used in the swap operation. \end{DoxyCompactList}\item 
+{\bf Bit\+Map} {\bf neig}\label{structGraph_ae622037be0556880d63642e46905812f}
+
+\begin{DoxyCompactList}\small\item\em Returned as neighborhood of a specified vertex. \end{DoxyCompactList}\item 
+int {\bf maxcq}\label{structGraph_af4905f210d8e490c0cce09c318462147}
+
+\begin{DoxyCompactList}\small\item\em Size of the maximum clique. \end{DoxyCompactList}\item 
+double {\bf maxwcq}\label{structGraph_a22821e1cd387ed0e72c6493be9dd4a3b}
+
+\begin{DoxyCompactList}\small\item\em Weight of the maximum clique. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Bitmap implementation of a graph adjacency matrix. 
+
+In order to optimize indexing, the number of nodes in a row is augmented up to a power of 2. 
+
+A documentação para esta estrutura foi gerada a partir do seguinte arquivo\+:\begin{DoxyCompactItemize}
+\item 
+/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/{\bf graph.\+h}\end{DoxyCompactItemize}

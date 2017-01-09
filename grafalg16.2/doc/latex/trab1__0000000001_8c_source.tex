@@ -1,0 +1,60 @@
+\section{trab1\+\_\+0000000001.\+c}
+\label{trab1__0000000001_8c_source}\index{grafalg16.\+2/trabs/autor\+\_\+0000000001/trab1\+\_\+0000000001.\+c@{grafalg16.\+2/trabs/autor\+\_\+0000000001/trab1\+\_\+0000000001.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <graph.h>}
+00002 
+00003 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident1() \{
+00004         \textcolor{keywordflow}{return} 0000000001;
+00005 \}
+00006 
+00007 BitMap * viz_comum(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00008         BitMap * viz = newBitMap(getN(g));
+00009         intersectOf(viz, neig(g,u), neig(g,v));
+00010         \textcolor{keywordflow}{return} viz;
+00011 \}
+00012 
+00013 \textcolor{keywordtype}{int} eh_clique(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00014         BitMap * aux = cloneBitMap(s);
+00015 
+00016         Node node;
+00017         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00018                 delElement(aux, &node);
+00019                 \textcolor{keywordflow}{if} (!isSubset(aux, neig(g, getElement(&node))))
+00020                         \textcolor{keywordflow}{return} 0;
+00021         \}
+00022 
+00023         freeBitMap(aux);
+00024         \textcolor{keywordflow}{return} 1;
+00025 \}
+00026 
+00027 \textcolor{keywordtype}{int} viz_comum_eh_clique(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00028         BitMap * viz = viz_comum(g, u, v);
+00029         \textcolor{keywordtype}{int} ret = eh_clique(g, viz);
+00030         freeBitMap(viz);
+00031         \textcolor{keywordflow}{return} ret;
+00032 \}
+00033 
+00034 \textcolor{keywordtype}{void} subgraus(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} * d) \{
+00035         Node node;
+00036         BitMap * aux = similarBitMap(s);
+00037         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00038                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v = getElement(&node);
+00039                 intersectOf(aux, s, neig(g, v));
+00040                 d[v] = cardOf(aux);
+00041         \}
+00042         freeBitMap(aux);
+00043 \}
+00044 
+00045 \textcolor{keywordtype}{int} conta_arestas(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00046         \textcolor{keywordflow}{return} 0;
+00047 \}
+00048 
+00049 \textcolor{keywordtype}{int} viz_comum_conta_arestas(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00050         \textcolor{keywordflow}{return} 0;
+00051 \}
+00052 
+00053 BitMap * grau_impar(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00054         \textcolor{keywordflow}{return} cloneBitMap(s);
+00055 \}
+\end{DoxyCode}

@@ -1,0 +1,285 @@
+\section{trab\+\_\+main.\+c}
+\label{trab__main_8c_source}\index{main/trab\+\_\+main.\+c@{main/trab\+\_\+main.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <stdio.h>}
+00002 \textcolor{preprocessor}{#include <stdlib.h>}
+00003 \textcolor{preprocessor}{#include <errno.h>}
+00004 \textcolor{preprocessor}{#include <string.h>}
+00005 \textcolor{preprocessor}{#include <time.h>}
+00006 \textcolor{preprocessor}{#include <sys/types.h>}
+00007 \textcolor{preprocessor}{#include <dirent.h>}
+00008 
+00009 \textcolor{preprocessor}{#include <trab_main.h>}
+00010 
+00011 \textcolor{preprocessor}{#define drand (rand()*1.0/RAND\_MAX)}
+00012 
+00013 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00014         \textcolor{keywordtype}{int} n\_insts;
+00015         \textcolor{keywordtype}{char} instdir[300];
+00016         \textcolor{keywordtype}{string} * nome;
+00017 \} Instancias;
+00018 
+00019 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00020         \textcolor{keywordtype}{int} t;
+00021         \textcolor{keywordtype}{int} p;
+00022 \} TrabProb;
+00023 
+00024 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} int (*ExecTrab)(Graph *, FILE *, int);
+00025 
+00026 Trab \textcolor{keyword}{const} * trab[] = \{ NULL, NULL, NULL, NULL, NULL, NULL \};
+00027 ExecTrab execTrab[] = \{ NULL, NULL, NULL, NULL, NULL, NULL \};
+00028 \textcolor{keyword}{const} \textcolor{keywordtype}{string} inst1dir = \textcolor{stringliteral}{"../instancias"};
+00029 \textcolor{keyword}{const} \textcolor{keywordtype}{string} inst2dir = \textcolor{stringliteral}{"../../instancias"};
+00030 
+00031 \textcolor{keyword}{const} \textcolor{keywordtype}{int} ntrabs = 6;
+00032 
+00033 \textcolor{preprocessor}{#ifdef TRAB1\_H\_}
+00034 Trab \textcolor{keyword}{const} * descTrab1();
+00035 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} execTrab1(Graph * g, FILE * stream, \textcolor{keywordtype}{int} prob);
+00036 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB1\_H\_ */}\textcolor{preprocessor}{}
+00037 
+00038 \textcolor{preprocessor}{#ifdef TRAB2\_H\_}
+00039 Trab \textcolor{keyword}{const} * descTrab2();
+00040 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} execTrab2(Graph * g, FILE * stream, \textcolor{keywordtype}{int} prob);
+00041 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB2\_H\_ */}\textcolor{preprocessor}{}
+00042 
+00043 \textcolor{preprocessor}{#ifdef TRAB3\_H\_}
+00044 Trab \textcolor{keyword}{const} * descTrab3();
+00045 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} execTrab3(Graph * g, FILE * stream, \textcolor{keywordtype}{int} prob);
+00046 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB2\_H\_ */}\textcolor{preprocessor}{}
+00047 
+00048 \textcolor{keywordtype}{void} listarTrabs() \{
+00049         printf(\textcolor{stringliteral}{"Trabalhos:\(\backslash\)n"});
+00050         \textcolor{keywordtype}{int} i;
+00051         \textcolor{keywordflow}{for} (i = 0; i < ntrabs; i++)
+00052                 \textcolor{keywordflow}{if} (trab[i] != NULL)
+00053                         printf(\textcolor{stringliteral}{"\(\backslash\)t%u: %s\(\backslash\)n"},i+1,trab[i]->nome\_trab);
+00054         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00055 \}
+00056 
+00057 \textcolor{keywordtype}{void} listarProbs(\textcolor{keywordtype}{int} t) \{
+00058         printf(\textcolor{stringliteral}{"Problemas:\(\backslash\)n"});
+00059         \textcolor{keywordtype}{int} i;
+00060         \textcolor{keywordflow}{for} (i = 0; i < trab[t]->nprobs; i++)
+00061                 printf(\textcolor{stringliteral}{"\(\backslash\)t%u: %s\(\backslash\)n"},i,trab[t]->nome\_prob[i]);
+00062         printf(\textcolor{stringliteral}{"\(\backslash\)n"});
+00063 \}
+00064 
+00065 TrabProb selProb(\textcolor{keywordtype}{char} opt) \{
+00066         TrabProb pt;
+00067         \textcolor{keywordflow}{do} \{
+00068                 \textcolor{keywordflow}{do} \{
+00069                         printf(\textcolor{stringliteral}{"\(\backslash\)n[opção %c] Escolha um trabalho [1 ... %u] ou %d para voltar: "}, opt, 
+      ntrabs, ntrabs+1);
+00070                         scanf(\textcolor{stringliteral}{"%d"},&pt.t);
+00071                         pt.t--;
+00072                         \textcolor{keywordflow}{if} (pt.t < 0 || pt.t > ntrabs)
+00073                                 printf(\textcolor{stringliteral}{"A opção \(\backslash\)"%d\(\backslash\)" é inválida.\(\backslash\)n"},pt.t+1);
+00074                         \textcolor{keywordflow}{if} (pt.t < ntrabs && trab[pt.t] == NULL)
+00075                                 printf(\textcolor{stringliteral}{"O trabalho \(\backslash\)"%d\(\backslash\)" não está disponível.\(\backslash\)n"},pt.t+1);
+00076                 \} \textcolor{keywordflow}{while} (pt.t < 0 || pt.t > ntrabs || (pt.t < ntrabs && trab[pt.t] == NULL));
+00077 
+00078                 \textcolor{keywordflow}{if} (pt.t < ntrabs) \{
+00079                         printf(\textcolor{stringliteral}{"%s\(\backslash\)n"},trab[pt.t]->nome\_trab);
+00080                         listarProbs(pt.t);
+00081 
+00082                         \textcolor{keywordflow}{do} \{
+00083                                 printf(\textcolor{stringliteral}{"\(\backslash\)n[trabalho %d] Escolha um problema [0 ... %u] ou %d para voltar: "}
+      , pt.t+1, trab[pt.t]->nprobs-1, trab[pt.t]->nprobs);
+00084                                 scanf(\textcolor{stringliteral}{"%d"},&pt.p);
+00085                                 \textcolor{keywordflow}{if} (pt.p < 0 || pt.p > trab[pt.t]->nprobs)
+00086                                         printf(\textcolor{stringliteral}{"A opção \(\backslash\)"%d\(\backslash\)" é inválida.\(\backslash\)n"},pt.p);
+00087                         \} \textcolor{keywordflow}{while} (pt.p < 0 || pt.p > trab[pt.t]->nprobs);
+00088                         \textcolor{keywordflow}{if} (pt.p < trab[pt.t]->nprobs)
+00089                                 printf(\textcolor{stringliteral}{"Problema: %s\(\backslash\)n"},trab[pt.t]->nome\_prob[pt.p]);
+00090                 \}
+00091         \} \textcolor{keywordflow}{while} ((pt.t < ntrabs) && (pt.p == trab[pt.t]->nprobs));
+00092 
+00093         fflush(NULL);
+00094         \textcolor{keywordflow}{return} pt;
+00095 \}
+00096 
+00097 \textcolor{keywordtype}{int} buscaAluno(\textcolor{keywordtype}{int} \textcolor{keywordtype}{id}) \{
+00098         \textcolor{keywordtype}{int} i;
+00099         \textcolor{keywordflow}{for} (i = 0; turma[i] > 0; i++)
+00100                 \textcolor{keywordflow}{if} (turma[i] == \textcolor{keywordtype}{id})
+00101                         \textcolor{keywordflow}{return} 1;
+00102         \textcolor{keywordflow}{return} 0;
+00103 \}
+00104 
+00105 Instancias leInstancias() \{
+00106         Instancias ret = \{0,\textcolor{stringliteral}{""},0\};
+00107 
+00108         DIR * gdir;
+00109 
+00110         strcpy(ret.instdir, inst1dir);
+00111         \textcolor{keywordflow}{if} ((gdir = opendir(ret.instdir)) == NULL)
+00112                 strcpy(ret.instdir, inst2dir);
+00113 
+00114         \textcolor{keywordflow}{while} ((gdir = opendir(ret.instdir)) == NULL) \{
+00115                 printf(\textcolor{stringliteral}{"Diretório de instâncias \(\backslash\)"%s\(\backslash\)" não encontrado.\(\backslash\)n"}, ret.instdir);
+00116                 printf(\textcolor{stringliteral}{"Especifique diretório de instâncias: "});
+00117                 scanf(\textcolor{stringliteral}{"%s"},ret.instdir);
+00118         \}
+00119         \textcolor{keyword}{struct }dirent * in\_file;
+00120 
+00121         \textcolor{keywordflow}{while} ((in\_file = readdir(gdir))) \{
+00122                 \textcolor{keywordflow}{if} (!strcmp(in\_file->d\_name, \textcolor{stringliteral}{"."}) || !strcmp(in\_file->d\_name, \textcolor{stringliteral}{".."}))
+00123                         \textcolor{keywordflow}{continue};
+00124                 ret.n\_insts++;
+00125         \}
+00126         closedir(gdir);
+00127 
+00128         \textcolor{keywordtype}{int} f = 0;
+00129         ret.nome = calloc(ret.n\_insts, \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char} *));
+00130         gdir = opendir(ret.instdir);
+00131         \textcolor{keywordflow}{while} ((in\_file = readdir(gdir))) \{
+00132                 \textcolor{keywordflow}{if} (!strcmp(in\_file->d\_name, \textcolor{stringliteral}{"."}) || !strcmp(in\_file->d\_name, \textcolor{stringliteral}{".."}))
+00133                         \textcolor{keywordflow}{continue};
+00134                 ret.nome[f] = malloc(strlen(in\_file->d\_name));
+00135                 strcpy(ret.nome[f++],in\_file->d\_name);
+00136         \}
+00137         closedir(gdir);
+00138 
+00139         \textcolor{keywordflow}{return} ret;
+00140 \}
+00141 
+00142 \textcolor{keywordtype}{int} main(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} **argv) \{
+00143         srand(time(0));
+00144 
+00145         printf(\textcolor{stringliteral}{"AB781 : P01 - LABORATÓRIO DE GRAFOS E ALGORITMOS\(\backslash\)n"});
+00146 
+00147         \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} id1 = ident1();
+00148 
+00149         \textcolor{keywordflow}{if} (id1 < 0 || !buscaAluno(id1)) \{
+00150                 printf(\textcolor{stringliteral}{"Por favor, especifique o seu número de matrícula na função ident() ou verifique sua
+       matrícula na turma.\(\backslash\)n"});
+00151                 exit(0);
+00152         \}
+00153 
+00154 \textcolor{preprocessor}{#ifdef TRAB2\_H\_}
+00155         \textcolor{keywordflow}{if} (ident2() != id1) \{
+00156                 printf(\textcolor{stringliteral}{"Números de matrícula inconsistentes.\(\backslash\)n"});
+00157                 printf(\textcolor{stringliteral}{"Por favor, especifique o seu número de matrícula na função ident() ou verifique sua
+       matrícula na turma.\(\backslash\)n"});
+00158                 exit(0);
+00159         \}
+00160 \textcolor{preprocessor}{#endif}
+00161 
+00162 \textcolor{preprocessor}{#ifdef TRAB3\_H\_}
+00163         \textcolor{keywordflow}{if} (ident3() != id1) \{
+00164                 printf(\textcolor{stringliteral}{"Números de matrícula inconsistentes.\(\backslash\)n"});
+00165                 printf(\textcolor{stringliteral}{"Por favor, especifique o seu número de matrícula na função ident() ou verifique sua
+       matrícula na turma.\(\backslash\)n"});
+00166                 exit(0);
+00167         \}
+00168 \textcolor{preprocessor}{#endif}
+00169         printf(\textcolor{stringliteral}{"Número Matrícula: %u\(\backslash\)n\(\backslash\)n"},id1);
+00170 
+00171         Instancias insts = leInstancias();
+00172 
+00173 \textcolor{preprocessor}{#ifdef TRAB1\_H\_}
+00174 trab[0] = descTrab1();
+00175 execTrab[0] = execTrab1;
+00176 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB1\_H\_ */}\textcolor{preprocessor}{}
+00177 
+00178 \textcolor{preprocessor}{#ifdef TRAB2\_H\_}
+00179 trab[1] = descTrab2();
+00180 execTrab[1] = execTrab2;
+00181 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB2\_H\_ */}\textcolor{preprocessor}{}
+00182 
+00183 \textcolor{preprocessor}{#ifdef TRAB3\_H\_}
+00184 trab[1] = descTrab3();
+00185 execTrab[1] = execTrab3;
+00186 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB2\_H\_ */}\textcolor{preprocessor}{}
+00187 
+00188 \textcolor{comment}{//      listarTrabs();}
+00189 
+00190         Graph * g = NULL;
+00191         \textcolor{keywordtype}{char} opt;
+00192         \textcolor{keywordflow}{do} \{
+00193                 \textcolor{keywordflow}{if} (g != NULL)
+00194                         printf(\textcolor{stringliteral}{"\(\backslash\)nEscolha uma opção [l- listar   d- descricao   g- grafo   e- executar   t-
+       terminar]: "});
+00195                 \textcolor{keywordflow}{else}
+00196                         printf(\textcolor{stringliteral}{"\(\backslash\)nEscolha uma opção [l- listar   d- descricao   g- grafo   t- terminar]: "})
+      ;
+00197                 opt = getchar();
+00198                 \textcolor{keywordflow}{while} (opt == \textcolor{charliteral}{'\(\backslash\)n'})
+00199                         opt = getchar();
+00200                 \textcolor{keywordflow}{switch} (opt) \{
+00201                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'l'}: \{
+00202                         listarTrabs();
+00203                         \textcolor{keywordflow}{break};
+00204                 \}
+00205                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'d'}: \{
+00206                         TrabProb pr = selProb(opt);
+00207                         \textcolor{keywordflow}{while} (pr.t >= 0 && pr.t < ntrabs && pr.p >= 0 && pr.p < trab[pr.t]->nprobs) \{
+00208                                 printf(\textcolor{stringliteral}{"Descrição: %s\(\backslash\)n"},trab[pr.t]->descricao\_str[pr.p]);
+00209                                 pr = selProb(opt);
+00210                         \}
+00211                         \textcolor{keywordflow}{break};
+00212                 \}
+00213                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'g'}: \{
+00214                         \textcolor{keywordflow}{if} (g != NULL)
+00215                                 delGraph(g);
+00216 
+00217                         \textcolor{keywordtype}{int} f;
+00218                         printf(\textcolor{stringliteral}{"Grafos disponíveis:\(\backslash\)n"});
+00219                         \textcolor{keywordflow}{for} (f = 0; f < insts.n\_insts; f++)
+00220                                 printf(\textcolor{stringliteral}{"\(\backslash\)t%d: %s\(\backslash\)n"},f,insts.nome[f]);
+00221                         \textcolor{keywordtype}{int} gi;
+00222                         printf(\textcolor{stringliteral}{"Selecione um grafo [0 ... %d]: "}, insts.n\_insts-1);
+00223                         scanf(\textcolor{stringliteral}{"%d"}, &gi);
+00224                         \textcolor{keywordflow}{while} (!(gi >= 0 && gi < insts.n\_insts)) \{
+00225                                 printf(\textcolor{stringliteral}{"A opção \(\backslash\)"%d\(\backslash\)" é inválida.\(\backslash\)n"},gi);
+00226                                 printf(\textcolor{stringliteral}{"Selecione um grafo [0 ... %d]: "}, insts.n\_insts);
+00227                                 scanf(\textcolor{stringliteral}{"%d"}, &gi);
+00228                         \}
+00229                         \textcolor{keywordtype}{string} fnome = malloc(strlen(insts.nome[gi])+strlen(insts.instdir)+2);
+00230                         strcpy(fnome,insts.instdir);
+00231                         strcat(fnome,\textcolor{stringliteral}{"/"});
+00232                         strcat(fnome,insts.nome[gi]);
+00233 
+00234                         FILE * fg = fopen(fnome, \textcolor{stringliteral}{"r"});
+00235                         \textcolor{keywordflow}{if} (fg == NULL)\{
+00236                                 printf(\textcolor{stringliteral}{"%s: %s\(\backslash\)n"},fnome,strerror(errno));
+00237                         \}
+00238                         \textcolor{keywordflow}{else}
+00239                                 g = readDimacsGraph(fg);
+00240                         fclose(fg);
+00241                         free(fnome);
+00242                         \textcolor{keywordflow}{break};
+00243                 \}
+00244                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'e'}: \{
+00245                         \textcolor{keywordflow}{if} (g == NULL) \{
+00246                                 printf(\textcolor{stringliteral}{"A opção \(\backslash\)"%c\(\backslash\)" só é válida após a definição do grafo.\(\backslash\)n"},opt);
+00247                                 \textcolor{keywordflow}{break};
+00248                         \}
+00249                         TrabProb pr = selProb(opt);
+00250                         \textcolor{keywordflow}{while} (pr.t >= 0 && pr.t < ntrabs && pr.p >= 0 && pr.p < trab[pr.t]->nprobs) \{
+00251                                 \textcolor{keywordflow}{if} (execTrab[pr.t](g,stdin, pr.p))
+00252                                         printf(\textcolor{stringliteral}{"O resultado obtido está correto.\(\backslash\)n"});
+00253                                 \textcolor{keywordflow}{else}
+00254                                         printf(\textcolor{stringliteral}{"O resultado obtido está errado.\(\backslash\)n"});
+00255                                 pr = selProb(opt);
+00256                         \}
+00257                         \textcolor{keywordflow}{break};
+00258                 \}
+00259                 \textcolor{keywordflow}{case} \textcolor{charliteral}{'t'}:
+00260                         \textcolor{keywordflow}{if} (g != NULL)
+00261                                 delGraph(g);
+00262                         \textcolor{keywordtype}{int} f;
+00263                         \textcolor{keywordflow}{for} (f = 0; f < insts.n\_insts; f++)
+00264                                 free(insts.nome[f]);
+00265                         free(insts.nome);
+00266                         \textcolor{keywordflow}{break};
+00267                 \textcolor{keywordflow}{default}: \{
+00268                         printf(\textcolor{stringliteral}{"A opção \(\backslash\)"%c\(\backslash\)" é inválida.\(\backslash\)n"},opt);
+00269                         \textcolor{keywordflow}{break};
+00270                 \}
+00271                 \}
+00272         \} \textcolor{keywordflow}{while} (opt != \textcolor{charliteral}{'t'});
+00273 \}
+\end{DoxyCode}

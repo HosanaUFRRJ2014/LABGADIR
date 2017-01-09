@@ -1,0 +1,117 @@
+\section{trab1\+\_\+2014780348.\+c}
+\label{trab1__2014780348_8c_source}\index{grafalg16.\+2/trabs/autor\+\_\+2014780348/trab1\+\_\+2014780348.\+c@{grafalg16.\+2/trabs/autor\+\_\+2014780348/trab1\+\_\+2014780348.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <graph.h>}
+00002 
+00003 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident1() \{
+00004         \textcolor{comment}{/*------Nome: Lívia de Azevedo da Silva-----*/}
+00005         \textcolor{keywordflow}{return} 2014780348;
+00006 \}
+00007 
+00008 BitMap * viz_comum(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00009         BitMap * viz = newBitMap(getN(g));
+00010         intersectOf(viz, neig(g,u), neig(g,v)); \textcolor{comment}{//Resultado da interseção entre os segundo e terceiro
+       parâmetro e salva o resultado no 1º}
+00011         \textcolor{keywordflow}{return} viz;
+00012 \}
+00013 
+00014 \textcolor{keywordtype}{int} eh_clique(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00015         BitMap * aux = cloneBitMap(s);
+00016 
+00017         Node node;
+00018         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00019                 delElement(aux, &node);
+00020                 \textcolor{keywordflow}{if} (!isSubset(aux, neig(g, getElement(&node))))
+00021                         \textcolor{keywordflow}{return} 0;
+00022         \}
+00023 
+00024         freeBitMap(aux);
+00025         \textcolor{keywordflow}{return} 1;
+00026 \}
+00027 
+00028 \textcolor{keywordtype}{int} viz_comum_eh_clique(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00029         BitMap * viz = viz_comum(g, u, v);
+00030         \textcolor{keywordtype}{int} ret = eh_clique(g, viz);
+00031         freeBitMap(viz);
+00032         \textcolor{keywordflow}{return} ret;
+00033 \}
+00034 
+00035 \textcolor{keywordtype}{void} subgraus(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} * d) \{
+00036         Node node;
+00037         BitMap * aux = similarBitMap(s);
+00038         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) \{
+00039                 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v = getElement(&node);
+00040                 intersectOf(aux, s, neig(g, v));
+00041                 d[v] = cardOf(aux);
+00042         \}
+00043         freeBitMap(aux);
+00044 \}
+00045 
+00046 \textcolor{keywordtype}{int} conta_arestas(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{
+00047         \textcolor{keywordtype}{int} qtd\_arestas = 0;
+00048         BitMap *aux = newBitMap(getN(g)); \textcolor{comment}{//Estrutura de Dados com o tamanho de G}
+00049         BitMap *auxS = cloneBitMap(s); \textcolor{comment}{// Cópia para uso no algoritmo do subconjunto S}
+00050         Node node; \textcolor{comment}{//Nó auxiliar}
+00051 
+00052         \textcolor{keywordflow}{for} (begin(s, &node); !end(&node); next(&node)) 
+00053         \{
+00054                 \textcolor{comment}{/*Para não contar arestas repetidas, devemos retirar o vértice considerado da iteração para
+       a contagem.}
+00055 \textcolor{comment}{                Além disso, queremos descobrir apenas os vizinhos desse vértice e portanto deve-se
+       retirá-lo do subconjunto }
+00056 \textcolor{comment}{                para que o resultado da interseção seja apenas os seus vizinhos.*/}
+00057                 delElement(auxS, &node);
+00058                 intersectOf(aux,neig(g, getElement(&node)), auxS);
+00059 
+00060                 \textcolor{comment}{/*"cardOf" retorna a quantidade de elementos do conjunto de parâmetro.}
+00061 \textcolor{comment}{                O número de arestas aqui equivale a quantidade de vizinhos em S do vértice considerado na
+       iteração*/}
+00062                 qtd\_arestas += cardOf(aux);
+00063         \}       
+00064 
+00065         freeBitMap(aux);
+00066         freeBitMap(auxS);
+00067         \textcolor{keywordflow}{return} qtd\_arestas;
+00068 \}
+00069 
+00070 \textcolor{keywordtype}{int} viz_comum_conta_arestas(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v) \{
+00071         \textcolor{keywordflow}{return} conta_arestas(g, viz_comum(g, u, v)); \textcolor{comment}{//Uso da função "conta\_aresta" para a contagem nesse
+       conjunto.}
+00072 \}
+00073 
+00074 BitMap * grau_impar(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s) \{        
+00075         BitMap *vertices\_grau\_impar = newBitMap(cardOf(s)); \textcolor{comment}{//Cria uma Estrutura de Dados do tamanho do
+       subconjunto.}
+00076         BitMap *auxS = cloneBitMap(s); \textcolor{comment}{//Cópia do subconjunto.}
+00077         BitMap *aux = newBitMap(getN(g)); \textcolor{comment}{//Estrutura de Dados com o tamanho de G.}
+00078         Node node; \textcolor{comment}{//Nó auxiliar.}
+00079         \textcolor{keywordtype}{int} grau\_vertice; \textcolor{comment}{// grau do vértice correspondente da iteração.}
+00080 
+00081         \textcolor{keywordflow}{for} (begin(s,&node); !end(&node); next(&node))
+00082         \{
+00083                 \textcolor{comment}{/*-----------Definindo o conjunto dos vizinhos do alvo(node)(vértice da
+       iteração).------------------------}
+00084 \textcolor{comment}{                Com isso, conseguimos definir o grau desse vértice, que corresponde a quantidade de
+       vizinhos que o mesmo possui.*/}
+00085                 delElement(auxS, &node);
+00086                 intersectOf(aux,neig(g, getElement(&node)), auxS);
+00087                 grau\_vertice = cardOf(aux);
+00088                 \textcolor{comment}{/*
+      ------------------------------------------------------------------------------------------------------*/}
+00089                 
+00090                 \textcolor{comment}{/*Verificação se o grau do vértice é ímpar ou não*/}
+00091                 \textcolor{keywordflow}{if} (grau\_vertice % 2 != 0)
+00092                         addElement(vertices\_grau\_impar, &node); \textcolor{comment}{//Adiciona o vértice na solução.}
+00093 
+00094                 \textcolor{comment}{/*Adiciona novamente o vértice que foi retirado. Necessária adição, pois ele precisa ser
+       contabilizado }
+00095 \textcolor{comment}{                como vizinho em relação aos seus vizinhos.*/}
+00096                 addElement(auxS, &node);
+00097         \}
+00098 
+00099         freeBitMap(aux);
+00100         freeBitMap(auxS);
+00101         \textcolor{keywordflow}{return} cloneBitMap(vertices\_grau\_impar);        
+00102 \}
+\end{DoxyCode}

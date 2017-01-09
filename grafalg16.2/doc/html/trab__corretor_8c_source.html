@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>AB781 Laboratýrio de Grafos e Algoritmos: Código-Fonte de main/trab_corretor.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://www.mathjax.org/mathjax/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratýrio de Grafos e Algoritmos
+   &#160;<span id="projectnumber">2016.2</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_5c982d53a68cdbcd421152b4020263a9.html">main</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">trab_corretor.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="trab__corretor_8c.html">Vá para a documentação deste arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifdef _trab1_</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;../trab1/src/trab1.h&quot;</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;../trab1/src/trab1_prof.c&quot;</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;../trab1/src/trab1.c&quot;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#ifdef _trab2_</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;../trab2/src/trab2.h&quot;</span></div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &quot;../trab2/src/trab2_prof.c&quot;</span></div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;../trab2/src/trab2.c&quot;</span></div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif</span></div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ident();</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> execProb(FILE * stream, PROBS prob);</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;PROBS selProb(<span class="keywordtype">char</span> opt) {</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        PROBS p;</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">do</span> {</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                printf(<span class="stringliteral">&quot;\n[opção %c] Escolha um problema [0 ... %u] ou %d para voltar: &quot;</span>, opt, NPROBS-1, NPROBS);</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                scanf(<span class="stringliteral">&quot;%d&quot;</span>,&amp;p);</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <span class="keywordflow">if</span> (p &lt; 0 || p &gt; NPROBS)</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                        printf(<span class="stringliteral">&quot;A opção \&quot;%d\&quot; é inválida.\n&quot;</span>,p);</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        } <span class="keywordflow">while</span> (p &lt; 0 || p &gt; NPROBS);</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">if</span> (p &lt; NPROBS)</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                printf(<span class="stringliteral">&quot;%s\n&quot;</span>,nome_str[p]);</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> p;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div><div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">int</span> buscaAluno(<span class="keywordtype">int</span> <span class="keywordtype">id</span>) {</div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordtype">int</span> i;</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">for</span> (i = 0; turma[i] &gt; 0; i++)</div><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                <span class="keywordflow">if</span> (turma[i] == <span class="keywordtype">id</span>)</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                        <span class="keywordflow">return</span> 1;</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> 0;</div><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div><div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div><div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> **argv) {</div><div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span> = ident();</div><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        FILE * outfile = fopen(argv[1],<span class="stringliteral">&quot;a+&quot;</span>);</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        FILE * infile = fopen(argv[2],<span class="stringliteral">&quot;r&quot;</span>);</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &lt; 0 || !buscaAluno(<span class="keywordtype">id</span>)) {</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                printf(<span class="stringliteral">&quot;%u: Número de matrícula incorreto ou aluno(a) não inscrito(a).\n&quot;</span>, <span class="keywordtype">id</span>);</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                exit(0);</div><div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        }</div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">char</span> linestr[100];</div><div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">int</span> ninst = 4;</div><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">int</span> ninstcertas = 0;</div><div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">while</span> (fgets(linestr, 100, infile) != NULL) {</div><div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <span class="keywordflow">if</span> (strcmp(strtok(linestr, <span class="stringliteral">&quot; &quot;</span>), <span class="stringliteral">&quot;\n&quot;</span>)) {</div><div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                        <span class="keywordtype">long</span>  pr = strtol(linestr, NULL, 10);</div><div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                        <span class="keywordflow">if</span> (pr &gt;= 0 &amp;&amp; pr &lt; NPROBS) {</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                                <span class="keywordflow">if</span> (execProb(infile, pr))</div><div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                        ninstcertas++;</div><div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                                ninst++;</div><div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                                printf(<span class="stringliteral">&quot;instâncias: %d  certas: %d\n&quot;</span>,ninst, ninstcertas);</div><div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                fflush(NULL);</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                        }</div><div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                        <span class="keywordflow">else</span> {</div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                                fprintf(outfile, <span class="stringliteral">&quot;%u: erro de opção inválida (%ld) na instância %d do arquivo de entrada.\n&quot;</span>, <span class="keywordtype">id</span>, pr, ninst);</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                                <span class="keywordflow">goto</span> TERMINATE;</div><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                        }</div><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                }</div><div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        };</div><div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> (ninst &gt; 0)</div><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                fprintf(outfile, <span class="stringliteral">&quot;%u  %d instâncias  %d certas  %3.1f\n&quot;</span>,<span class="keywordtype">id</span>,ninst,ninstcertas,5.0*(1.0+((<span class="keywordtype">float</span>) ninstcertas)/ninst));</div><div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">else</span></div><div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                fprintf(outfile, <span class="stringliteral">&quot;%u: nenhuma instância testada.\n&quot;</span>,<span class="keywordtype">id</span>);</div><div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div><div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        TERMINATE:</div><div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div><div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        fclose(infile);</div><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        fclose(outfile);</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div></div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Domingo, 18 de Setembro de 2016 08:21:53 para AB781 Laboratýrio de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

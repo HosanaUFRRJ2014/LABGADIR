@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.12"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>AB781 Laboratório de Grafos e Algoritmos: Referência do Arquivo graph/grinput.c</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratório de Grafos e Algoritmos
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.12 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,'Busca');
+  $(document).ready(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_12552d7fa429bf94a2e32e5cf39f7e69.html">graph</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funções</a>  </div>
+  <div class="headertitle">
+<div class="title">Referência do Arquivo grinput.c</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="grinput_8h_source.html">grinput.h</a>&gt;</code><br />
+</div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Funções</h2></td></tr>
+<tr class="memitem:a724a15675418a0ddcc9581cbe7a94ab7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structGraph.html">Graph</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grinput_8c.html#a724a15675418a0ddcc9581cbe7a94ab7">readDimacsGraph</a> (FILE *graphFile)</td></tr>
+<tr class="memdesc:a724a15675418a0ddcc9581cbe7a94ab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads a graph from a specified file in the DIMACS format.  <a href="#a724a15675418a0ddcc9581cbe7a94ab7">Mais...</a><br /></td></tr>
+<tr class="separator:a724a15675418a0ddcc9581cbe7a94ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af72de78d8146e59da85c12b00abafdfd"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grinput_8c.html#af72de78d8146e59da85c12b00abafdfd">readDoubleWeights</a> (size_t n, FILE *weightsFile)</td></tr>
+<tr class="memdesc:af72de78d8146e59da85c12b00abafdfd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read and return an array of double weights from a specified file.  <a href="#af72de78d8146e59da85c12b00abafdfd">Mais...</a><br /></td></tr>
+<tr class="separator:af72de78d8146e59da85c12b00abafdfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec6a35e9674975808b60a688f0b899da"><td class="memItemLeft" align="right" valign="top">double *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="grinput_8c.html#aec6a35e9674975808b60a688f0b899da">readIntWeights</a> (size_t n, FILE *weightsFile)</td></tr>
+<tr class="memdesc:aec6a35e9674975808b60a688f0b899da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read and return an array of integer weights from a specified file.  <a href="#aec6a35e9674975808b60a688f0b899da">Mais...</a><br /></td></tr>
+<tr class="separator:aec6a35e9674975808b60a688f0b899da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descrição Detalhada</h2>
+<div class="textblock"><dl class="section date"><dt>Data</dt><dd>Sep 28, 2013 </dd></dl>
+<dl class="section author"><dt>Autor</dt><dd>Ricardo C. Corrêa (<a href="#" onclick="location.href='mai'+'lto:'+'cor'+'re'+'a@u'+'fr'+'rj.'+'br'; return false;">corre<span style="display: none;">.nosp@m.</span>a@uf<span style="display: none;">.nosp@m.</span>rrj.b<span style="display: none;">.nosp@m.</span>r</a>) </dd></dl>
+</div><h2 class="groupheader">Funções</h2>
+<a id="a724a15675418a0ddcc9581cbe7a94ab7"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structGraph.html">Graph</a> * readDimacsGraph </td>
+          <td>(</td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>graphFile</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads a graph from a specified file in the DIMACS format. </p>
+<p>A new graph is created.</p>
+<dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">graphFile</td><td>The input file in the DIMACS format.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Retorna</dt><dd>The graph read from the specified file. </dd></dl>
+
+</div>
+</div>
+<a id="af72de78d8146e59da85c12b00abafdfd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">readDoubleWeights </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>weightsFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read and return an array of double weights from a specified file. </p>
+<p>A new array is allocated to store the weights.</p>
+<p>File format: </p><pre class="fragment">  c random-1.clq
+  c
+  c Created on: Jan 20, 2011
+  c     Author: correa
+  c
+  c 4096 values
+  c
+  w 0.0246
+</pre><dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>the number of weights to read </td></tr>
+    <tr><td class="paramname">weightsFile</td><td>the file containing the weights </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aec6a35e9674975808b60a688f0b899da"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">readIntWeights </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>n</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">FILE *&#160;</td>
+          <td class="paramname"><em>weightsFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Read and return an array of integer weights from a specified file. </p>
+<p>A new array is allocated to store the weights.</p>
+<p>File format: </p><pre class="fragment">  c random-1.clq
+  c
+  c Created on: Jan 20, 2011
+  c     Author: correa
+  c
+  c 4096 values
+  c
+  w 0.0246
+</pre><dl class="params"><dt>Parâmetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>the number of weights to read </td></tr>
+    <tr><td class="paramname">weightsFile</td><td>the file containing the weights </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Quinta, 4 de Agosto de 2016 17:28:10 para AB781 Laboratório de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.12
+</small></address>
+</body>
+</html>

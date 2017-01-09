@@ -1,0 +1,18 @@
+\section{grinput.\+h}
+\label{grinput_8h_source}\index{graph/grinput.\+h@{graph/grinput.\+h}}
+
+\begin{DoxyCode}
+00001 
+00009 \textcolor{preprocessor}{#ifndef GRINPUT\_H\_}
+00010 \textcolor{preprocessor}{#define GRINPUT\_H\_}
+00011 
+00012 \textcolor{preprocessor}{#include <graph.h>}
+00013 
+00024 Graph * readDimacsGraph(FILE* graphFile);
+00025 
+00047 \textcolor{keywordtype}{double} * readIntWeights(\textcolor{keywordtype}{size\_t} n, FILE* weightsFile);
+00048 
+00070 \textcolor{keywordtype}{double} * readDoubleWeights(\textcolor{keywordtype}{size\_t} n, FILE* weightsFile);
+00071 
+00072 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* GRINPUT\_H\_ */}\textcolor{preprocessor}{}
+\end{DoxyCode}

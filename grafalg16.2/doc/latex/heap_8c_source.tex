@@ -1,0 +1,286 @@
+\section{heap.\+c}
+\label{heap_8c_source}\index{datast/heap.\+c@{datast/heap.\+c}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include <heap.h>}
+00002 
+00003 \textcolor{preprocessor}{#include <stdio.h>}
+00004 \textcolor{preprocessor}{#include <string.h>}
+00005 
+00006 \textcolor{keyword}{typedef} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} byte;
+00007 
+00008 \textcolor{keywordtype}{int} heapup(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} size,
+00009                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00010         \textcolor{keywordtype}{int} is = i * size;
+00011         byte * baseb = (byte *) base;
+00012         \textcolor{keywordtype}{char} x[size];
+00013         memcpy(x, baseb + is, size);
+00014         \textcolor{keywordtype}{int} f = i + 1;
+00015         \textcolor{keywordtype}{int} fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00016         f = f >> 1;
+00017         \textcolor{keywordflow}{while} (is > 0 && compar(x, baseb + fs) < 0) \{
+00018                 memcpy(baseb + is, baseb + fs, size);
+00019                 is = fs;
+00020                 fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00021                 f = f >> 1;
+00022         \}
+00023         memcpy(baseb + is, x, size);
+00024 
+00025         \textcolor{keywordflow}{return} is / size;
+00026 \}
+00027 
+00028 \textcolor{keywordtype}{int} heapup_a(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} size,
+00029                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00030                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00031         \textcolor{keywordtype}{int} is = i * size;
+00032         byte * baseb = (byte *) base;
+00033         \textcolor{keywordtype}{char} x[size];
+00034         memcpy(x, baseb + is, size);
+00035         \textcolor{keywordtype}{int} f = i + 1;
+00036         \textcolor{keywordtype}{int} fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00037         f = f >> 1;
+00038         \textcolor{keywordflow}{while} (is > 0 && compar(x, baseb + fs) < 0) \{
+00039                 memcpy(baseb + is, baseb + fs, size);
+00040                 pos[hash(baseb + is)] = is / size;
+00041                 is = fs;
+00042                 fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00043                 f = f >> 1;
+00044         \}
+00045         memcpy(baseb + is, x, size);
+00046         pos[hash(baseb + is)] = is / size;
+00047 
+00048         \textcolor{keywordflow}{return} is / size;
+00049 \}
+00050 
+00051 \textcolor{keywordtype}{int} heapup\_r(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} size,
+00052                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg) \{
+00053         \textcolor{keywordtype}{int} is = i * size;
+00054         byte * base = (byte *) b;
+00055         \textcolor{keywordtype}{char} x[size];
+00056         memcpy(x, base + is, size);
+00057         \textcolor{keywordtype}{int} f = i + 1;
+00058         \textcolor{keywordtype}{int} fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00059         f = f >> 1;
+00060         \textcolor{keywordflow}{while} (is > 0 && compar(x, base + fs, arg) < 0) \{
+00061                 memcpy(base + is, base + fs, size);
+00062                 is = fs;
+00063                 fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00064                 f = f >> 1;
+00065         \}
+00066         memcpy(base + is, x, size);
+00067 
+00068         \textcolor{keywordflow}{return} is / size;
+00069 \}
+00070 
+00071 \textcolor{keywordtype}{void} heapoffer(\textcolor{keywordtype}{void} *x, \textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00072                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00073         \textcolor{keywordtype}{int} is = nmemb * size;
+00074         byte * base = (byte *) b;
+00075 \textcolor{comment}{//      memcpy(base+is, x, size);}
+00076         \textcolor{keywordtype}{int} f = nmemb + 1;
+00077         \textcolor{keywordtype}{int} fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00078         f = f >> 1;
+00079         \textcolor{keywordflow}{while} (is > 0 && compar(x, base + fs) < 0) \{
+00080                 memcpy(base + is, base + fs, size);
+00081                 is = fs;
+00082                 fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00083                 f = f >> 1;
+00084         \}
+00085         memcpy(base + is, x, size);
+00086 \}
+00087 
+00088 \textcolor{keywordtype}{void} heapoffer\_a(\textcolor{keywordtype}{void} *x, \textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00089                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00090                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00091         \textcolor{keywordtype}{int} is = nmemb * size;
+00092         byte * base = (byte *) b;
+00093 \textcolor{comment}{//      memcpy(base+is, x, size);}
+00094         \textcolor{keywordtype}{int} f = nmemb + 1;
+00095         \textcolor{keywordtype}{int} fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00096         f = f >> 1;
+00097         \textcolor{keywordflow}{while} (is > 0 && compar(x, base + fs) < 0) \{
+00098                 memcpy(base + is, base + fs, size);
+00099                 pos[hash(base + is)] = is / size;
+00100                 is = fs;
+00101                 fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00102                 f = f >> 1;
+00103         \}
+00104         memcpy(base + is, x, size);
+00105         pos[hash(base + is)] = is / size;
+00106 \}
+00107 
+00108 \textcolor{keywordtype}{void} heapoffer\_r(\textcolor{keywordtype}{void} *x, \textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00109                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg) \{
+00110         \textcolor{keywordtype}{int} is = nmemb * size;
+00111         byte * base = (byte *) b;
+00112 \textcolor{comment}{//      memcpy(base+is, x, size);}
+00113         \textcolor{keywordtype}{int} f = nmemb + 1;
+00114         \textcolor{keywordtype}{int} fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00115         f = f >> 1;
+00116         \textcolor{keywordflow}{while} (is > 0 && compar(x, base + fs, arg) < 0) \{
+00117                 memcpy(base + is, base + fs, size);
+00118                 is = fs;
+00119                 fs = f & 0x01 ? (is >> 1) - size : (is >> 1) - (size >> 1);
+00120                 f = f >> 1;
+00121         \}
+00122         memcpy(base + is, x, size);
+00123 \}
+00124 
+00125 \textcolor{keyword}{static} \textcolor{keywordtype}{int} heapdown\_s(\textcolor{keywordtype}{int} is, \textcolor{keywordtype}{void} *aux, \textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{int} ls,
+00126                 \textcolor{keywordtype}{size\_t} size, \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00127         byte * base = (byte *) b;
+00128         \textcolor{keywordtype}{int} os, ss;
+00129         \textcolor{keywordflow}{do} \{
+00130                 os = (is << 1) + size;
+00131                 ss = os <= ls && (compar(base + os, base + is) < 0) ? os : is;
+00132                 os += size;
+00133                 ss = os <= ls && (compar(base + os, base + ss) < 0) ? os : ss;
+00134                 \textcolor{keywordflow}{if} (ss != is) \{
+00135                         memcpy(aux, base + is, size);
+00136                         memcpy(base + is, base + ss, size);
+00137                         memcpy(base + ss, aux, size);
+00138                         is = ss;
+00139                 \} \textcolor{keywordflow}{else}
+00140                         \textcolor{keywordflow}{return} is;
+00141         \} \textcolor{keywordflow}{while} (1);
+00142         \textcolor{keywordflow}{return} 0;
+00143 \}
+00144 
+00145 \textcolor{keyword}{static} \textcolor{keywordtype}{int} heapdown\_s\_a(\textcolor{keywordtype}{int} is, \textcolor{keywordtype}{void} *aux, \textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{int} ls,
+00146                 \textcolor{keywordtype}{size\_t} size, \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00147                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00148         byte * base = (byte *) b;
+00149         \textcolor{keywordtype}{int} os, ss;
+00150         \textcolor{keywordflow}{do} \{
+00151                 os = (is << 1) + size;
+00152                 ss = os <= ls && (compar(base + os, base + is) < 0) ? os : is;
+00153                 os += size;
+00154                 ss = os <= ls && (compar(base + os, base + ss) < 0) ? os : ss;
+00155                 \textcolor{keywordflow}{if} (ss != is) \{
+00156                         memcpy(aux, base + is, size);
+00157                         memcpy(base + is, base + ss, size);
+00158                         pos[hash(base + is)] = is / size;
+00159                         memcpy(base + ss, aux, size);
+00160                         pos[hash(base + ss)] = ss / size;
+00161                         is = ss;
+00162                 \} \textcolor{keywordflow}{else}
+00163                         \textcolor{keywordflow}{return} is;
+00164         \} \textcolor{keywordflow}{while} (1);
+00165         \textcolor{keywordflow}{return} 0;
+00166 \}
+00167 
+00168 \textcolor{keyword}{static} \textcolor{keywordtype}{int} heapdown\_s\_r(\textcolor{keywordtype}{int} is, \textcolor{keywordtype}{void} *aux, \textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{int} ls,
+00169                 \textcolor{keywordtype}{size\_t} size, \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *),
+00170                 \textcolor{keywordtype}{void} * arg) \{
+00171         byte * base = (byte *) b;
+00172         \textcolor{keywordtype}{int} os, ss;
+00173         \textcolor{keywordflow}{do} \{
+00174                 os = (is << 1) + size;
+00175                 ss = os <= ls && (compar(base + os, base + is, arg) < 0) ? os : is;
+00176                 os += size;
+00177                 ss = os <= ls && (compar(base + os, base + ss, arg) < 0) ? os : ss;
+00178                 \textcolor{keywordflow}{if} (ss != is) \{
+00179                         memcpy(aux, base + is, size);
+00180                         memcpy(base + is, base + ss, size);
+00181                         memcpy(base + ss, aux, size);
+00182                         is = ss;
+00183                 \} \textcolor{keywordflow}{else}
+00184                         \textcolor{keywordflow}{return} is;
+00185         \} \textcolor{keywordflow}{while} (1);
+00186         \textcolor{keywordflow}{return} 0;
+00187 \}
+00188 
+00189 \textcolor{keywordtype}{int} heapdown(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00190                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00191         \textcolor{keywordflow}{if} (i >= nmemb - 1)
+00192                 \textcolor{keywordflow}{return} i;
+00193         \textcolor{keywordtype}{char} aux[size];
+00194         \textcolor{keywordtype}{int} ls = (nmemb - 1) * size;
+00195         \textcolor{keywordflow}{return} heapdown\_s(i * size, aux, b, nmemb, ls, size, compar) / size;
+00196 \}
+00197 
+00198 \textcolor{keywordtype}{int} heapdown\_a(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00199                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00200                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00201         \textcolor{keywordflow}{if} (i >= nmemb - 1)
+00202                 \textcolor{keywordflow}{return} i;
+00203         \textcolor{keywordtype}{char} aux[size];
+00204         \textcolor{keywordtype}{int} ls = (nmemb - 1) * size;
+00205         \textcolor{keywordflow}{return} heapdown\_s\_a(i * size, aux, b, nmemb, ls, size, compar, pos, hash)
+00206                         / size;
+00207 \}
+00208 
+00209 \textcolor{keywordtype}{int} heapdown\_r(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00210                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg) \{
+00211         \textcolor{keywordflow}{if} (i >= nmemb - 1)
+00212                 \textcolor{keywordflow}{return} i;
+00213         \textcolor{keywordtype}{char} aux[size];
+00214         \textcolor{keywordtype}{int} ls = (nmemb - 1) * size;
+00215         \textcolor{keywordflow}{return} heapdown\_s\_r(i * size, aux, b, nmemb, ls, size, compar, arg) / size;
+00216 \}
+00217 
+00218 \textcolor{keywordtype}{void} heappoll(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00219                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00220         \textcolor{keywordflow}{if} (nmemb < 2)
+00221                 \textcolor{keywordflow}{return};
+00222         byte * baseb = (byte *) base;
+00223         \textcolor{keywordtype}{int} ls = (nmemb - 2) * size;
+00224         memcpy(baseb, baseb + ls + size, size);
+00225         \textcolor{keywordflow}{if} (nmemb > 2)
+00226                 heapdown\_s(0, baseb + ls + size, baseb, nmemb - 1, ls, size, compar);
+00227 \}
+00228 
+00229 \textcolor{keywordtype}{void} heappoll_a(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00230                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00231                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00232         \textcolor{keywordflow}{if} (nmemb < 2)
+00233                 \textcolor{keywordflow}{return};
+00234         byte * baseb = (byte *) base;
+00235         \textcolor{keywordtype}{int} ls = (nmemb - 2) * size;
+00236         memcpy(baseb, baseb + ls + size, size);
+00237         pos[hash(baseb)] = 0;
+00238         \textcolor{keywordflow}{if} (nmemb > 2)
+00239                 heapdown\_s\_a(0, baseb + ls + size, baseb, nmemb - 1, ls, size, compar,
+00240                                 pos, hash);
+00241 \}
+00242 
+00243 \textcolor{keywordtype}{void} heappoll\_r(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00244                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg) \{
+00245         \textcolor{keywordflow}{if} (nmemb < 2)
+00246                 \textcolor{keywordflow}{return};
+00247         byte * base = (byte *) b;
+00248         \textcolor{keywordtype}{int} ls = (nmemb - 2) * size;
+00249         memcpy(base, base + ls + size, size);
+00250         \textcolor{keywordflow}{if} (nmemb > 2)
+00251                 heapdown\_s\_r(0, base + ls + size, base, nmemb - 1, ls, size, compar,
+00252                                 arg);
+00253 \}
+00254 
+00255 \textcolor{keywordtype}{void} heapify(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00256                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00257         \textcolor{keywordtype}{char} aux[size];
+00258         \textcolor{keywordtype}{int} ls = (nmemb - 1) * size;
+00259         \textcolor{keywordtype}{int} is = nmemb & 0x01 ? (ls >> 1) - size : (ls >> 1) - (size >> 1);
+00260         \textcolor{keywordflow}{for} (; is >= 0; is -= size)
+00261                 heapdown\_s(is, aux, (byte *) base, nmemb, ls, size, compar);
+00262 \}
+00263 
+00264 \textcolor{keywordtype}{void} heapify_a(\textcolor{keywordtype}{void} *base, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00265                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{int} * pos,
+00266                 \textcolor{keywordtype}{int} (*hash)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *)) \{
+00267         \textcolor{keywordtype}{char} aux[size];
+00268         \textcolor{keywordtype}{int} ls = (nmemb - 1) * size;
+00269         \textcolor{keywordtype}{int} is = nmemb & 0x01 ? (ls >> 1) - size : (ls >> 1) - (size >> 1);
+00270         \textcolor{keywordflow}{for} (; is >= 0; is -= size)
+00271                 heapdown\_s\_a(is, aux, (byte *) base, nmemb, ls, size, compar, pos, hash);
+00272 \}
+00273 
+00274 \textcolor{keywordtype}{void} heapify\_r(\textcolor{keywordtype}{void} *b, \textcolor{keywordtype}{size\_t} nmemb, \textcolor{keywordtype}{size\_t} size,
+00275                 \textcolor{keywordtype}{int} (*compar)(\textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keyword}{const} \textcolor{keywordtype}{void} *, \textcolor{keywordtype}{void} *), \textcolor{keywordtype}{void} * arg) \{
+00276         \textcolor{keywordtype}{char} aux[size];
+00277         \textcolor{keywordtype}{int} ls = (nmemb - 1) * size;
+00278         \textcolor{keywordtype}{int} is = nmemb & 0x01 ? (ls >> 1) - size : (ls >> 1) - (size >> 1);
+00279         \textcolor{keywordflow}{for} (; is >= 0; is -= size)
+00280                 heapdown\_s\_r(is, aux, (byte *) b, nmemb, ls, size, compar, arg);
+00281 \}
+\end{DoxyCode}

@@ -1,0 +1,32 @@
+\section{Referência da Estrutura Bit\+Map}
+\label{structBitMap}\index{Bit\+Map@{Bit\+Map}}
+
+
+Bitmap implementation of sets of integers of the type $\{ 0, 1, \ldots, n-1 \}$, for a specified integer $n \geq 0$.  
+
+
+
+
+{\ttfamily \#include $<$bitmap.\+h$>$}
+
+\subsection*{Campos de Dados}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ {\bf ptr}\label{structBitMap_ab07f45c7b4a2de5e9eb49a826afea3a0}
+
+\begin{DoxyCompactList}\small\item\em Unaligned pointer to this map. \end{DoxyCompactList}\item 
+{\bf N\+O\+D\+E\+T\+Y\+PE} $\ast$ {\bf R}\label{structBitMap_aad17fdde2ad579d3abb8228439377bfc}
+
+\begin{DoxyCompactList}\small\item\em Map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Bitmap implementation of sets of integers of the type $\{ 0, 1, \ldots, n-1 \}$, for a specified integer $n \geq 0$. 
+
+A bitmap is an array of bits to represent sets in which a bit of index {\ttfamily i} represents element {\ttfamily i} of the set. For a bitmap {\ttfamily B}, {\ttfamily B}[{\ttfamily i}] {\ttfamily =} {\ttfamily 1} means that element {\ttfamily i} is in the set; otherwise, {\ttfamily i} is not.
+
+Bitmaps are defined as arrays of five different types depending on the number of bits per node, namely\+: {\ttfamily unsigned} {\ttfamily char} (8 bits per node), {\ttfamily unsigned} {\ttfamily long} {\ttfamily int} (32 bits per node), and {\ttfamily unsigned} {\ttfamily long} {\ttfamily long} {\ttfamily int} (64 bits per node). The type currently in use is selected by means of the definition of a macro name, respectively with {\ttfamily -\/\+D\+\_\+\+A\+R\+C\+H8\+\_\+}, {\ttfamily -\/\+D\+\_\+\+A\+R\+C\+H32\+\_\+}, {\ttfamily -\/\+D\+\_\+\+A\+R\+C\+H64\+\_\+}, {\ttfamily -\/\+D\+\_\+\+A\+R\+C\+H128\+\_\+}, or {\ttfamily -\/\+D\+\_\+\+A\+R\+C\+H256\+\_\+} in the {\ttfamily gcc} command line. 
+
+A documentação para esta estrutura foi gerada a partir do seguinte arquivo\+:\begin{DoxyCompactItemize}
+\item 
+/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/direct/{\bf bitmap.\+h}\end{DoxyCompactItemize}

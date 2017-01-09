@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.11"/>
+<title>AB781 Laboratýrio de Grafos e Algoritmos: Código-Fonte de grafalg16.2/trabs/trab3/trab3.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://www.mathjax.org/mathjax/MathJax.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">AB781 Laboratýrio de Grafos e Algoritmos
+   &#160;<span id="projectnumber">2016.2</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.8.11 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Busca');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;Principal</span></a></li>
+      <li><a href="annotated.html"><span>Estruturas&#160;de&#160;Dados</span></a></li>
+      <li class="current"><a href="files.html"><span>Arquivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Busca" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;Arquivos</span></a></li>
+      <li><a href="globals.html"><span>Globais</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_98015047146478a335e6ac73db1f8de9.html">grafalg16.2</a></li><li class="navelem"><a class="el" href="dir_c7858c8456a9c2cba270f3e9cf8f0720.html">trabs</a></li><li class="navelem"><a class="el" href="dir_387d951f8fa43442333b4198ce4df82f.html">trab3</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">trab3.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="trab3_8h.html">Vá para a documentação deste arquivo.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#ifndef TRAB3_H_</span></div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define TRAB3_H_</span></div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="graph_8h.html">graph.h</a>&gt;</span></div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div><div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">   37</a></span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">Vertice</a>;</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div><div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="structNo__Vertice__L.html">   44</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <a class="code" href="structNo__Vertice__L.html">No_Vertice_L</a>;</div><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div><div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="trab3_8h.html#af9353a0c406a2e2164d083ab6408bb0c">   51</a></span>&#160;<span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="trab3_8h.html#af9353a0c406a2e2164d083ab6408bb0c">Dist_V</a>;</div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div><div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structAresta.html">   56</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">Vertice</a> u; </div><div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structAresta.html#aaed0c5772535b7d90da25d1c970af0cf">   58</a></span>&#160;        <a class="code" href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">Vertice</a> <a class="code" href="structAresta.html#aaed0c5772535b7d90da25d1c970af0cf">v</a>; </div><div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <a class="code" href="structAresta.html">Aresta</a>;</div><div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div><div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="structNo__Aresta__L.html">   66</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <a class="code" href="structNo__Aresta__L.html">No_Aresta_L</a>;</div><div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div><div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="structDist__A.html">   72</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span>{</div><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <a class="code" href="trab3_8h.html#af9353a0c406a2e2164d083ab6408bb0c">Dist_V</a> d1; </div><div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="structDist__A.html#aaca6abb3f1e88d78c23ef05b80c5ad99">   74</a></span>&#160;        <a class="code" href="trab3_8h.html#af9353a0c406a2e2164d083ab6408bb0c">Dist_V</a> <a class="code" href="structDist__A.html#aaca6abb3f1e88d78c23ef05b80c5ad99">d2</a>; </div><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <a class="code" href="structDist__A.html">Dist_A</a>;</div><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<a class="code" href="structNo__Vertice__L.html">No_Vertice_L</a> * <a class="code" href="trab3_8h.html#af2126136bba23fec9d7c8e3a8ae2372d">partida_VL</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">Vertice</a> u);</div><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div><div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<a class="code" href="structNo__Vertice__L.html">No_Vertice_L</a> * <a class="code" href="trab3_8h.html#a659cbf1256d4072705331d5c7beb91c9">avancar_VL</a>(<a class="code" href="structNo__Vertice__L.html">No_Vertice_L</a> * no);</div><div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div><div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab3_8h.html#a028318975502c954bdc493df926c3b89">chegada_VL</a>(<a class="code" href="structNo__Vertice__L.html">No_Vertice_L</a> * no);</div><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div><div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<a class="code" href="structNo__Aresta__L.html">No_Aresta_L</a> * <a class="code" href="trab3_8h.html#ab9054f9af01a8882c91c8cfc3365a134">partida_AL</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">Vertice</a> u);</div><div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div><div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<a class="code" href="structNo__Aresta__L.html">No_Aresta_L</a> * <a class="code" href="trab3_8h.html#a68c5c41bd1fd14f186223745ed91bf8c">avancar_AL</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="structNo__Aresta__L.html">No_Aresta_L</a> * no);</div><div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div><div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab3_8h.html#a106a5b529c43fbd6ae448f7176b78407">chegada_AL</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="structNo__Aresta__L.html">No_Aresta_L</a> * no);</div><div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<a class="code" href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">Vertice</a> <a class="code" href="trab3_8h.html#a6f073e3c9378e52194d17c1afdca4b27">alvo_V</a>(<a class="code" href="structNo__Vertice__L.html">No_Vertice_L</a> * <span class="keyword">const</span> no);</div><div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div><div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<a class="code" href="trab3_8h.html#af9353a0c406a2e2164d083ab6408bb0c">Dist_V</a> <a class="code" href="trab3_8h.html#adcfa743e79da99865bd941676cde9a72">dist_V</a>(<a class="code" href="structNo__Vertice__L.html">No_Vertice_L</a> * <span class="keyword">const</span> no);</div><div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<a class="code" href="structAresta.html">Aresta</a> <a class="code" href="trab3_8h.html#ad9f524ffcf433d9aef0749ba965edb40">alvo_A</a>(<a class="code" href="structNo__Aresta__L.html">No_Aresta_L</a> * <span class="keyword">const</span> no);</div><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div><div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<a class="code" href="structDist__A.html">Dist_A</a> <a class="code" href="trab3_8h.html#a1063571c5561e068f75c25f10ac9a617">dist_A</a>(<a class="code" href="structNo__Aresta__L.html">No_Aresta_L</a> * <span class="keyword">const</span> no);</div><div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div><div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;<span class="keywordtype">int</span> <a class="code" href="trab3_8h.html#ad2e7a3829ec33d4217eb701c7ed7a03a">eh_bipartido</a>(<a class="code" href="structGraph.html">Graph</a> * <span class="keyword">const</span> g, <a class="code" href="structBitMap.html">BitMap</a> * <span class="keyword">const</span> s, <a class="code" href="structBitMap.html">BitMap</a> * <span class="keyword">const</span> t);</div><div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;</div><div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* TRAB3_H_ */</span><span class="preprocessor"></span></div><div class="ttc" id="structAresta_html"><div class="ttname"><a href="structAresta.html">Aresta</a></div><div class="ttdoc">Aresta de um grafo. </div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00056">trab3.h:56</a></div></div>
+<div class="ttc" id="trab3_8h_html_ad2e7a3829ec33d4217eb701c7ed7a03a"><div class="ttname"><a href="trab3_8h.html#ad2e7a3829ec33d4217eb701c7ed7a03a">eh_bipartido</a></div><div class="ttdeci">int eh_bipartido(Graph *const g, BitMap *const s, BitMap *const t)</div><div class="ttdoc">Determina se um grafo especificado é bipartido e, se for, retornado uma bipartição. </div></div>
+<div class="ttc" id="trab3_8h_html_a6f073e3c9378e52194d17c1afdca4b27"><div class="ttname"><a href="trab3_8h.html#a6f073e3c9378e52194d17c1afdca4b27">alvo_V</a></div><div class="ttdeci">Vertice alvo_V(No_Vertice_L *const no)</div><div class="ttdoc">Determinação do alvo de um nó de enumeração dos vértices de um grafo segundo um percurso em largura...</div></div>
+<div class="ttc" id="trab3_8h_html_a68c5c41bd1fd14f186223745ed91bf8c"><div class="ttname"><a href="trab3_8h.html#a68c5c41bd1fd14f186223745ed91bf8c">avancar_AL</a></div><div class="ttdeci">No_Aresta_L * avancar_AL(Graph *const g, No_Aresta_L *no)</div><div class="ttdoc">Avançar em uma enumeração das arestas de um grafo especificado segundo um percurso em largura a parti...</div></div>
+<div class="ttc" id="trab3_8h_html_a028318975502c954bdc493df926c3b89"><div class="ttname"><a href="trab3_8h.html#a028318975502c954bdc493df926c3b89">chegada_VL</a></div><div class="ttdeci">int chegada_VL(No_Vertice_L *no)</div><div class="ttdoc">Verifica se um nó especificado é o nó de chegada de uma enumeração dos vértices de um grafo especific...</div></div>
+<div class="ttc" id="structDist__A_html_aaca6abb3f1e88d78c23ef05b80c5ad99"><div class="ttname"><a href="structDist__A.html#aaca6abb3f1e88d78c23ef05b80c5ad99">Dist_A::d2</a></div><div class="ttdeci">Dist_V d2</div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00074">trab3.h:74</a></div></div>
+<div class="ttc" id="trab3_8h_html_af9353a0c406a2e2164d083ab6408bb0c"><div class="ttname"><a href="trab3_8h.html#af9353a0c406a2e2164d083ab6408bb0c">Dist_V</a></div><div class="ttdeci">unsigned int Dist_V</div><div class="ttdoc">Tipo usado para identificar distância entre vértices de um grafo. </div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00051">trab3.h:51</a></div></div>
+<div class="ttc" id="trab3_8h_html_ab9054f9af01a8882c91c8cfc3365a134"><div class="ttname"><a href="trab3_8h.html#ab9054f9af01a8882c91c8cfc3365a134">partida_AL</a></div><div class="ttdeci">No_Aresta_L * partida_AL(Graph *const g, Vertice u)</div><div class="ttdoc">Partida de uma enumeração das arestas de um grafo especificado segundo um percurso em largura a parti...</div></div>
+<div class="ttc" id="structAresta_html_aaed0c5772535b7d90da25d1c970af0cf"><div class="ttname"><a href="structAresta.html#aaed0c5772535b7d90da25d1c970af0cf">Aresta::v</a></div><div class="ttdeci">Vertice v</div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00058">trab3.h:58</a></div></div>
+<div class="ttc" id="trab3_8h_html_a1063571c5561e068f75c25f10ac9a617"><div class="ttname"><a href="trab3_8h.html#a1063571c5561e068f75c25f10ac9a617">dist_A</a></div><div class="ttdeci">Dist_A dist_A(No_Aresta_L *const no)</div><div class="ttdoc">Determinação da distância ao vértice de partida de um nó de enumeração das arestas de um grafo segund...</div></div>
+<div class="ttc" id="trab3_8h_html_a0e495c2d8d2462574a72d1b23e6b23be"><div class="ttname"><a href="trab3_8h.html#a0e495c2d8d2462574a72d1b23e6b23be">Vertice</a></div><div class="ttdeci">unsigned int Vertice</div><div class="ttdoc">Tipo usado para identificar vértices de um grafo. </div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00037">trab3.h:37</a></div></div>
+<div class="ttc" id="trab3_8h_html_af2126136bba23fec9d7c8e3a8ae2372d"><div class="ttname"><a href="trab3_8h.html#af2126136bba23fec9d7c8e3a8ae2372d">partida_VL</a></div><div class="ttdeci">No_Vertice_L * partida_VL(Graph *const g, Vertice u)</div><div class="ttdoc">Partida de uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a part...</div></div>
+<div class="ttc" id="structNo__Vertice__L_html"><div class="ttname"><a href="structNo__Vertice__L.html">No_Vertice_L</a></div><div class="ttdoc">Nó de enumeração do conjunto de vértices de um grafo segundo um percurso em largura. </div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00044">trab3.h:44</a></div></div>
+<div class="ttc" id="structGraph_html"><div class="ttname"><a href="structGraph.html">Graph</a></div><div class="ttdoc">Bitmap implementation of a graph adjacency matrix. </div><div class="ttdef"><b>Definition:</b> <a href="graph_8h_source.html#l00025">graph.h:25</a></div></div>
+<div class="ttc" id="graph_8h_html"><div class="ttname"><a href="graph_8h.html">graph.h</a></div><div class="ttdoc">Macros and inline functions of a bitmap implementation of a graph adjacency matrix. </div></div>
+<div class="ttc" id="structDist__A_html"><div class="ttname"><a href="structDist__A.html">Dist_A</a></div><div class="ttdoc">Tipo usado para identificar distância entre arestas de um grafo. </div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00072">trab3.h:72</a></div></div>
+<div class="ttc" id="trab3_8h_html_adcfa743e79da99865bd941676cde9a72"><div class="ttname"><a href="trab3_8h.html#adcfa743e79da99865bd941676cde9a72">dist_V</a></div><div class="ttdeci">Dist_V dist_V(No_Vertice_L *const no)</div><div class="ttdoc">Determinação da distância ao vértice de partida de um nó de enumeração dos vértices de um grafo segun...</div></div>
+<div class="ttc" id="trab3_8h_html_a659cbf1256d4072705331d5c7beb91c9"><div class="ttname"><a href="trab3_8h.html#a659cbf1256d4072705331d5c7beb91c9">avancar_VL</a></div><div class="ttdeci">No_Vertice_L * avancar_VL(No_Vertice_L *no)</div><div class="ttdoc">Avançar em uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a part...</div></div>
+<div class="ttc" id="structBitMap_html"><div class="ttname"><a href="structBitMap.html">BitMap</a></div><div class="ttdoc">Bitmap implementation of sets of integers of the type , for a specified integer . ...</div><div class="ttdef"><b>Definition:</b> <a href="direct_2bitmap_8h_source.html#l00745">bitmap.h:745</a></div></div>
+<div class="ttc" id="structNo__Aresta__L_html"><div class="ttname"><a href="structNo__Aresta__L.html">No_Aresta_L</a></div><div class="ttdoc">Nó de enumeração do conjunto de arestas de um grafo segundo um percurso em largura. </div><div class="ttdef"><b>Definition:</b> <a href="trab3_8h_source.html#l00066">trab3.h:66</a></div></div>
+<div class="ttc" id="trab3_8h_html_ad9f524ffcf433d9aef0749ba965edb40"><div class="ttname"><a href="trab3_8h.html#ad9f524ffcf433d9aef0749ba965edb40">alvo_A</a></div><div class="ttdeci">Aresta alvo_A(No_Aresta_L *const no)</div><div class="ttdoc">Determinação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura...</div></div>
+<div class="ttc" id="trab3_8h_html_a106a5b529c43fbd6ae448f7176b78407"><div class="ttname"><a href="trab3_8h.html#a106a5b529c43fbd6ae448f7176b78407">chegada_AL</a></div><div class="ttdeci">int chegada_AL(Graph *const g, No_Aresta_L *no)</div><div class="ttdoc">Verifica se um nó especificado é o nó de chegada de uma enumeração das arestas de um grafo especifica...</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Gerado em Domingo, 18 de Setembro de 2016 08:21:53 para AB781 Laboratýrio de Grafos e Algoritmos por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.11
+</small></address>
+</body>
+</html>

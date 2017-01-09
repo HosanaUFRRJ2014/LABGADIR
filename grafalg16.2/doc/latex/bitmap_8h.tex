@@ -1,0 +1,96 @@
+\section{Referência do Arquivo /home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/direct/bitmap.h}
+\label{bitmap_8h}\index{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/direct/bitmap.\+h@{/home/correa/\+Dropbox/ufrrj/dcc/professores/\+Ricardo\+C\+Correa/grafalg/graph/direct/bitmap.\+h}}
+
+
+Macros and inline functions for bitwise operations on bitmaps using bit-\/parallelism.  
+
+
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$stddef.\+h$>$}\\*
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$string.\+h$>$}\\*
+{\ttfamily \#include $<$stdint.\+h$>$}\\*
+\subsection*{Estruturas de Dados}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf Bit\+Map}
+\begin{DoxyCompactList}\small\item\em Bitmap implementation of sets of integers of the type $\{ 0, 1, \ldots, n-1 \}$, for a specified integer $n \geq 0$. \end{DoxyCompactList}\item 
+struct {\bf Node}
+\begin{DoxyCompactList}\small\item\em Identification of a member of a bitmap. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Definições e Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf B\+S\+I\+ZE}~8\label{bitmap_8h_a403cf3149c084cea115b85c90721039a}
+
+\begin{DoxyCompactList}\small\item\em Number of bits in a node. \end{DoxyCompactList}\item 
+\#define {\bf W\+S\+I\+ZE}~1\label{bitmap_8h_a7edb6b8a8c89cb564d6e1b85ed80e7db}
+
+\begin{DoxyCompactList}\small\item\em Number of bytes in a node. \end{DoxyCompactList}\item 
+\#define {\bf L\+O\+GB}~3\label{bitmap_8h_afced88f944530b6dfb95807ae45120a6}
+
+\begin{DoxyCompactList}\small\item\em Logarithmic of B\+S\+I\+ZE. \end{DoxyCompactList}\item 
+\#define {\bf L\+O\+GW}~0\label{bitmap_8h_ac6f0b43ab85743ce5de50d53bda6de62}
+
+\begin{DoxyCompactList}\small\item\em Logarithmic of W\+S\+I\+ZE. \end{DoxyCompactList}\item 
+\#define {\bf L\+O\+G\+BW}~3\label{bitmap_8h_adaab21e44ecc67f293c370259571617c}
+
+\begin{DoxyCompactList}\small\item\em L\+O\+GB {\ttfamily +} L\+O\+GW. \end{DoxyCompactList}\item 
+\#define {\bf O\+NE}~1\label{bitmap_8h_a206b6f5362e56b51ca957635350b70b6}
+
+\begin{DoxyCompactList}\small\item\em \doxyref{Node}{pag.}{structNode} set to {\ttfamily 1}. \end{DoxyCompactList}\item 
+\#define {\bf N\+O\+D\+E\+M\+AX}~0x\+FF\label{bitmap_8h_af7ff4ea4784ba1f3d083f292fa8858a5}
+
+\begin{DoxyCompactList}\small\item\em \doxyref{Node}{pag.}{structNode}\textquotesingle{}s maximum value. \end{DoxyCompactList}\item 
+\#define {\bf M\+A\+S\+KB}~0x07\label{bitmap_8h_a44f677bb805ccf52a98b641df22ad839}
+
+\begin{DoxyCompactList}\small\item\em Mask used to select the L\+O\+GB least significant bits. \end{DoxyCompactList}\item 
+\#define {\bf M\+A\+S\+K\+SZ}~({\bf B\+S\+I\+ZE}+1)\label{bitmap_8h_ad1979fd3808c70cc2eaf720ec1816a21}
+
+\begin{DoxyCompactList}\small\item\em Number of elements in \+\_\+\+\_\+mask. \end{DoxyCompactList}\item 
+\#define {\bf N\+O\+D\+E\+C\+O\+U\+N\+T\+ER}(w)~\+\_\+\+\_\+builtin\+\_\+popcount(w)\label{bitmap_8h_aebeb87d7e27e1bd467b131d39e26a550}
+
+\begin{DoxyCompactList}\small\item\em Builtin function\+: Returns the number of 1-\/bits in {\ttfamily w}. \end{DoxyCompactList}\item 
+\#define {\bf N\+O\+D\+E\+L\+E\+A\+ST}(w)~(\+\_\+\+\_\+builtin\+\_\+ffs(w)-\/1)\label{bitmap_8h_afc75c90250f604f7b39bd95b31065060}
+
+\begin{DoxyCompactList}\small\item\em Builtin function\+: Returns the index of the least significant 1-\/bit of {\ttfamily w}, or if {\ttfamily w} is zero, returns {\ttfamily -\/1}. \end{DoxyCompactList}\item 
+\#define {\bf N\+O\+D\+E\+N\+E\+X\+T\+L\+E\+A\+ST}(w,  i)~({\bf N\+O\+D\+E\+L\+E\+A\+ST}((w) \& \+\_\+\+\_\+mask[i + 1]))\label{bitmap_8h_a221a194080aa8915012589aad1242b0f}
+
+\begin{DoxyCompactList}\small\item\em Builtin function\+: Returns the index of the least significant 1-\/bit of {\ttfamily w} greater than {\ttfamily i}, or if {\ttfamily w} is zero, returns {\ttfamily -\/1}. \end{DoxyCompactList}\item 
+\#define {\bf N\+O\+D\+E\+M\+O\+ST}(i)~(node\+Most(i))\label{bitmap_8h_a2d04be6fd312695e90eaf4c44d59c8fd}
+
+\begin{DoxyCompactList}\small\item\em Builtin function\+: Returns the index of the most significant 1-\/bit of {\ttfamily w}, or if {\ttfamily w} is zero, returns {\ttfamily -\/1}. \end{DoxyCompactList}\item 
+\#define {\bf N\+O\+D\+E\+P\+R\+E\+V\+M\+O\+ST}(w,  i)~({\bf N\+O\+D\+E\+M\+O\+ST}((w) \& $\sim$\+\_\+\+\_\+mask[i]))\label{bitmap_8h_a40516649a3771e319c376d4ca991cd3d}
+
+\begin{DoxyCompactList}\small\item\em Builtin function\+: Returns the index of the most significant 1-\/bit of {\ttfamily w} smaller than {\ttfamily i}, or if {\ttfamily w} is zero, returns {\ttfamily -\/1}. \end{DoxyCompactList}\item 
+\#define {\bf I\+S\+I\+N\+N\+O\+DE}(w,  i)~((w) \& ({\bf O\+NE} $<$$<$ (i)))\label{bitmap_8h_a14fc6dc47eef5bf11c7f0cc62d5810be}
+
+\begin{DoxyCompactList}\small\item\em Returns a node set to a non-\/zero value if the bit of index {\ttfamily i} in node {\ttfamily w} is a 1-\/bit; otherwise a node set to {\ttfamily 0}. \end{DoxyCompactList}\item 
+\#define {\bf N\+E\+L\+EM}(i)~((i) $<$$<$ {\bf L\+O\+GB})\label{bitmap_8h_a4642ff745cdc525c7566b436f452e33f}
+
+\begin{DoxyCompactList}\small\item\em Smallest element in the entry {\ttfamily i} of the bitmap. \end{DoxyCompactList}\item 
+\#define {\bf N\+O\+D\+E\+I\+DX}(i)~((i) $>$$>$ {\bf L\+O\+GB})\label{bitmap_8h_ab8ce022c2df6a106a810279b8fa255fb}
+
+\begin{DoxyCompactList}\small\item\em \doxyref{Node}{pag.}{structNode} index in the bitmap of element {\ttfamily i}. \end{DoxyCompactList}\item 
+\#define {\bf I\+D\+X\+I\+N\+N\+O\+DE}(i)~((i) \& {\bf M\+A\+S\+KB})\label{bitmap_8h_a38e54c56fc0272a1b9d42ba71935bb25}
+
+\begin{DoxyCompactList}\small\item\em Element index in the corresponding node of the bitmap. \end{DoxyCompactList}\item 
+\#define {\bf R\+E\+T\+A\+I\+N\+L\+E\+A\+ST}(w,  i)~((w) \& ({\bf N\+O\+D\+E\+M\+AX} $>$$>$ ({\bf B\+S\+I\+ZE}-\/(i))))\label{bitmap_8h_aac32556261ee02f538964a7becc48e97}
+
+\begin{DoxyCompactList}\small\item\em Retains {\ttfamily i} least significant elements of node {\ttfamily w}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Definições de Tipos}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char {\bf N\+O\+D\+E\+T\+Y\+PE}\label{bitmap_8h_a5047cbfad0b49c9f1c7a57ddbee2009a}
+
+\begin{DoxyCompactList}\small\item\em Bitmap node\textquotesingle{}s type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Descrição Detalhada}
+Macros and inline functions for bitwise operations on bitmaps using bit-\/parallelism. 
+
+\begin{DoxyDate}{Data}
+Sep 24, 2013 
+\end{DoxyDate}
+\begin{DoxyAuthor}{Autor}
+Ricardo C. Corrêa ({\tt correa@ufrrj.\+br}) 
+\end{DoxyAuthor}

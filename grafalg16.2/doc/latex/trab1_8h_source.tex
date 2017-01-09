@@ -1,0 +1,28 @@
+\section{trab1.\+h}
+\label{trab1_8h_source}\index{grafalg16.\+2/trabs/trab1/trab1.\+h@{grafalg16.\+2/trabs/trab1/trab1.\+h}}
+
+\begin{DoxyCode}
+00001 
+00016 \textcolor{preprocessor}{#ifndef TRAB1\_H\_}
+00017 \textcolor{preprocessor}{#define TRAB1\_H\_}
+00018 
+00019 \textcolor{preprocessor}{#include <stdio.h>}
+00020 \textcolor{preprocessor}{#include <trab_main.h>}
+00021 
+00022 \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} ident1();
+00038 BitMap * viz_comum(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v);
+00039 
+00057 \textcolor{keywordtype}{int} eh_clique(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s);
+00058 
+00073 \textcolor{keywordtype}{int} viz_comum_eh_clique(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v);
+00074 
+00086 \textcolor{keywordtype}{void} subgraus(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} * d);
+00087 
+00100 \textcolor{keywordtype}{int} conta_arestas(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s);
+00101 
+00114 \textcolor{keywordtype}{int} viz_comum_conta_arestas(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} u, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} v);
+00115 
+00134 BitMap * grau_impar(Graph * \textcolor{keyword}{const} g, BitMap * \textcolor{keyword}{const} s);
+00135 
+00136 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* TRAB1\_H\_ */}\textcolor{preprocessor}{}
+\end{DoxyCode}

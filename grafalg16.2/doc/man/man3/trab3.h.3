@@ -1,0 +1,327 @@
+.TH "/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/framework/trabs/trab3.h" 3 "Segunda, 31 de Outubro de 2016" "Version 2016.2" "AB781 Laboratório de Grafos e Algoritmos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+/home/correa/Dropbox/ufrrj/dcc/professores/RicardoCCorrea/grafalg/framework/trabs/trab3.h \- Especificações das funções a serem implementadas no trabalho 3\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <graph\&.h>\fP
+.br
+
+.SS "Definições de Tipos"
+
+.in +1c
+.ti -1c
+.RI "typedef void \fBNo_Vertice_L\fP"
+.br
+.RI "\fINó de enumeração do conjunto de vértices de um grafo segundo um percurso em largura\&. \fP"
+.ti -1c
+.RI "typedef void \fBNo_Aresta_L\fP"
+.br
+.RI "\fINó de enumeração do conjunto de arestas de um grafo segundo um percurso em largura\&. \fP"
+.in -1c
+.SS "Funções"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBident3\fP ()"
+.br
+.RI "\fIIdentificação do autor por seu número de matrícula\&. \fP"
+.ti -1c
+.RI "\fBNo_Vertice_L\fP * \fBpartida_VL\fP (Graph *const g, Vertice u)"
+.br
+.RI "\fIPartida de uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um vértice especificado\&. \fP"
+.ti -1c
+.RI "\fBNo_Vertice_L\fP * \fBavancar_VL\fP (\fBNo_Vertice_L\fP *no)"
+.br
+.RI "\fIAvançar em uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um nó especificado\&. \fP"
+.ti -1c
+.RI "int \fBchegada_VL\fP (\fBNo_Vertice_L\fP *no)"
+.br
+.RI "\fIVerifica se um nó especificado é o nó de chegada de uma enumeração dos vértices de um grafo especificado\&. \fP"
+.ti -1c
+.RI "void \fBfreeNo_Vertice_L\fP (\fBNo_Vertice_L\fP *no)"
+.br
+.RI "\fILibera nó de percurso em largura dos vértices previamente criado com \fBpartida_VL\fP\&. \fP"
+.ti -1c
+.RI "\fBNo_Aresta_L\fP * \fBpartida_AL\fP (Graph *const g, Vertice u)"
+.br
+.RI "\fIPartida de uma enumeração das arestas de um grafo especificado segundo um percurso em largura a partir de um vértice especificado\&. \fP"
+.ti -1c
+.RI "void \fBfreeNo_Aresta_L\fP (\fBNo_Aresta_L\fP *no)"
+.br
+.RI "\fILibera nó de percurso em largura das arestas previamente criado com \fBpartida_AL\fP\&. \fP"
+.ti -1c
+.RI "Vertice \fBalvo\fP (\fBNo_Vertice_L\fP *const no)"
+.br
+.RI "\fIDeterminação do alvo de um nó de enumeração dos vértices de um grafo segundo um percurso em largura\&. \fP"
+.ti -1c
+.RI "Dist_V \fBdistancia\fP (\fBNo_Vertice_L\fP *const no)"
+.br
+.RI "\fIDeterminação da distância ao vértice de partida de um nó de enumeração dos vértices de um grafo segundo um percurso em largura\&. \fP"
+.ti -1c
+.RI "Vertice \fBalvo_menor\fP (\fBNo_Aresta_L\fP *const no)"
+.br
+.RI "\fIDeterminação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de menor distância\&. \fP"
+.ti -1c
+.RI "Vertice \fBalvo_maior\fP (\fBNo_Aresta_L\fP *const no)"
+.br
+.RI "\fIDeterminação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de maior distância\&. \fP"
+.ti -1c
+.RI "int \fBeh_subbipartido\fP (Graph *const g, \fBBitMap\fP const *r, \fBBitMap\fP *s, \fBBitMap\fP *t)"
+.br
+.RI "\fIDetermina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição\&. \fP"
+.ti -1c
+.RI "int \fBeh_bipartido\fP (Graph *const g, \fBBitMap\fP *s, \fBBitMap\fP *t)"
+.br
+.RI "\fIDetermina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição\&. \fP"
+.in -1c
+.SH "Descrição Detalhada"
+.PP 
+Especificações das funções a serem implementadas no trabalho 3\&. 
+
+
+.PP
+\fBData:\fP
+.RS 4
+Sep 5, 2016 
+.RE
+.PP
+\fBAutor:\fP
+.RS 4
+Ricardo C\&. Corrêa (correa@ufrrj.br)
+.RE
+.PP
+Este trabalho é constituído de 5 funções, com 4 delas envolvendo percurso em largura em grafos\&. Nessas funções, algumas manipulações dos tipos \fBBitMap\fP e Graph são necessárias\&. As especificações detalhas das funções de \fBBitMap\fP e Graph podem ser obtidas em suas respectivas páginas\&.
+.PP
+Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice \fCu\fP, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a \fCu\fP\&. A \fIdistância\fP \fCdist(u,v)\fP entre dois vértices \fCu\fP e \fCv\fP é o número de arestas em um caminho mais curto entre \fCu\fP e \fCv\fP\&.
+.PP
+Uma enumeração das arestas de um grafo segundo um percurso em largura, partindo de um certo vértice \fCu\fP, é uma enumeração do conjunto de arestas do grafo em ordem não decrescente de distância a \fCu\fP\&. A \fIdistância\fP de uma aresta \fCvw\fP a \fCu\fP é um par \fCdist(u,vw)=\fP(d1,d2) tal que \fCd1=min{dist(u,v)\fP,dist(u,w)} e \fCd2=max{dist(u,v)\fP,dist(u,w)}\&.
+.PP
+A comparação de distâncias de arestas \fCvw\fP e \fCyz\fP a um vértice \fCu\fP é feita segundo a ordem lexicográfica\&. Mais precisamente, sejam \fCdist(u,vw)=\fP(d1,d2) e \fCdist(u,yz)=\fP(e1,e2)\&. Então:
+.PP
+\fCdist(u,vw)\fP \fC<=\fP \fCdist(u,yz)\fP se e somente se \fCd1\fP \fC<\fP \fCe1\fP ou \fC\fP(d1=e1 e \fCd2\fP \fC<=\fP \fCe2\fP)\&. 
+.SH "Definições dos tipos"
+.PP 
+.SS "typedef void No_Aresta_L"
+
+.PP
+Nó de enumeração do conjunto de arestas de um grafo segundo um percurso em largura\&. Este tipo precisa ser definido e as funções de inspeção \fBalvo_menor\fP e \fBalvo_maior\fP implementadas\&. 
+.SS "typedef void No_Vertice_L"
+
+.PP
+Nó de enumeração do conjunto de vértices de um grafo segundo um percurso em largura\&. Este tipo precisa ser definido e a função de inspeção \fBalvo\fP implementada\&. 
+.SH "Funções"
+.PP 
+.SS "Vertice alvo (\fBNo_Vertice_L\fP *const no)"
+
+.PP
+Determinação do alvo de um nó de enumeração dos vértices de um grafo segundo um percurso em largura\&. 
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó cujo alvo deve ser determinado
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Alvo do nó especificado 
+.RE
+.PP
+
+.SS "Vertice alvo_maior (\fBNo_Aresta_L\fP *const no)"
+
+.PP
+Determinação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de maior distância\&. Uma aresta é formada por dois vértices\&. Dentre esses dois vértices, o alvo menor é o que está à menor distância do vértice de partida da enumeração à qual está associado o nó em questão\&. Em caso de dois vértices de mesma distância, o alvo menor é determinado pela ordem lexicográfica\&. O outro vértice é o alvo maior\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó cujo alvo maior deve ser determinado
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Alvo maior do nó especificado 
+.RE
+.PP
+
+.SS "Vertice alvo_menor (\fBNo_Aresta_L\fP *const no)"
+
+.PP
+Determinação do alvo de um nó de enumeração das arestas de um grafo segundo um percurso em largura de menor distância\&. Uma aresta é formada por dois vértices\&. Dentre esses dois vértices, o alvo menor é o que está à menor distância do vértice de partida da enumeração à qual está associado o nó em questão\&. Em caso de dois vértices de mesma distância, o alvo menor é determinado pela ordem lexicográfica\&. O outro vértice é o alvo maior\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó cujo alvo menor deve ser determinado
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Alvo menor do nó especificado 
+.RE
+.PP
+
+.SS "\fBNo_Vertice_L\fP* avancar_VL (\fBNo_Vertice_L\fP * no)"
+
+.PP
+Avançar em uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um nó especificado\&. Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice \fCu\fP, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a \fCu\fP\&. Dado um nó nessa enumeração, esta função realiza o avanço para o nó seguinte, caso haja, ou para o nó de chegada, em caso contrário\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó corrente na enumeração
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+O mesmo nó de entrada, alterado para representar o vértice seguinte em um percurso em largura, caso haja, ou o nó de chegada, em caso contrário 
+.RE
+.PP
+
+.SS "int chegada_VL (\fBNo_Vertice_L\fP * no)"
+
+.PP
+Verifica se um nó especificado é o nó de chegada de uma enumeração dos vértices de um grafo especificado\&. Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice \fCu\fP, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a \fCu\fP\&. Dado um nó nessa enumeração, esta função verifica se o nó especificado é o o nó de chegada da enumeração\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó de uma enumeração a ser verificado
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+0 se o nó espcificado é o nó de chegada de uma enumeração, e um valor diferente de 0 em caso contrário 
+.RE
+.PP
+
+.SS "unsigned int distancia (\fBNo_Vertice_L\fP *const no)"
+
+.PP
+Determinação da distância ao vértice de partida de um nó de enumeração dos vértices de um grafo segundo um percurso em largura\&. 
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó cuja distância deve ser determinado
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Distância do nó especificado ao nó de partida da enumeração 
+.RE
+.PP
+
+.SS "int eh_bipartido (Graph *const g, \fBBitMap\fP * s, \fBBitMap\fP * t)"
+
+.PP
+Determina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição\&. Um subconjunto $W \subseteq V$ do conjunto de vértices de um grafo $G=(V,E)$ é um \fIconjunto independente\fP se $uv \not\in E$ é satisfeito para todo par $u,v \in W$, $u \ne v$\&. Um grafo $G=(V,E)$ é \fIbipartido\fP se existe uma partição $V=S \cup T$ tal que $S$ e $T$ são conjuntos independentes\&. Esta função preenche os conjuntos fornecidos como entrada com os vértices do grafo de tal forma que o primeiro deles abrigue os vértices a distância par do menor vértice no conjunto que restringe a verificação, enquanto outro conjunto os de distância ímpar\&. Se o grafo especificado é bipartido, então os conjuntos formam uma bipartição do conjunto de vértices em conjuntos independentes\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIs\fP Conjunto a ser preenchido com os vértices a distância par do menor vértice em \fCr\fP 
+.br
+\fIt\fP Conjunto a ser preenchido com os vértices a distância ímpar do menor vértice em \fCr\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+0 se o grafo especificado não é bipartido, e um valor diferente de 0 em caso contrário 
+.RE
+.PP
+
+.SS "int eh_subbipartido (Graph *const g, \fBBitMap\fP const * r, \fBBitMap\fP * s, \fBBitMap\fP * t)"
+
+.PP
+Determina se um grafo especificado é bipartido quando restrito a um conjunto especificado de vértices e retorna uma bipartição\&. Um subconjunto $W \subseteq V$ do conjunto de vértices de um grafo $G=(V,E)$ é um \fIconjunto independente\fP se $uv \not\in E$ é satisfeito para todo par $u,v \in W$, $u \ne v$\&. Um grafo $G=(V,E)$ é \fIbipartido\fP se existe uma partição $V=S \cup T$ tal que $S$ e $T$ são conjuntos independentes\&. Esta função preenche os conjuntos fornecidos como entrada com os vértices do grafo de tal forma que o primeiro deles abrigue os vértices a distância par do vértice 0, enquanto outro conjunto os de distância ímpar\&. Se o grafo especificado, quando restrito a um subconjunto de vértices, é bipartido, então os conjuntos formam uma bipartição do conjunto de vértices em conjuntos independentes\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIr\fP Conjunto de vértices que restringe a verificação de bipartido 
+.br
+\fIs\fP Conjunto a ser preenchido com os vértices a distância par do vértice 0 
+.br
+\fIt\fP Conjunto a ser preenchido com os vértices a distância ímpar do vértice 0
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+0 se o grafo especificado restrito a \fCr\fP não é bipartido, e um valor diferente de 0 em caso contrário 
+.RE
+.PP
+
+.SS "void freeNo_Aresta_L (\fBNo_Aresta_L\fP * no)"
+
+.PP
+Libera nó de percurso em largura das arestas previamente criado com \fBpartida_AL\fP\&. 
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó a ser liberado 
+.RE
+.PP
+
+.SS "void freeNo_Vertice_L (\fBNo_Vertice_L\fP * no)"
+
+.PP
+Libera nó de percurso em largura dos vértices previamente criado com \fBpartida_VL\fP\&. 
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIno\fP Nó a ser liberado 
+.RE
+.PP
+
+.SS "unsigned int ident3 ()"
+
+.PP
+Identificação do autor por seu número de matrícula\&. 
+.PP
+\fBRetorna:\fP
+.RS 4
+Número de matrícula, sem pontos nem traços 
+.RE
+.PP
+
+.SS "\fBNo_Aresta_L\fP* partida_AL (Graph *const g, Vertice u)"
+
+.PP
+Partida de uma enumeração das arestas de um grafo especificado segundo um percurso em largura a partir de um vértice especificado\&. Uma enumeração das arestas de um grafo segundo um percurso em largura, partindo de um certo vértice \fCu\fP, é uma enumeração do conjunto de arestas do grafo em ordem não decrescente de distância lexicográfica a \fCu\fP\&. A partida dessa enumeração é o nó correspondendo ao vértice de partida do percurso em largura\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIu\fP Um vértice de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Nó de partida da enumeração a partir do vértice especificado 
+.RE
+.PP
+
+.SS "\fBNo_Vertice_L\fP* partida_VL (Graph *const g, Vertice u)"
+
+.PP
+Partida de uma enumeração dos vértices de um grafo especificado segundo um percurso em largura a partir de um vértice especificado\&. Uma enumeração dos vértices de um grafo segundo um percurso em largura, partindo de um certo vértice \fCu\fP, é uma enumeração do conjunto de vértices do grafo em ordem não decrescente de distância a \fCu\fP\&. A partida dessa enumeração é o nó correspondendo ao vértice de partida do percurso em largura\&.
+.PP
+\fBParâmetros:\fP
+.RS 4
+\fIg\fP Grafo 
+.br
+\fIu\fP Um vértice de \fCg\fP 
+.RE
+.PP
+\fBRetorna:\fP
+.RS 4
+Nó de partida da enumeração a partir do vértice especificado 
+.RE
+.PP
+
+.SH "Autor"
+.PP 
+Gerado automaticamente por Doxygen para AB781 Laboratório de Grafos e Algoritmos a partir de seu código-fonte\&.

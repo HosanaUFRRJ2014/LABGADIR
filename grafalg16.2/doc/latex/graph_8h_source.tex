@@ -1,0 +1,165 @@
+\section{graph.\+h}
+\label{graph_8h_source}\index{graph/graph.\+h@{graph/graph.\+h}}
+
+\begin{DoxyCode}
+00001 
+00010 \textcolor{preprocessor}{#ifndef GRAPH\_H\_}
+00011 \textcolor{preprocessor}{#define GRAPH\_H\_}
+00012 
+00013 \textcolor{preprocessor}{#include <stdlib.h>}
+00014 \textcolor{preprocessor}{#include <string.h>}
+00015 \textcolor{preprocessor}{#include <malloc.h>}
+00016 
+00017 \textcolor{preprocessor}{#include <direct/bitmap.h>}
+00018 
+00025 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{
+00026         \textcolor{keywordtype}{size\_t}          n;                              
+00027         \textcolor{keywordtype}{size\_t}          m;                              
+00028         BitMap *        matrix;                 
+00029         BitMap *        swap;                   
+00030         BitMap          neig;                   
+00031         \textcolor{keywordtype}{int}             maxcq;                  
+00032         \textcolor{keywordtype}{double}          maxwcq;                 
+00033 \} Graph;
+00034 
+00035 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} getN(Graph * \textcolor{keyword}{const} g) \{
+00036         \textcolor{keywordflow}{return} g->n;
+00037 \}
+00038 
+00047 \textcolor{comment}{//Graph * newGraph(size\_t n);}
+00048 \textcolor{keyword}{static} \textcolor{keyword}{inline} Graph * newGraph(\textcolor{keywordtype}{size\_t} n) \{
+00049         Graph * ret = (Graph *) malloc(\textcolor{keyword}{sizeof}(Graph));
+00050         ret->matrix = newBitMapVector(n, n);
+00051         ret->swap = newBitMap(n);
+00052         setAsViewOf(ret->matrix, &ret->neig);
+00053         ret->n = n;
+00054 
+00055 \textcolor{comment}{//      printf("ret-matrix-R=%d  n=%d  logrow=%d  LOGB=%ld  matsz=%d\(\backslash\)n",(int)ret->matrix->R, n,
+       ret->logrowsizelogb, LOGB, ret->matrixsize);}
+00056 
+00057         \textcolor{keywordflow}{return} ret;
+00058 \}
+00059 
+00066 \textcolor{comment}{//void delGraph(Graph * g);}
+00067 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} delGraph(Graph * g) \{
+00068 \textcolor{comment}{//      printf("g-matrix=%d\(\backslash\)n",(int)g->matrix);}
+00069         freeBitMap(g->matrix);
+00070         freeBitMap(g->swap);
+00071 \textcolor{comment}{//      free(g->matrix);}
+00072 \}
+00073 
+00075 \textcolor{keyword}{static} \textcolor{keyword}{inline} BitMap \textcolor{keyword}{const} * neig(Graph * \textcolor{keyword}{const} g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i) \{
+00076         subMap(g->matrix, &g->neig, i);
+00077         \textcolor{keywordflow}{return} &g->neig;
+00078 \}
+00079 
+00081 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{int} hasEdge(Graph * g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} j) \{
+00082         subMap(g->matrix, &g->neig, i);
+00083         \textcolor{keywordflow}{return} hasElement(&g->neig, j);
+00084 \}
+00085 
+00086 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} addEdge(Graph * g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} j) \{
+00087         Node node;
+00088         subMap(g->matrix, &g->neig, i);
+00089         getNode(&node, j);
+00090         addElement(&g->neig, &node);
+00091 
+00092         subMap(g->matrix, &g->neig, j);
+00093         getNode(&node, i);
+00094         addElement(&g->neig, &node);
+00095 \}
+00096 
+00097 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} invEdge(Graph * g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} j) \{
+00098         Node node;
+00099         subMap(g->matrix, &g->neig, i);
+00100         getNode(&node, j);
+00101         invElement(&g->neig, &node);
+00102 
+00103         subMap(g->matrix, &g->neig, j);
+00104         getNode(&node, i);
+00105         invElement(&g->neig, &node);
+00106 \}
+00107 
+00108 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} addArc(Graph * g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} j) \{
+00109         Node node;
+00110         subMap(g->matrix, &g->neig, i);
+00111         getNode(&node, j);
+00112         addElement(&g->neig, &node);
+00113 \}
+00114 
+00115 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} delArc(Graph * g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} j) \{
+00116         Node node;
+00117         subMap(g->matrix, &g->neig, i);
+00118         getNode(&node, j);
+00119         delElement(&g->neig, &node);
+00120 \}
+00121 
+00122 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} invArc(Graph * g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} j) \{
+00123         Node node;
+00124         subMap(g->matrix, &g->neig, i);
+00125         getNode(&node, j);
+00126         invElement(&g->neig, &node);
+00127 \}
+00128 
+00129 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} addAllEdges(Graph * g) \{
+00130         \textcolor{keywordtype}{int} i;
+00131         \textcolor{keywordflow}{for} (i = 0; i < g->n; i++) \{
+00132                 subMap(g->matrix, &g->neig, i);
+00133                 addAllElements(&g->neig);
+00134                 invArc(g, i, i);
+00135         \}
+00136 \}
+00137 
+00138 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} swapVertices(Graph * g, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} i, \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \textcolor{keywordtype}{long} \textcolor{keywordtype}{int} j) \{
+00139         \textcolor{comment}{// swap lines}
+00140         copyAll(g->swap, neig(g, i));
+00141         subMap(g->matrix, &g->neig, i);
+00142         copyAll(&g->neig, neig(g, j));
+00143         subMap(g->matrix, &g->neig, j);
+00144         copyAll(&g->neig, g->swap);
+00145 
+00146         \textcolor{comment}{// swap columns}
+00147         symDiff(g->swap, neig(g, j));
+00148         Node node;
+00149         \textcolor{keywordflow}{for} (begin(g->swap, &node); !end(&node); next(&node))
+00150         \{
+00151                 \textcolor{keywordtype}{int} k = getElement(&node);
+00152                 invArc(g,k,i);
+00153                 invArc(g,k,j);
+00154         \}
+00155 \}
+00156 
+00157 \textcolor{keyword}{static} \textcolor{keyword}{inline} Graph * newRenumbered(Graph * gg, \textcolor{keywordtype}{int} * R) \{
+00158         \textcolor{keywordtype}{int} n = gg->n;
+00159 
+00160         Graph * g = newGraph(n);
+00161 
+00162         \textcolor{keywordtype}{int} i;
+00163         Node node;
+00164         \textcolor{keywordflow}{for} (i = 0; i < n; i++)
+00165                 \textcolor{keywordflow}{for} (begin(neig(gg,i), &node); !end(&node); next(&node))
+00166                         addEdge(g,R[i],R[getElement(&node)]);
+00167 
+00168         \textcolor{keywordflow}{return} g;
+00169 \}
+00170 
+00171 \textcolor{preprocessor}{#ifdef \_DEBUG\_}
+00172 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} printNeigNodes(Graph * g, \textcolor{keywordtype}{int} i) \{
+00173         \textcolor{keywordtype}{int} lastnode = NODEIDX(g->n-1);
+00174         \textcolor{keywordtype}{int} node;
+00175 
+00176         printf(\textcolor{stringliteral}{"NEIG(%d): ["},i);
+00177         \textcolor{keywordflow}{for} (node = lastnode; node >= 0; node--)
+00178         printf(FORMX, NEIG(g,i)[node]);
+00179         printf(\textcolor{stringliteral}{"]\(\backslash\)n"});
+00180 \}
+00181 
+00182 \textcolor{keyword}{static} \textcolor{keyword}{inline} \textcolor{keywordtype}{void} printNodes(Graph * g) \{
+00183         \textcolor{keywordtype}{int} i;
+00184         \textcolor{keywordflow}{for} (i = 0; i < g->n; i++)
+00185         printNeigNodes(g, i);
+00186 \}
+00187 \textcolor{preprocessor}{#endif}
+00188 
+00189 \textcolor{preprocessor}{#endif }\textcolor{comment}{/* GRAPH\_H\_ */}\textcolor{preprocessor}{}
+\end{DoxyCode}
